@@ -1,5 +1,3 @@
-<?php
-
 /* 
  * Copyright (C) 2017 allen
  *
@@ -17,22 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define("host","tabtesting");
-define("dbname","jeopardy");
-define("username","test");
-define("passwd","password");
-
-$isAdmin = FALSE;
-
-if(isset($_SESSION['id'])){
-    $id = $_SESSION['id'];
-    $connection = new mysqli(host, username, passwd, dbname);
-    $userQuery = "SELECT isAdmin FROM users WHERE id=$id";
-    $userResult = $connection->query($userQuery);
-    $userResult->data_seek(0);
-    $roleArray = $userResult->fetch_array(MYSQLI_ASSOC);
-    $userResult->close();
-    if($roleArray['isAdmin']==1){
-        $isAdmin=TRUE;
-    }
-}
+$("#questions").on("submit",function(e){
+    e.preventDefault();
+})

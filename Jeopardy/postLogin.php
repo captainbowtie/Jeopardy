@@ -17,22 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define("host","tabtesting");
-define("dbname","jeopardy");
-define("username","test");
-define("passwd","password");
+session_start();
 
-$isAdmin = FALSE;
+require_once "privileges.php";
+require_once "functions.php";
 
-if(isset($_SESSION['id'])){
-    $id = $_SESSION['id'];
+if(isset($_POST['name']) && isset($_POST['pass'])){
+    $name = sanitize_string($_POST['name']);
+    $password = sanitize_string($_POST['pass']);
+    $hashedPass = hash('whirlpool', $password);
+    $loginQuery = "SELECT id FROM users WHERE "
+            . "name='$name' && password='$hashedPass'";
     $connection = new mysqli(host, username, passwd, dbname);
-    $userQuery = "SELECT isAdmin FROM users WHERE id=$id";
-    $userResult = $connection->query($userQuery);
-    $userResult->data_seek(0);
-    $roleArray = $userResult->fetch_array(MYSQLI_ASSOC);
-    $userResult->close();
-    if($roleArray['isAdmin']==1){
-        $isAdmin=TRUE;
+    $result = $connection->query($loginQuery);
+    $connection->close();
+    if($result->num_rows==0){
+        echo "1";
+    }else{
+        $result->data_seek(0);
+        $idRow = $result->fetch_array(MYSQLI_ASSOC);
+        $_SESSION['id'] = $idRow['id'];
+        echo "0";
     }
 }

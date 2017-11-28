@@ -21,6 +21,7 @@ echo "<!DOCTYPE html>\n";
 echo "<html lang='en'>\n";
 echo "<head>\n";
 echo "<title>Jeopardy: Gameboard</title>\n";
+echo "<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>";
 echo "</head>\n";
 echo "<body>\n";
 
@@ -80,8 +81,6 @@ echo "</div>\n";
 
 //Score Display
 echo "<div id='scoreDisplay'></div>";
-
-echo "<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>";
 echo "<script src='gameboard.js'></script>";
 echo "</body>\n";
 echo "</html>\n";

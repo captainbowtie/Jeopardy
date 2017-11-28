@@ -16,7 +16,7 @@
   You should have received a copy of the GNU Affero General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+session_start();
 
 require_once "privileges.php";
 
@@ -26,17 +26,22 @@ checkTables();
 echo "<!DOCTYPE html>\n";
 echo "<html lang='en'>\n";
 echo "<head>\n";
-echo "<title>Jeopardy: Gameboard</title>\n";
+echo "<title>Jeopardy: Admin</title>\n";
+echo "<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>";
 echo "</head>\n";
 echo "<body>\n";
-
-echo "words";
+if($isAdmin){
+    echo "<a href='submitQuestions.php'>Submit Questions</a>\n";
+    echo "<a href='boardAdmin.php'>Run Game</a>\n";
+}else{
+    require_once "login.php";
+}
 echo "</body>\n";
 echo "</html>\n";
 
 function checkTables() {
     $db = new mysqli(host, username, passwd, dbname);
-    $existQuery = "SHOW TABLES LIKE 'questions'";
+    $existQuery = "SHOW TABLES LIKE 'users'";
     $existResult = $db->query($existQuery);
     if (!($existResult->num_rows > 0)) {
         
@@ -71,8 +76,8 @@ function checkTables() {
 
         //Populate admin user into table
         $generateAdmin = "INSERT INTO users(name, password, isAdmin) "
-                . "VALUES('allen', 'example@example.com', "
-                . "'66746ad3c2025daae865c793d2becd6e6f5719e0e528adc0ae2f5228332702081a5f100f2bb3e6c56c7b7de872af0c3dc755b4673c2490e1bd7a7002565ebfe8', " //Whirlpool hash for 'password'
+                . "VALUES('allen', "
+                . "'66746ad3c2025daae865c793d2becd6e6f5719e0e528adc0ae2f5228332702081a5f100f2bb3e6c56c7b7de872af0c3dc755b4673c2490e1bd7a7002565ebfe8', " //Whirlpool hash for 'mock'
                 . "'1')";
         $db->query($generateAdmin);
         
