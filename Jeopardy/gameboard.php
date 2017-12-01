@@ -17,71 +17,58 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-echo "<!DOCTYPE html>\n";
-echo "<html lang='en'>\n";
-echo "<head>\n";
-echo "<title>Jeopardy: Gameboard</title>\n";
-echo "<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>";
-echo "</head>\n";
-echo "<body>\n";
 
-//Question Select Table
-echo "<div>\n";
-echo "<table>\n";
-echo "<tr>\n";
-echo "<td id='0.0'></td>\n";
-echo "<td id='0.1'></td>\n";
-echo "<td id='0.2'></td>\n";
-echo "<td id='0.3'></td>\n";
-echo "<td id='0.4'></td>\n";
-echo "<td id='0.5'></td>\n";
-echo "</tr>\n";
-echo "<tr>\n";
-echo "<td id='1.0'></td>\n";
-echo "<td id='1.1'></td>\n";
-echo "<td id='1.2'></td>\n";
-echo "<td id='1.3'></td>\n";
-echo "<td id='1.4'></td>\n";
-echo "<td id='1.5'></td>\n";
-echo "</tr>\n";
-echo "<tr>\n";
-echo "<td id='2.0'></td>\n";
-echo "<td id='2.1'></td>\n";
-echo "<td id='2.2'></td>\n";
-echo "<td id='2.3'></td>\n";
-echo "<td id='2.4'></td>\n";
-echo "<td id='2.5'></td>\n";
-echo "</tr>\n";
-echo "<tr>\n";
-echo "<td id='3.0'></td>\n";
-echo "<td id='3.1'></td>\n";
-echo "<td id='3.2'></td>\n";
-echo "<td id='3.3'></td>\n";
-echo "<td id='3.4'></td>\n";
-echo "<td id='3.5'></td>\n";
-echo "</tr>\n";
-echo "<tr>\n";
-echo "<td id='4.0'></td>\n";
-echo "<td id='4.1'></td>\n";
-echo "<td id='4.2'></td>\n";
-echo "<td id='4.3'></td>\n";
-echo "<td id='4.4'></td>\n";
-echo "<td id='4.5'></td>\n";
-echo "</tr>\n";
-echo "<tr>\n";
-echo "<td id='5.0'></td>\n";
-echo "<td id='5.1'></td>\n";
-echo "<td id='5.2'></td>\n";
-echo "<td id='5.3'></td>\n";
-echo "<td id='5.4'></td>\n";
-echo "<td id='5.5'></td>\n";
-echo "</tr>\n";
-echo "</table>\n";
-echo "</div>\n";
+echo<<<_END
+<table  id='gameBoard'>
+<tr id='categories'>
+<td class='category'>Rules of Evidence</td>
+<td class='category'>Case Law</td>
+<td class='category'>Witness Statements</td>
+<td class='category'>Mock Trial History</td>
+<td class='category'>Old Cases</td>
+<td class='category'>Whatever Allen Wants</td>
+</tr>
+<tr id='100'>
+<td id='c0-1' class='money'>100</td>
+<td id='c1-1' class='money'>100</td>
+<td id='c2-1' class='money'>100</td>
+<td id='c3-1' class='money'>100</td>
+<td id='c4-1' class='money'>100</td>
+<td id='c5-1' class='money'>100</td>
+</tr>
+<tr id='200'>
+<td id='c0-2' class='money'>200</td>
+<td id='c1-2' class='money'>200</td>
+<td id='c2-2' class='money'>200</td>
+<td id='c3-2' class='money'>200</td>
+<td id='c4-2' class='money'>200</td>
+<td id='c5-2' class='money'>200</td>
+</tr>
+<tr id='300'>
+<td id='c0-3' class='money'>300</td>
+<td id='c1-3' class='money'>300</td>
+<td id='c2-3' class='money'>300</td>
+<td id='c3-3' class='money'>300</td>
+<td id='c4-3' class='money'>300</td>
+<td id='c5-3' class='money'>300</td>
+</tr>
+<tr id='400'>
+<td id='c0-4' class='money'>400</td>
+<td id='c1-4' class='money'>400</td>
+<td id='c2-4' class='money'>400</td>
+<td id='c3-4' class='money'>400</td>
+<td id='c4-4' class='money'>400</td>
+<td id='c5-4' class='money'>400</td>
+</tr>
+<tr id='500'>
+<td id='c0-5' class='money'>500</td>
+<td id='c1-5' class='money'>500</td>
+<td id='c2-5' class='money'>500</td>
+<td id='c3-5' class='money'>500</td>
+<td id='c4-5' class='money'>500</td>
+<td id='c5-5' class='money'>500</td>
+</tr>
+		</table>
 
-//Score Display
-echo "<div id='scoreDisplay'></div>";
-echo "<script src='gameboard.js'></script>";
-echo "</body>\n";
-echo "</html>\n";
-
+_END;
+    
