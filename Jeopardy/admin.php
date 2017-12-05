@@ -60,8 +60,10 @@ function checkTables() {
                 . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
                 . "category TINYINT UNSIGNED NOT NULL, "
                 . "question VARCHAR(500) NOT NULL, "
+                . "answer VARCHAR(500) NOT NULL, "
+                . "value SMALLINT UNSIGNED NOT NULL, "
                 . "isDailyDouble BINARY(1) NOT NULL DEFAULT '0', "
-                . "INDEX(category)) ENGINE InnoDB";
+                . ") ENGINE InnoDB";
         $userQuery = "CREATE TABLE users("
                 . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
                 . "name VARCHAR(64) NOT NULL DEFAULT 'Missing Name', "

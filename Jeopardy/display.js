@@ -61,11 +61,9 @@ function scoreRefresh() {
 //AJAX to set values of scores
 
     $.ajax({
-
-        url: url,
-        data: data,
+        url: "/scores.php",
         success: success,
-        dataType: dataType
+        dataType: "html"
 
     });
 

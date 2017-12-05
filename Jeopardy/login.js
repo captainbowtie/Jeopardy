@@ -30,6 +30,8 @@ $("#login").on("submit",function(e){
 
         // The type of data we expect back
         dataType: "text",
+        
+        
     })
             // Code to run if the request succeeds (is done);
             // The response is passed to the function
