@@ -63,6 +63,7 @@ function checkTables() {
                 . "answer VARCHAR(500) NOT NULL, "
                 . "value SMALLINT UNSIGNED NOT NULL, "
                 . "isDailyDouble BINARY(1) NOT NULL DEFAULT '0', "
+                . "hasBeenSelected BINARY(1) NOT NULL DEFAULT '0'"
                 . ") ENGINE InnoDB";
         $userQuery = "CREATE TABLE users("
                 . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
