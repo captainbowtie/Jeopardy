@@ -15,6 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$("#questions").on("submit",function(e){
-    e.preventDefault();
-})
+$(".boardButton").click(function () {
+    var category = this.id.substring(1, 2);
+    var val = this.value;
+    var postData = 'data={"status":"question","category":' + category + ',"value":' + val + '}';
+    console.log(postData);
+    $.ajax({
+        data: postData,
+        url: "/postStatus.php",
+        type: "POST",
+        success: function () {
+            
+        }
+    });
+});
