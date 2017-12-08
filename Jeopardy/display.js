@@ -19,11 +19,11 @@ $(document).ready(function () {
 
 
 
-    
 
 
 
-    
+
+
 
 
 
@@ -35,9 +35,9 @@ $(document).ready(function () {
 
 //Timers to update gameboard and scores
 
-var gbr = setInterval(gameBoardRefresh, 100);
+var gbr = setInterval(gameBoardRefresh, 500);
 
-var sr = setInterval(scoreRefresh, 100);
+var sr = setInterval(scoreRefresh, 500);
 
 
 
@@ -46,9 +46,31 @@ function gameBoardRefresh() {
 //AJAX to set values of game board
 
     $.ajax({
-        url: "/gameboard.php",
-        success: success,
-        dataType: "html"
+        url: "/status.json",
+        dataType: "json",
+        success: function (data) {
+            switch (data["status"]) {
+                case "gameboard":
+                    $.ajax({
+                        url: "/gameboard.php",
+                        dataType: "html",
+                        success: function (gbData) {
+                            $("#displayDiv").html(gbData);
+                        }
+                    });
+                    break;
+                case "question":
+                    
+                    $.ajax({ //TODO: get particular question
+                        url: "/question.php",
+                        dataType: "json",
+                        success: function (question) {
+                            $("#displayDiv").html(gbData);
+                        }
+                    });
+                    break;
+            }
+        }
 
     });
 
@@ -62,9 +84,10 @@ function scoreRefresh() {
 
     $.ajax({
         url: "/scores.php",
-        success: success,
-        dataType: "html"
-
+        dataType: "html",
+        success: function (data) {
+            $("#scoresDiv").html(data);
+        }
     });
 
 }

@@ -15,6 +15,9 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+session_start();
+
 echo<<<_END
 
 <!DOCTYPE HTML>
@@ -27,7 +30,7 @@ echo<<<_END
 <link rel="Stylesheet" href="display.css" type="text/css" />
     </head>
     <body>
-    	<div id='gameBoardDiv'>
+    	<div id='displayDiv'>
 _END;
 require_once 'gameboard.php';
 echo<<<_END

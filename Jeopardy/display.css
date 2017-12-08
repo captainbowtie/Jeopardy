@@ -21,7 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #gameBoard {table-layout: fixed; background: blue; color: white; text-align: center;}
 
-.money {border: 2px solid black; width: 10%; font-size: 5vw;}
+.unselected {border: 2px solid black; width: 10%; font-size: 5vw;}
+
+.selected {border: 2px solid black; width: 10%; font-size: 5vw; color: blue;}
 
 .category {width: 10%; font-size: 2vw;}
 

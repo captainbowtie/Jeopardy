@@ -17,25 +17,57 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//Connect to array
+require_once "privileges.php";
+$db = new mysqli(host, username, passwd, dbname);
+
+//Fetch scores
+$scoreQuery = "SELECT score FROM users WHERE isAdmin=0";
+$scoreResult = $db->query($scoreQuery);
+
+//Fill in score data
+$scoreResult->data_seek(0);
+$score = $scoreResult->fetch_array(MYSQLI_NUM);
+$caleb = $score[0];
+$scoreResult->data_seek(1);
+$score = $scoreResult->fetch_array(MYSQLI_NUM);
+$sophia = $score[0];
+$scoreResult->data_seek(2);
+$score = $scoreResult->fetch_array(MYSQLI_NUM);
+$bri = $score[0];
+$scoreResult->data_seek(3);
+$score = $scoreResult->fetch_array(MYSQLI_NUM);
+$reilly = $score[0];
+$scoreResult->data_seek(4);
+$score = $scoreResult->fetch_array(MYSQLI_NUM);
+$katie = $score[0];
+$scoreResult->data_seek(5);
+$score = $scoreResult->fetch_array(MYSQLI_NUM);
+$abby = $score[0];
+$scoreResult->data_seek(6);
+$score = $scoreResult->fetch_array(MYSQLI_NUM);
+$lilly = $score[0];
+
+
 echo<<<_END
 <table id='scores'>
 <tr>
 <td class='competitor'>Caleb</td>
 <td class='competitor'>Sophia</td>
 <td class='competitor'>Bri</td>
-<td class='competitor'>Abby</td>
-<td class='competitor'>Lilly</td>
 <td class='competitor'>Reilly</td>
 <td class='competitor'>Katie</td>
+<td class='competitor'>Abby</td>
+<td class='competitor'>Lilly</td>
 </tr>
 <tr>
-<td class='score'>27001</td>
-<td class='score'>27002</td>
-<td class='score'>27003</td>
-<td class='score'>27004</td>
-<td class='score'>27005</td>
-<td class='score'>27006</td>
-<td class='score'>27007</td>
+<td class='score'>$caleb</td>
+<td class='score'>$sophia</td>
+<td class='score'>$bri</td>
+<td class='score'>$reilly</td>
+<td class='score'>$katie</td>
+<td class='score'>$abby</td>
+<td class='score'>$lilly</td>
 </tr>
 </table>
 _END;
