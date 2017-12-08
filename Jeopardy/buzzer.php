@@ -17,6 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+session_start();
+require_once "privileges.php";
+
 echo<<<_END
 <!DOCTYPE HTML>
 <html>
@@ -26,12 +29,38 @@ echo<<<_END
         <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
 <link rel="Stylesheet" href="buzzer.css" type="text/css" />
     </head>
+_END;
+
+if(!isset($_SESSION['id'])){
+    echo<<<_END
+    <body>
+    <input type="button" class="idButton" id="b2" value="Caleb">
+    <input type="button" class="idButton" id="b3" value="Sophia">
+    <input type="button" class="idButton" id="b4" value="Bri">
+    <input type="button" class="idButton" id="b5" value="Reilly">
+    <input type="button" class="idButton" id="b6" value="Katie">
+    <input type="button" class="idButton" id="b7" value="Abby">
+    <input type="button" class="idButton" id="b8" value="Lilly">
+    <script src='buzzer.js'></script>
+    </body>
+_END;
+    
+}else{
+    $id = $_SESSION['id'];
+    $db = new mysqli(host, username, passwd, dbname);
+    $userQuery = "SELECT name,score FROM users WHERE id=$id";
+    $userResult = $db->query($userQuery);
+    $user = $userResult->fetch_array(MYSQLI_ASSOC);
+    $name = $user['name'];
+    $score = $user['score'];
+    
+echo<<<_END
     <body>
 <div id="name">
-  Name
+  $name
 </div>
 <div id="money">
-  Money
+  $score
 </div>
 <div id="buzzerDiv">
   <input id="buzzer" type="button" value="Buzz In">
@@ -40,6 +69,8 @@ echo<<<_END
 <div>
 <input id="bid" type="number">
 </div>
+        <script src='buzzer.js'></script>
 </body>
-</html>
 _END;
+}
+echo "</html>";

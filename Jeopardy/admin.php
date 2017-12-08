@@ -27,6 +27,7 @@ echo "<!DOCTYPE html>\n";
 echo "<html lang='en'>\n";
 echo "<head>\n";
 echo "<title>Jeopardy: Admin</title>\n";
+echo "<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>";
 echo "</head>\n";
 echo "<body>\n";
 if ($isAdmin) {
@@ -34,7 +35,6 @@ if ($isAdmin) {
 } else {
     require_once "login.php";
 }
-echo "<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>";
 echo "<script src='admin.js'></script>";
 echo "</body>\n";
 echo "</html>\n";

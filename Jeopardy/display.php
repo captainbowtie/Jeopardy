@@ -37,6 +37,7 @@ echo<<<_END
     	</div>
 <div id='scoresDiv'>
 _END;
+//TODO: absolute position scores to stay on bottom
 require_once 'scores.php';
 echo<<<_END
 </div>

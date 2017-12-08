@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2017 allen
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@ session_start();
 require_once "privileges.php";
 require_once "functions.php";
 
-if(isset($_POST['name']) && isset($_POST['pass'])){
+if (isset($_POST['name']) && isset($_POST['pass'])) {
     $name = sanitize_string($_POST['name']);
     $password = sanitize_string($_POST['pass']);
     $hashedPass = hash('whirlpool', $password);
@@ -31,12 +31,14 @@ if(isset($_POST['name']) && isset($_POST['pass'])){
     $connection = new mysqli(host, username, passwd, dbname);
     $result = $connection->query($loginQuery);
     $connection->close();
-    if($result->num_rows==0){
+    if ($result->num_rows == 0) {
         echo "1";
-    }else{
+    } else {
         $result->data_seek(0);
         $idRow = $result->fetch_array(MYSQLI_ASSOC);
         $_SESSION['id'] = $idRow['id'];
         echo "0";
     }
+} else if (isset($_POST["studentLoginId"]) && $_POST["studentLoginId"] != 1) {
+    $_SESSION['id'] = $_POST["studentLoginId"];
 }
