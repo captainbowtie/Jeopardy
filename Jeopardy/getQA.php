@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2017 allen
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,30 +17,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-session_start();
-
-require_once "privileges.php";
+require_once("privileges.php");
 
 $db = new mysqli(host, username, passwd, dbname);
-
-$json = json_decode(file_get_contents("status.json"),true);
+$json = json_decode(file_get_contents("status.json"), true);
 
 $category = $json["category"];
 $value = $json["value"];
 
-$questionQuery = "SELECT question,isDailyDouble FROM questions WHERE category=$category && value=$value";
+
+$questionQuery = "SELECT question,answer,isDailyDouble FROM questions WHERE category=$category && value=$value";
 
 $questionResult = $db->query($questionQuery);
 
 $question = $questionResult->fetch_array(MYSQLI_ASSOC);
 
-if($question["isDailyDouble"]==0){
-require_once("timer.php");
-echo "<div id='question'>\n";
-echo $question["question"];
-echo "\n</div>";
+if($question["isDailyDouble"]==1){
+    $q = "<b>Daily Double: </b>";
 }else{
-echo "<div id='question'>\n";
-echo "DAILY DOUBLE";
-echo "\n</div>";
+    $q = "";
 }
+
+$q=$q.$question["question"];
+$a=$question["answer"];
+
+echo '{"question":"'.$q.'","answer":"'.$a.'"}';

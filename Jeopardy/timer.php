@@ -17,30 +17,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-session_start();
+echo<<<_END
+<div>
+  <table>
+    <tr>
+      <td class='five'>-</td>
+      <td class='four'>-</td>
+      <td class='three'>-</td>
+      <td class='two'>-</td>
+      <td class='one'>-</td>
+      <td class='two'>-</td>
+      <td class='three'>-</td>
+      <td class='four'>-</td>
+      <td class='five'>-</td>
+    </tr>
+  </table>
+</div>
 
-require_once "privileges.php";
-
-$db = new mysqli(host, username, passwd, dbname);
-
-$json = json_decode(file_get_contents("status.json"),true);
-
-$category = $json["category"];
-$value = $json["value"];
-
-$questionQuery = "SELECT question,isDailyDouble FROM questions WHERE category=$category && value=$value";
-
-$questionResult = $db->query($questionQuery);
-
-$question = $questionResult->fetch_array(MYSQLI_ASSOC);
-
-if($question["isDailyDouble"]==0){
-require_once("timer.php");
-echo "<div id='question'>\n";
-echo $question["question"];
-echo "\n</div>";
-}else{
-echo "<div id='question'>\n";
-echo "DAILY DOUBLE";
-echo "\n</div>";
-}
+_END;

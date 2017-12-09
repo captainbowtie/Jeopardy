@@ -148,8 +148,6 @@ function boardAdmin() {
       </tr>
 
       <tr id='100'>
-        <td><input id='c0-1' class='boardButton' type='button' value='$v1' /></td>
-
         <td><input id='c1-1' class='boardButton' type='button' value='$v1' /></td>
 
         <td><input id='c2-1' class='boardButton' type='button' value='$v1' /></td>
@@ -159,11 +157,11 @@ function boardAdmin() {
         <td><input id='c4-1' class='boardButton' type='button' value='$v1' /></td>
 
         <td><input id='c5-1' class='boardButton' type='button' value='$v1' /></td>
+
+        <td><input id='c6-1' class='boardButton' type='button' value='$v1' /></td>
       </tr>
 
       <tr id='200'>
-        <td><input id='c0-2' class='boardButton' type='button' value='$v2' /></td>
-
         <td><input id='c1-2' class='boardButton' type='button' value='$v2' /></td>
 
         <td><input id='c2-2' class='boardButton' type='button' value='$v2' /></td>
@@ -173,11 +171,11 @@ function boardAdmin() {
         <td><input id='c4-2' class='boardButton' type='button' value='$v2' /></td>
 
         <td><input id='c5-2' class='boardButton' type='button' value='$v2' /></td>
+
+        <td><input id='c6-2' class='boardButton' type='button' value='$v2' /></td>
       </tr>
 
       <tr id='300'>
-        <td><input id='c0-3' class='boardButton' type='button' value='$v3' /></td>
-
         <td><input id='c1-3' class='boardButton' type='button' value='$v3' /></td>
 
         <td><input id='c2-3' class='boardButton' type='button' value='$v3' /></td>
@@ -187,11 +185,11 @@ function boardAdmin() {
         <td><input id='c4-3' class='boardButton' type='button' value='$v3' /></td>
 
         <td><input id='c5-3' class='boardButton' type='button' value='$v3' /></td>
+
+        <td><input id='c6-3' class='boardButton' type='button' value='$v3' /></td>
       </tr>
 
       <tr id='400'>
-        <td><input id='c0-4' class='boardButton' type='button' value='$v4' /></td>
-
         <td><input id='c1-4' class='boardButton' type='button' value='$v4' /></td>
 
         <td><input id='c2-4' class='boardButton' type='button' value='$v4' /></td>
@@ -201,11 +199,11 @@ function boardAdmin() {
         <td><input id='c4-4' class='boardButton' type='button' value='$v4' /></td>
 
         <td><input id='c5-4' class='boardButton' type='button' value='$v4' /></td>
+
+        <td><input id='c6-4' class='boardButton' type='button' value='$v4' /></td>
       </tr>
 
       <tr id='500'>
-        <td><input id='c0-5' class='boardButton' type='button' value='$v5' /></td>
-
         <td><input id='c1-5' class='boardButton' type='button' value='$v5' /></td>
 
         <td><input id='c2-5' class='boardButton' type='button' value='$v5' /></td>
@@ -215,55 +213,57 @@ function boardAdmin() {
         <td><input id='c4-5' class='boardButton' type='button' value='$v5' /></td>
 
         <td><input id='c5-5' class='boardButton' type='button' value='$v5' /></td>
+
+        <td><input id='c6-5' class='boardButton' type='button' value='$v5' /></td>
       </tr>
     </table>
   </div>
 _END;
-    
+
     $scoreQuery = "SELECT score FROM users WHERE isAdmin=0";
-$scoreResult = $db->query($scoreQuery);
+    $scoreResult = $db->query($scoreQuery);
 
 //Fill in score data
-$scoreResult->data_seek(0);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$caleb = $score[0];
-$scoreResult->data_seek(1);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$sophia = $score[0];
-$scoreResult->data_seek(2);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$bri = $score[0];
-$scoreResult->data_seek(3);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$reilly = $score[0];
-$scoreResult->data_seek(4);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$katie = $score[0];
-$scoreResult->data_seek(5);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$abby = $score[0];
-$scoreResult->data_seek(6);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$lilly = $score[0];
+    $scoreResult->data_seek(0);
+    $score = $scoreResult->fetch_array(MYSQLI_NUM);
+    $caleb = $score[0];
+    $scoreResult->data_seek(1);
+    $score = $scoreResult->fetch_array(MYSQLI_NUM);
+    $sophia = $score[0];
+    $scoreResult->data_seek(2);
+    $score = $scoreResult->fetch_array(MYSQLI_NUM);
+    $bri = $score[0];
+    $scoreResult->data_seek(3);
+    $score = $scoreResult->fetch_array(MYSQLI_NUM);
+    $reilly = $score[0];
+    $scoreResult->data_seek(4);
+    $score = $scoreResult->fetch_array(MYSQLI_NUM);
+    $katie = $score[0];
+    $scoreResult->data_seek(5);
+    $score = $scoreResult->fetch_array(MYSQLI_NUM);
+    $abby = $score[0];
+    $scoreResult->data_seek(6);
+    $score = $scoreResult->fetch_array(MYSQLI_NUM);
+    $lilly = $score[0];
 
 
-echo<<<_END
+    echo<<<_END
 <div>
     <table id='scores'>
       <tr>
-        <td class='competitor'>Caleb</td>
+        <td id="comp2" class='competitor'>Caleb</td>
 
-        <td class='competitor'>Sophia</td>
+        <td id="comp3" class='competitor'>Sophia</td>
 
-        <td class='competitor'>Bri</td>
+        <td id="comp4" class='competitor'>Bri</td>
 
-        <td class='competitor'>Reilly</td>
+        <td id="comp5" class='competitor'>Reilly</td>
 
-        <td class='competitor'>Katie</td>
+        <td id="comp6" class='competitor'>Katie</td>
 
-        <td class='competitor'>Abby</td>
+        <td id="comp7" class='competitor'>Abby</td>
 
-        <td class='competitor'>Lilly</td>
+        <td id="comp8" class='competitor'>Lilly</td>
       </tr>
 
       <tr>
@@ -283,5 +283,29 @@ echo<<<_END
       </tr>
     </table>
   </div>
+            <div id='qDiv'>Question: N/A</div>
+            <div id='aDiv'>Answer: N/A</div>
+            <div>
+            <input id='wrong' type='button' value='Wrong'>
+            <input id='correct' type='button' value='Correct'>
+            </div>
 _END;
+}
+
+function questionAdmin($category, $value) {
+    $db = new mysqli(host, username, passwd, dbname);
+    $questionQuery = "SELECT question,answer,isDailyDouble FROM questions WHERE category=$category && value=$value";
+    $questionResult = $db->query($questionQuery);
+    $questionResult->data_seek(0);
+    $question = $questionResult->fetch_array(MYSQLI_ASSOC);
+    if ($question["isDailyDouble"] == 1) {
+        
+    } else {
+        $q = $question["question"];
+        $a = $question["answer"];
+        echo "<div id='qDiv' category='$category' val='$value'>$q</div>\n";
+        echo "<div id='aDiv'>$a</div>\n";
+        echo "<div>Buzzed In: nobody</div>\n";
+        echo "<div><input id='wrongButton' type='button' value='N/A'><input id='correctButton' type='button' value='Enable Buzz'></div>";
+    }
 }

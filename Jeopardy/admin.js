@@ -15,16 +15,65 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+setInterval(checkStatus, 1000);
+
+var buzzCounter = 0;
+
+function checkStatus() {
+    $.getJSON("status.json", function (status) {
+        if (status["status"] == "question") {
+            $.get("getQA.php", function (qa) {
+                var question = $.parseJSON(qa);
+                $("#qDiv").html("Question: " + question["question"]);
+                $("#aDiv").html("Answer: " + question["answer"]);
+                
+                if(status["buzzStatus"]>1){
+                    var buzzedIn = status["buzzStatus"];
+                    $("#comp"+buzzedIn).css("background-color","green");
+                }else{
+                    console.log(status["buzzStatus"]);
+                    for(a = 2;a<9;a++){
+                        $("#comp"+a).css("background-color","white");
+                    }
+                }
+            })
+        } else {
+            $("#qDiv").html("Question: N/A");
+            $("#aDiv").html("Answer: N/A");
+            buzzCounter = 0;
+        }
+    });
+}
+
 $(".boardButton").click(function () {
     var category = this.id.substring(1, 2);
     var val = this.value;
-    var postData = 'data={"status":"question","category":' + category + ',"value":' + val + '}';
-    console.log(postData);
+    var postData = 'data={"status":"question","category":' + category + ',"value":' + val + ',"buzzStatus":-2,"wager":5}';
     $.ajax({
         data: postData,
         url: "/postStatus.php",
         type: "POST",
         success: function () {
+
+        }
+    });
+});
+
+$("#correct").click(function () {
+    $.getJSON("status.json", function (status) {
+        if (status["buzzStatus"] == "-2") {
+            status["buzzStatus"] = "-1";
+            var postData = "data="+JSON.stringify(status);
+            console.log(postData)
+            $.ajax({
+                data: postData,
+                url: "/postStatus.php",
+                type: "POST",
+                success: function () {
+
+                }
+            });
+        }else{
             
         }
     });
