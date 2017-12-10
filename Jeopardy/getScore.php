@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2017 allen
  *
  * This program is free software: you can redistribute it and/or modify
@@ -25,8 +25,25 @@ $db = new mysqli(host, username, passwd, dbname);
 
 $id = $_SESSION['id'];
 
-$scoreQuery = "SELECT score FROM users WHERE id=$id";
+if ($id > 1) {
+    $scoreQuery = "SELECT score FROM users WHERE id=$id";
+    $scoreResult = $db->query($scoreQuery);
+    $score = $scoreResult->fetch_array(MYSQLI_NUM);
+    echo $score[0];
+} else {
+    $scoreQuery = "SELECT id,score FROM users WHERE id>1";
+    $return = "{";
+    for ($a = 2; $a < 9; $a++) {
+        $scoreResult = $db->query($scoreQuery);
+        $scoreResult->data_seek($a-2);
+        $score = $scoreResult->fetch_array(MYSQLI_NUM);
+        $return = $return.'"'.$score[0].'":'.$score[1];
+        if($a!=8){
+            $return = $return.",";
+        }else{
+            $return = $return."}";
+        }
+    }
+    echo $return;
+}
 
-$scoreResult = $db->query($scoreQuery);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-echo $score[0];

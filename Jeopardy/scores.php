@@ -52,22 +52,22 @@ $lilly = $score[0];
 echo<<<_END
 <table id='scores'>
 <tr>
-<td class='competitor'>Caleb</td>
-<td class='competitor'>Sophia</td>
-<td class='competitor'>Bri</td>
-<td class='competitor'>Reilly</td>
-<td class='competitor'>Katie</td>
-<td class='competitor'>Abby</td>
-<td class='competitor'>Lilly</td>
+<td id='comp2' class='competitor'>Caleb</td>
+<td id='comp3' class='competitor'>Sophia</td>
+<td id='comp4' class='competitor'>Bri</td>
+<td id='comp5' class='competitor'>Reilly</td>
+<td id='comp6' class='competitor'>Katie</td>
+<td id='comp7' class='competitor'>Abby</td>
+<td id='comp8' class='competitor'>Lilly</td>
 </tr>
 <tr>
-<td class='score'>$caleb</td>
-<td class='score'>$sophia</td>
-<td class='score'>$bri</td>
-<td class='score'>$reilly</td>
-<td class='score'>$katie</td>
-<td class='score'>$abby</td>
-<td class='score'>$lilly</td>
+<td id='score2' class='score'>$caleb</td>
+<td id='score3' class='score'>$sophia</td>
+<td id='score4' class='score'>$bri</td>
+<td id='score5' class='score'>$reilly</td>
+<td id='score6' class='score'>$katie</td>
+<td id='score7' class='score'>$abby</td>
+<td id='score8' class='score'>$lilly</td>
 </tr>
 </table>
 _END;

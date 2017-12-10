@@ -60,6 +60,10 @@ function gameBoardRefresh() {
                         
                     }
             }
+            if(status["buzzStatus"]>0){
+                $("#comp"+status["buzzStatus"]).css("background-color","white");
+            }
+            
         }
     });
 }
@@ -68,10 +72,12 @@ function scoreRefresh() {
 
 //AJAX to set values of scores
     $.ajax({
-        url: "/scores.php",
-        dataType: "html",
-        success: function (data) {
-            $("#scoresDiv").html(data);
+        url: "/getScore.php",
+        dataType: "json",
+        success: function (scores) {
+            for(var a = 2;a<9;a++){
+                $("#score"+a).html(scores[a]);
+            }
         }
     });
 

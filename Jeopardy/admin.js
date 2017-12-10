@@ -33,11 +33,11 @@ function checkStatus() {
                             dataType: "text",
                             success: function (buzzWinner) {
                                 
-                                $("#comp" + buzzedIn).css("background-color", "green");
+                                $("#comp" + buzzWinner).css("background-color", "green");
                             }
                         });
                     }, 500);
-                } else {
+                } else if(status["buzzStatus"] < 0){
                     for (a = 2; a < 9; a++) {
                         $("#comp" + a).css("background-color", "white");
                     }
@@ -67,8 +67,8 @@ $(".boardButton").click(function () {
 
 $("#correct").click(function () {
     $.getJSON("status.json", function (status) {
-        if (status["buzzStatus"] == "-2") {
-            status["buzzStatus"] = "-1";
+        if (status["buzzStatus"] == -2) {
+            status["buzzStatus"] = -1;
             var postData = "data=" + JSON.stringify(status);
             console.log(postData)
             $.ajax({
