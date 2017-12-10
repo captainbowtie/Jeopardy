@@ -19,9 +19,9 @@
 setInterval(updateScore, 1000);
 
 $(".idButton").click(function () {
-    var postData = "studentLoginId="+$(this).attr("id").substring(1);
+    var postData = "studentLoginId=" + $(this).attr("id").substring(1);
     console.log(postData);
-   $.ajax({
+    $.ajax({
         data: postData,
         url: "/postLogin.php",
         type: "POST",
@@ -33,16 +33,11 @@ $(".idButton").click(function () {
 
 
 $("#buzzer").click(function () {
-    //color button red for 1.5 seconds
-    $("#buzzer").css("background-color", "red");
-    var buttonColorTimer = setTimeout(function () {
-        $("#buzzer").css("background-color", "green");
-    }, 1500);
-
-    //Post buzz in time
+    //Post buzz-in time
     var date = new Date();
-    var time = date.getTime() - 1515386389999;
+    var time = date.getTime() /*- 1515386389999*/;
     var postData = "time=" + time;
+    console.log(postData);
     $.ajax({
         data: postData,
         url: "/postBuzz.php",
@@ -51,13 +46,20 @@ $("#buzzer").click(function () {
 
         }
     });
+
+    //color button red for 1.5 seconds
+    $("#buzzer").css("background-color", "red");
+    var buttonColorTimer = setTimeout(function () {
+        $("#buzzer").css("background-color", "green");
+    }, 1500);
+
 });
 
 function updateScore() {
 
     $.ajax({
-        url: "getScore.php",
-        type: "text",
+        url: "/getScore.php",
+        dataType: "text",
         success: function (data) {
             $("#money").html(data);
         }

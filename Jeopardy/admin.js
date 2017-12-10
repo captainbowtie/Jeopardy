@@ -26,14 +26,20 @@ function checkStatus() {
                 var question = $.parseJSON(qa);
                 $("#qDiv").html("Question: " + question["question"]);
                 $("#aDiv").html("Answer: " + question["answer"]);
-                
-                if(status["buzzStatus"]>1){
-                    var buzzedIn = status["buzzStatus"];
-                    $("#comp"+buzzedIn).css("background-color","green");
-                }else{
-                    console.log(status["buzzStatus"]);
-                    for(a = 2;a<9;a++){
-                        $("#comp"+a).css("background-color","white");
+                if (status["buzzStatus"] == 0) {
+                    setTimeout(function () {
+                        $.ajax({
+                            url: "/getBuzz.php",
+                            dataType: "text",
+                            success: function (buzzWinner) {
+                                
+                                $("#comp" + buzzedIn).css("background-color", "green");
+                            }
+                        });
+                    }, 500);
+                } else {
+                    for (a = 2; a < 9; a++) {
+                        $("#comp" + a).css("background-color", "white");
                     }
                 }
             })
@@ -63,7 +69,7 @@ $("#correct").click(function () {
     $.getJSON("status.json", function (status) {
         if (status["buzzStatus"] == "-2") {
             status["buzzStatus"] = "-1";
-            var postData = "data="+JSON.stringify(status);
+            var postData = "data=" + JSON.stringify(status);
             console.log(postData)
             $.ajax({
                 data: postData,
@@ -73,8 +79,8 @@ $("#correct").click(function () {
 
                 }
             });
-        }else{
-            
+        } else {
+
         }
     });
 });

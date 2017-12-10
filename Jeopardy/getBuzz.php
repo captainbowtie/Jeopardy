@@ -1,6 +1,6 @@
 <?php
 
-/*
+/* 
  * Copyright (C) 2017 allen
  *
  * This program is free software: you can redistribute it and/or modify
@@ -21,27 +21,17 @@ session_start();
 
 require_once "privileges.php";
 
-$db = new mysqli(host, username, passwd, dbname);
-
-$id = $_SESSION['id'];
-$time = $_POST['time'];
-
-$answeredQuery = "SELECT id FROM buzzes WHERE id=$id && answered=0";
-
-$answerResult = $db->query($answeredQuery);
-
-//Also need to check if buzzing in is allowed
-$json = json_decode(file_get_contents("status.json"),true);
-
-if ($json["buzzStatus"] > -2 && $json["buzzStatus"] < 1 && ($answerResult->num_rows > 0)) {
-
-//Write buzz to buzz table
-    $buzzQuery = "UPDATE buzzes SET time=$time WHERE id=$id";
-    $db->query($buzzQuery);
-
-//Write that someone buzzed in to status file
-    $json["buzzStatus"] = 0;
+if($isAdmin){
+    $db = new mysqli(host, username, passwd, dbname);
+    $buzzQuery = "SELECT id,time-lag AS 'realTime' FROM buzzes WHERE answered=0 && time>0 ORDER BY realTime";
+    $buzzResult = $db->query($buzzQuery);
+    $buzzResult->data_seek(0);
+    $buzz = $buzzResult->fetch_array(MYSQLI_NUM);
+    $buzzId = $buzz[0];
+    $json = json_decode(file_get_contents("status.json"), true);
+    $json["buzzStatus"] = $buzzId;
     file_put_contents("status.json", json_encode($json));
+    $buzzUpdate = "UPDATE buzzes SET answered=1 WHERE id=$buzzId";
+    $db->query($buzzUpdate);
+    echo $buzzId;
 }
-
-

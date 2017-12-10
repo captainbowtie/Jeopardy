@@ -30,7 +30,7 @@ echo<<<_END
 <link rel="Stylesheet" href="display.css" type="text/css" />
     </head>
     <body>
-    	<div id='displayDiv'>
+    	<div id='displayDiv' content='gameboard'>
 _END;
 require_once 'gameboard.php';
 echo<<<_END

@@ -18,8 +18,8 @@
  */
 
 echo<<<_END
-<div>
-  <table>
+<div id='timerDiv'>
+  <table id='timerTable'>
     <tr>
       <td class='five'>-</td>
       <td class='four'>-</td>
@@ -32,6 +32,7 @@ echo<<<_END
       <td class='five'>-</td>
     </tr>
   </table>
+<script src='timer.js'></script>
 </div>
 
 _END;

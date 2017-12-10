@@ -17,29 +17,15 @@
 
 $(document).ready(function () {
 
-
-
-
-
-
-
-
-
-
-
-
-
 });
 
 
 
 //Timers to update gameboard and scores
 
-var gbr = setInterval(gameBoardRefresh, 500);
+setInterval(gameBoardRefresh, 500);
 
-var sr = setInterval(scoreRefresh, 500);
-
-
+setInterval(scoreRefresh, 500);
 
 function gameBoardRefresh() {
 
@@ -48,8 +34,8 @@ function gameBoardRefresh() {
     $.ajax({
         url: "/status.json",
         dataType: "json",
-        success: function (data) {
-            switch (data["status"]) {
+        success: function (status) {
+            switch (status["status"]) {
                 case "gameboard":
                     $.ajax({
                         url: "/gameboard.php",
@@ -60,28 +46,27 @@ function gameBoardRefresh() {
                     });
                     break;
                 case "question":
-                    
-                    $.ajax({ //TODO: get particular question
-                        url: "/question.php",
-                        dataType: "json",
-                        success: function (question) {
-                            $("#displayDiv").html(gbData);
-                        }
-                    });
-                    break;
+                    if ($("#displayDiv").attr("content") == "gameboard") {
+                        $.ajax({
+                            url: "/question.php",
+                            dataType: "html",
+                            success: function (question) {
+                                $("#displayDiv").html(question);
+                                $("#displayDiv").attr("content", "question");
+                            }
+                        });
+                        break;
+                    } else if (status["buzzStatus"] > 0) {
+                        
+                    }
             }
         }
-
     });
-
 }
-
-
 
 function scoreRefresh() {
 
 //AJAX to set values of scores
-
     $.ajax({
         url: "/scores.php",
         dataType: "html",
