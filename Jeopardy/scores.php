@@ -53,8 +53,8 @@ echo<<<_END
 <table id='scores'>
 <tr>
 <td id='comp2' class='competitor'>Caleb</td>
-<td id='comp3' class='competitor'>Sophia</td>
-<td id='comp4' class='competitor'>Bri</td>
+<td id='comp3' class='competitor'>Bri</td>
+<td id='comp4' class='competitor'>Sophia</td>
 <td id='comp5' class='competitor'>Reilly</td>
 <td id='comp6' class='competitor'>Katie</td>
 <td id='comp7' class='competitor'>Abby</td>

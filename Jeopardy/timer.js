@@ -15,23 +15,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+var timerStarted = 0;
+var time1 = null;
+var time2 = null;
+var time3 = null;
+var time4 = null;
+var time5 = null;
+
 setInterval(function () {
     $.ajax({
         url: "/status.json",
         dataType: "json",
         success: function (data) {
-            if (data["buzzStatus"] == -1) {
-                setTimeout(five, 1000);
-                setTimeout(four, 2000);
-                setTimeout(three, 3000);
-                setTimeout(two, 4000);
-                setTimeout(one, 5000);
-            } else {
+            console.log(data["buzzStatus"]);
+            if (data["buzzStatus"] == -1 && timerStarted == 0) {
+                console.log("timerstart");
+                timerStarted = 1;
+                time5 = setTimeout(five, 1000);
+                time4 = setTimeout(four, 2000);
+                time3 = setTimeout(three, 3000);
+                time2 = setTimeout(two, 4000);
+                time1 = setTimeout(one, 5000);
+            } else if (timerStarted == 1 && data["buzzStatus"] > -1) {
+                console.log("timerstop");
+                clearTimeout(time1);
+                clearTimeout(time2);
+                clearTimeout(time3);
+                clearTimeout(time4);
+                clearTimeout(time5);
                 $(".five").css("color", "white");
                 $(".four").css("color", "white");
                 $(".three").css("color", "white");
                 $(".two").css("color", "white");
                 $(".one").css("color", "white");
+                timerStarted = 0;
             }
         }
     });
@@ -54,12 +71,13 @@ function two() {
 }
 
 function one() {
+    console.log("one");
     $(".one").css("color", "red");
+    timerStarted = 0;
     //Disable buzzing after timer has expired
     $.getJSON("status.json", function (status) {
         status["buzzStatus"] = "-3";
         var postData = "data=" + JSON.stringify(status);
-        console.log(postData)
         $.ajax({
             data: postData,
             url: "/postStatus.php",

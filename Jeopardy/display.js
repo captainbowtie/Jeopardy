@@ -62,6 +62,10 @@ function gameBoardRefresh() {
             }
             if(status["buzzStatus"]>0){
                 $("#comp"+status["buzzStatus"]).css("background-color","white");
+            }else{
+                for(var a = 2;a<9;a++){
+                    $("#comp"+a).css("background-color","tan");
+                }
             }
             
         }

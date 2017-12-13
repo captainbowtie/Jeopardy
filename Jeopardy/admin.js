@@ -17,8 +17,6 @@
 
 setInterval(checkStatus, 1000);
 
-var buzzCounter = 0;
-
 function checkStatus() {
     $.getJSON("status.json", function (status) {
         if (status["status"] == "question") {
@@ -32,12 +30,12 @@ function checkStatus() {
                             url: "/getBuzz.php",
                             dataType: "text",
                             success: function (buzzWinner) {
-                                
+
                                 $("#comp" + buzzWinner).css("background-color", "green");
                             }
                         });
                     }, 500);
-                } else if(status["buzzStatus"] < 0){
+                } else if (status["buzzStatus"] < 0) {
                     for (a = 2; a < 9; a++) {
                         $("#comp" + a).css("background-color", "white");
                     }
@@ -46,7 +44,6 @@ function checkStatus() {
         } else {
             $("#qDiv").html("Question: N/A");
             $("#aDiv").html("Answer: N/A");
-            buzzCounter = 0;
         }
     });
 }
@@ -80,6 +77,24 @@ $("#correct").click(function () {
                 }
             });
         } else {
+            $.ajax({
+                data: "correct=1",
+                type: "POST",
+                url: "postAnswer.php",
+                success: function () {
+
+                }
+            });
+        }
+    });
+});
+
+$("#wrong").click(function () {
+    $.ajax({
+        data: "correct=0",
+        type: "POST",
+        url: "postAnswer.php",
+        success: function () {
 
         }
     });

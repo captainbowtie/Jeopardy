@@ -35,8 +35,8 @@ if(!isset($_SESSION['id'])){
     echo<<<_END
     <body>
     <input type="button" class="idButton" id="b2" value="Caleb">
-    <input type="button" class="idButton" id="b3" value="Sophia">
-    <input type="button" class="idButton" id="b4" value="Bri">
+    <input type="button" class="idButton" id="b3" value="Bri">
+    <input type="button" class="idButton" id="b4" value="Sophia">
     <input type="button" class="idButton" id="b5" value="Reilly">
     <input type="button" class="idButton" id="b6" value="Katie">
     <input type="button" class="idButton" id="b7" value="Abby">

@@ -70,7 +70,7 @@ function checkTables() {
                 . "name VARCHAR(64) NOT NULL DEFAULT 'Missing Name', "
                 . "password CHAR(128) NOT NULL, "
                 . "isAdmin BINARY(1) NOT NULL DEFAULT '0', "
-                . "score MEDIUMINT UNSIGNED NOT NULL DEFAULT '0') ENGINE InnoDB";
+                . "score MEDIUMINT SIGNED NOT NULL DEFAULT '0') ENGINE InnoDB";
 
         //Submit queries to create tables
         $db->query($categoryQuery);
@@ -290,22 +290,4 @@ _END;
             <input id='correct' type='button' value='Correct'>
             </div>
 _END;
-}
-
-function questionAdmin($category, $value) {
-    $db = new mysqli(host, username, passwd, dbname);
-    $questionQuery = "SELECT question,answer,isDailyDouble FROM questions WHERE category=$category && value=$value";
-    $questionResult = $db->query($questionQuery);
-    $questionResult->data_seek(0);
-    $question = $questionResult->fetch_array(MYSQLI_ASSOC);
-    if ($question["isDailyDouble"] == 1) {
-        
-    } else {
-        $q = $question["question"];
-        $a = $question["answer"];
-        echo "<div id='qDiv' category='$category' val='$value'>$q</div>\n";
-        echo "<div id='aDiv'>$a</div>\n";
-        echo "<div>Buzzed In: nobody</div>\n";
-        echo "<div><input id='wrongButton' type='button' value='N/A'><input id='correctButton' type='button' value='Enable Buzz'></div>";
-    }
 }
