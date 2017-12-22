@@ -44,21 +44,39 @@ function checkStatus() {
         } else {
             $("#qDiv").html("Question: N/A");
             $("#aDiv").html("Answer: N/A");
+            for (a = 2; a < 9; a++) {
+                $("#comp" + a).css("background-color", "white");
+            }
+        }
+    });
+    $.ajax({
+        url: "/getScore.php",
+        dataType: "json",
+        success: function (scores) {
+            for (var a = 2; a < 9; a++) {
+                $("#score" + a).attr("value", scores[a]);
+            }
         }
     });
 }
 
 $(".boardButton").click(function () {
-    var category = this.id.substring(1, 2);
+    var cat = this.id.substring(1, 2);
     var val = this.value;
-    var postData = 'data={"status":"question","category":' + category + ',"value":' + val + ',"buzzStatus":-2,"wager":5}';
-    $.ajax({
-        data: postData,
-        url: "/postStatus.php",
-        type: "POST",
-        success: function () {
+    $.getJSON("status.json", function (status) {
+        status["status"] = "question";
+        status["category"] = cat;
+        status["value"] = val;
+        status["buzzStatus"] = -2;
+        var postData = "data="+JSON.stringify(status);
+        $.ajax({
+            data: postData,
+            url: "/postStatus.php",
+            type: "POST",
+            success: function () {
 
-        }
+            }
+        });
     });
 });
 

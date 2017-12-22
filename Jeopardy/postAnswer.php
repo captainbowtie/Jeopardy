@@ -57,7 +57,7 @@ function resetForNextQuestion($db, $status) {
     //MARK question as asked
     $category = $status["category"];
     $value = $status["value"];
-    $questionQuery = "UPDATE questions SET answered=1 WHERE category=$category && value=$value";
+    $questionQuery = "UPDATE questions SET hasBeenSelected=1 WHERE category=$category && value=$value";
     $db->query($questionQuery);
 
     //RESET status file to gameboard and buzz status to -2

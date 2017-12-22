@@ -62,8 +62,8 @@ echo<<<_END
 </tr>
 <tr>
 <td id='score2' class='score'>$caleb</td>
-<td id='score3' class='score'>$sophia</td>
-<td id='score4' class='score'>$bri</td>
+<td id='score3' class='score'>$bri</td>
+<td id='score4' class='score'>$sophia</td>
 <td id='score5' class='score'>$reilly</td>
 <td id='score6' class='score'>$katie</td>
 <td id='score7' class='score'>$abby</td>

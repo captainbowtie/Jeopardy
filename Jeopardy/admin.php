@@ -253,9 +253,9 @@ _END;
       <tr>
         <td id="comp2" class='competitor'>Caleb</td>
 
-        <td id="comp3" class='competitor'>Sophia</td>
+        <td id="comp3" class='competitor'>Bri</td>
 
-        <td id="comp4" class='competitor'>Bri</td>
+        <td id="comp4" class='competitor'>Sophia</td>
 
         <td id="comp5" class='competitor'>Reilly</td>
 
@@ -267,19 +267,19 @@ _END;
       </tr>
 
       <tr>
-        <td><input type='button' value='$caleb'></td>
+        <td><input id='score2' type='button' value='$caleb'></td>
 
-        <td><input type='button' value='$sophia'></td>
+        <td><input id='score3' type='button' value='$bri'></td>
 
-        <td><input type='button' value='$bri'></td>
+        <td><input id='score4' type='button' value='$sophia'></td>
 
-        <td><input type='button' value='$reilly'></td>
+        <td><input id='score5' type='button' value='$reilly'></td>
 
-        <td><input type='button' value='$katie'></td>
+        <td><input id='score6' type='button' value='$katie'></td>
 
-        <td><input type='button' value='$abby'></td>
+        <td><input id='score7' type='button' value='$abby'></td>
 
-        <td><input type='button' value='$lilly'></td>
+        <td><input id='score8' type='button' value='$lilly'></td>
       </tr>
     </table>
   </div>

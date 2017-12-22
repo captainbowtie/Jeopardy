@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define("host","tabtesting");
+define("host","localhost");
 define("dbname","jeopardy");
 define("username","test");
 define("passwd","password");
