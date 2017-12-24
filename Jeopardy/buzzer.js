@@ -15,9 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-setInterval(updateScore, 1000);
-
 $(".idButton").click(function () {
     var postData = "studentLoginId=" + $(this).attr("id").substring(1);
     console.log(postData);
@@ -54,14 +51,3 @@ $("#buzzer").click(function () {
     }, 1500);
 
 });
-
-function updateScore() {
-
-    $.ajax({
-        url: "/getScore.php",
-        dataType: "text",
-        success: function (data) {
-            $("#money").html(data);
-        }
-    });
-}

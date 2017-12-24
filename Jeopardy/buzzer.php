@@ -48,19 +48,15 @@ _END;
 }else{
     $id = $_SESSION['id'];
     $db = new mysqli(host, username, passwd, dbname);
-    $userQuery = "SELECT name,score FROM users WHERE id=$id";
+    $userQuery = "SELECT name FROM users WHERE id=$id";
     $userResult = $db->query($userQuery);
     $user = $userResult->fetch_array(MYSQLI_ASSOC);
     $name = $user['name'];
-    $score = $user['score'];
     
 echo<<<_END
     <body>
 <div id="name">
   $name
-</div>
-<div id="money">
-  $score
 </div>
 <div id="buzzerDiv">
   <input id="buzzer" type="button" value="Buzz In">
