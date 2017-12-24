@@ -31,6 +31,7 @@ if ($isAdmin) {
     $scoreRow = $scoreResult->fetch_array(MYSQLI_NUM);
     if ($_POST["correct"] == 1) {
         $newScore = $scoreRow[0] + $status["value"];
+        $status["dailyDouble"]["player"] = $playerId;
         resetForNextQuestion($db, $status);
     } else {
         //DEDUCT points from user

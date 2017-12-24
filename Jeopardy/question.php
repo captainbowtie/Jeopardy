@@ -43,4 +43,5 @@ echo "\n</div>";
 echo "<div id='question'>\n";
 echo "DAILY DOUBLE";
 echo "\n</div>";
+//Change json daily double status to
 }
