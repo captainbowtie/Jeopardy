@@ -63,7 +63,9 @@ echo<<<_END
 </div>
 
 <div>
-<input id="bid" type="number">
+        <form>
+<input id="bid" type="number" inputmode="numeric" pattern="[0-9]*">
+        </form>
 </div>
         <script src='buzzer.js'></script>
 </body>

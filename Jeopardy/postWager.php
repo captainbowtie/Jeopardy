@@ -1,6 +1,6 @@
 <?php
 
-/*
+/* 
  * Copyright (C) 2017 allen
  *
  * This program is free software: you can redistribute it and/or modify
@@ -21,30 +21,9 @@ session_start();
 
 require_once "privileges.php";
 
-$db = new mysqli(host, username, passwd, dbname);
-
 $status = json_decode(file_get_contents("status.json"), true);
 
-$category = $status["category"];
-$value = $status["value"];
-
-$questionQuery = "SELECT question,isDailyDouble FROM questions WHERE category=$category && value=$value";
-
-$questionResult = $db->query($questionQuery);
-
-$question = $questionResult->fetch_array(MYSQLI_ASSOC);
-
-if (!$question["isDailyDouble"] == 0 && $status["dailyDouble"]["wager"] < 1) {
-    echo "<div id='question'>\n";
-    echo "DAILY DOUBLE";
-    echo "\n</div>";
-    if ($status["dailyDouble"]["wager"] == -1) {
-        $status["dailyDouble"]["wager"] = 0;
-        file_put_contents("status.json", json_encode($status));
-    }
-} else {
-    require_once("timer.php");
-    echo "<div id='question'>\n";
-    echo $question["question"];
-    echo "\n</div>";
+if($status["dailyDouble"]["player"]==$_SESSION["id"] && $status["dailyDouble"]["wager"]==0){
+    $status["dailyDouble"]["wager"] = $_POST["wager"];
+    file_put_contents("status.json", json_encode($status));
 }

@@ -30,24 +30,47 @@ $(".idButton").click(function () {
 
 
 $("#buzzer").click(function () {
-    //Post buzz-in time
-    var date = new Date();
-    var time = date.getTime() /*- 1515386389999*/;
-    var postData = "time=" + time;
-    console.log(postData);
-    $.ajax({
-        data: postData,
-        url: "/postBuzz.php",
-        type: "POST",
-        success: function () {
+    if ($("#buzzer").attr("value") == "Buzz In") {
+        //Post buzz-in time
+        var date = new Date();
+        var time = date.getTime() /*- 1515386389999*/;
+        var postData = "time=" + time;
+        $.ajax({
+            data: postData,
+            url: "/postBuzz.php",
+            type: "POST",
+            success: function () {
 
-        }
-    });
+            }
+        });
 
-    //color button red for 1.5 seconds
-    $("#buzzer").css("background-color", "red");
-    var buttonColorTimer = setTimeout(function () {
-        $("#buzzer").css("background-color", "green");
-    }, 1500);
+        //color button red for 1.5 seconds
+        $("#buzzer").css("background-color", "red");
+        var buttonColorTimer = setTimeout(function () {
+            $("#buzzer").css("background-color", "green");
+        }, 1500);
+    }else{
+        //Post bid
+        var postData = "wager=" + $("#bid").val();
+        $.ajax({
+            data: postData,
+            url: "/postWager.php",
+            type: "POST",
+            success: function () {
+                $("#bid").val("");
+                $("#buzzer").attr("value", "Buzz In");
+            }
+        });
+    }
+
+
+});
+
+$('#bid').on('input', function (e) {
+    if ($('#bid').val() != "") {
+        $("#buzzer").attr("value", "Submit");
+    } else {
+        $("#buzzer").attr("value", "Buzz In");
+    }
 
 });

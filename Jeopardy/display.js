@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+var questionDisplayed = false;
+
 $(document).ready(function () {
 
 });
@@ -37,6 +39,7 @@ function gameBoardRefresh() {
         success: function (status) {
             switch (status["status"]) {
                 case "gameboard":
+                    questionDisplayed = false;
                     $.ajax({
                         url: "/gameboard.php",
                         dataType: "html",
@@ -46,28 +49,29 @@ function gameBoardRefresh() {
                     });
                     break;
                 case "question":
-                    if ($("#displayDiv").attr("content") == "gameboard") {
+                    if (!questionDisplayed) {
                         $.ajax({
                             url: "/question.php",
                             dataType: "html",
                             success: function (question) {
                                 $("#displayDiv").html(question);
                                 $("#displayDiv").attr("content", "question");
+                                if(question.indexOf("DAILY DOUBLE")== -1){
+                                    questionDisplayed = true;
+                                }
                             }
                         });
-                        break;
-                    } else if (status["buzzStatus"] > 0) {
-                        
                     }
+                    break;
             }
-            if(status["buzzStatus"]>0){
-                $("#comp"+status["buzzStatus"]).css("background-color","white");
-            }else{
-                for(var a = 2;a<9;a++){
-                    $("#comp"+a).css("background-color","tan");
+            if (status["buzzStatus"] > 0) {
+                $("#comp" + status["buzzStatus"]).css("background-color", "white");
+            } else {
+                for (var a = 2; a < 9; a++) {
+                    $("#comp" + a).css("background-color", "tan");
                 }
             }
-            
+
         }
     });
 }
@@ -79,8 +83,8 @@ function scoreRefresh() {
         url: "/getScore.php",
         dataType: "json",
         success: function (scores) {
-            for(var a = 2;a<9;a++){
-                $("#score"+a).html(scores[a]);
+            for (var a = 2; a < 9; a++) {
+                $("#score" + a).html(scores[a]);
             }
         }
     });

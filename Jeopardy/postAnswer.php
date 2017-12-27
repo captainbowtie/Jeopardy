@@ -29,21 +29,31 @@ if ($isAdmin) {
     $scoreResult = $db->query($getScoreQuery);
     $scoreResult->data_seek(0);
     $scoreRow = $scoreResult->fetch_array(MYSQLI_NUM);
-    if ($_POST["correct"] == 1) {
-        $newScore = $scoreRow[0] + $status["value"];
-        $status["dailyDouble"]["player"] = $playerId;
-        resetForNextQuestion($db, $status);
-    } else {
-        //DEDUCT points from user
-        $newScore = $scoreRow[0] - $status["value"];
-        //CHECK if any other user could still buzz-in
-        $remainingQuery = "SELECT id FROM buzzes WHERE id>1 && answered=0";
-        $remainingResult = $db->query($remainingQuery);
-        if ($remainingResult->num_rows > 0) {
-            $status["buzzStatus"] = -1;
-            file_put_contents("status.json", json_encode($status));
+
+    if ($status["dailyDouble"]["wager"] > 0) { //check if this is daily double
+        if ($_POST["correct"] == 1) {
+            $newScore = $scoreRow[0] + $status["dailyDouble"]["wager"];
         } else {
+            $newScore = $scoreRow[0] - $status["dailyDouble"]["wager"];
+        }
+        resetForNextQuestion($db, $status);
+    } else { //if it's not a daily double, then
+        if ($_POST["correct"] == 1) {
+            $newScore = $scoreRow[0] + $status["value"];
+            $status["dailyDouble"]["player"] = $playerId;
             resetForNextQuestion($db, $status);
+        } else {
+            //DEDUCT points from user
+            $newScore = $scoreRow[0] - $status["value"];
+            //CHECK if any other user could still buzz-in
+            $remainingQuery = "SELECT id FROM buzzes WHERE id>1 && answered=0";
+            $remainingResult = $db->query($remainingQuery);
+            if ($remainingResult->num_rows > 0) {
+                $status["buzzStatus"] = -1;
+                file_put_contents("status.json", json_encode($status));
+            } else {
+                resetForNextQuestion($db, $status);
+            }
         }
     }
     $updateScoreQuery = "UPDATE users SET score=$newScore WHERE id=$playerId";
