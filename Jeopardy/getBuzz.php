@@ -30,7 +30,7 @@ if($isAdmin){
     $buzzId = $buzz[0];
     $json = json_decode(file_get_contents("status.json"), true);
     $json["buzzStatus"] = $buzzId;
-    file_put_contents("status.json", json_encode($json));
+    file_put_contents("status.json", json_encode($json), LOCK_EX);
     $buzzUpdate = "UPDATE buzzes SET answered=1 WHERE id=$buzzId";
     $db->query($buzzUpdate);
     echo $buzzId;

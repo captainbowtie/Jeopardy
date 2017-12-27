@@ -50,7 +50,7 @@ if ($isAdmin) {
             $remainingResult = $db->query($remainingQuery);
             if ($remainingResult->num_rows > 0) {
                 $status["buzzStatus"] = -1;
-                file_put_contents("status.json", json_encode($status));
+                file_put_contents("status.json", json_encode($status), LOCK_EX);
             } else {
                 resetForNextQuestion($db, $status);
             }
@@ -74,5 +74,5 @@ function resetForNextQuestion($db, $status) {
     //RESET status file to gameboard and buzz status to -2
     $status["status"] = "gameboard";
     $status["buzzStatus"] = -2;
-    file_put_contents("status.json", json_encode($status));
+    file_put_contents("status.json", json_encode($status), LOCK_EX);
 }

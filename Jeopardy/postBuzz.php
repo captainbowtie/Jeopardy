@@ -31,17 +31,17 @@ $answeredQuery = "SELECT id FROM buzzes WHERE id=$id && answered=0";
 $answerResult = $db->query($answeredQuery);
 
 //Also need to check if buzzing in is allowed
-$json = json_decode(file_get_contents("status.json"),true);
+$status = json_decode(file_get_contents("status.json"),true);
 
-if ($json["buzzStatus"] > -2 && $json["buzzStatus"] < 1 && ($answerResult->num_rows > 0)) {
+if ($status["buzzStatus"] > -2 && $status["buzzStatus"] < 1 && ($answerResult->num_rows > 0)) {
 
 //Write buzz to buzz table
     $buzzQuery = "UPDATE buzzes SET time=$time WHERE id=$id";
     $db->query($buzzQuery);
 
 //Write that someone buzzed in to status file
-    $json["buzzStatus"] = 0;
-    file_put_contents("status.json", json_encode($json));
+    $status["buzzStatus"] = 0;
+    file_put_contents("status.json", json_encode($status), LOCK_EX);
 }
 
 

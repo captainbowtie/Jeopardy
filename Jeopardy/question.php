@@ -40,7 +40,7 @@ if (!$question["isDailyDouble"] == 0 && $status["dailyDouble"]["wager"] < 1) {
     echo "\n</div>";
     if ($status["dailyDouble"]["wager"] == -1) {
         $status["dailyDouble"]["wager"] = 0;
-        file_put_contents("status.json", json_encode($status));
+        file_put_contents("status.json", json_encode($status), LOCK_EX);
     }
 } else {
     require_once("timer.php");

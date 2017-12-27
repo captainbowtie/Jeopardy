@@ -25,5 +25,5 @@ $status = json_decode(file_get_contents("status.json"), true);
 
 if($status["dailyDouble"]["player"]==$_SESSION["id"] && $status["dailyDouble"]["wager"]==0){
     $status["dailyDouble"]["wager"] = $_POST["wager"];
-    file_put_contents("status.json", json_encode($status));
+    file_put_contents("status.json", json_encode($status), LOCK_EX);
 }
