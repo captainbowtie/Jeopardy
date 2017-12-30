@@ -37,6 +37,13 @@ body {
   font-size: 5vw;
 }
 
+.final {
+  background-color: blue;
+  color: white;
+  text-align: center;
+  font-size: 5vw;
+}
+
 .unselected {
   border: 2px solid black;
   width: 10%;

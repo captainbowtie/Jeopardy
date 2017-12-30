@@ -139,7 +139,7 @@ $("#wrong").click(function () {
 
 function finalJeopardy(isCorrect) {
     var playerId = finalJeopardyIndicator.substring(5);
-    var postData;
+    var postData = "playerId="+playerId+"&isCorrect="+isCorrect;
     postData["playerId"] = playerId;
     postData["isCorrect"] = isCorrect;
     $.ajax({
