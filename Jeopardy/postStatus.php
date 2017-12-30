@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2017 allen
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,15 +17,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-session_start();
-
-require_once "privileges.php";
-
-if($isAdmin){
-    echo $_POST["data"];
-    $file = fopen("status.json", "w");
-    $txt = $_POST["data"];
-    fwrite($file, $txt);
-    fclose($file);
-    
-}
+$txt = $_POST["data"];
+file_put_contents("status.json", $txt, LOCK_EX);

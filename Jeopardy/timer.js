@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var timerStarted = 0;
+var timerStarted = false;
 var time1 = null;
 var time2 = null;
 var time3 = null;
@@ -27,17 +27,14 @@ setInterval(function () {
         url: "/getStatus.php",
         dataType: "json",
         success: function (data) {
-            console.log(data["buzzStatus"]);
-            if (data["buzzStatus"] == -1 && timerStarted == 0) {
-                console.log("timerstart");
-                timerStarted = 1;
+            if (data["buzzStatus"] == -1 && !timerStarted) {
+                timerStarted = true;
                 time5 = setTimeout(five, 1000);
                 time4 = setTimeout(four, 2000);
                 time3 = setTimeout(three, 3000);
                 time2 = setTimeout(two, 4000);
                 time1 = setTimeout(one, 5000);
-            } else if (timerStarted == 1 && data["buzzStatus"] > -1) {
-                console.log("timerstop");
+            } else if (timerStarted && data["buzzStatus"] > -1) {
                 clearTimeout(time1);
                 clearTimeout(time2);
                 clearTimeout(time3);
@@ -48,7 +45,7 @@ setInterval(function () {
                 $(".three").css("color", "white");
                 $(".two").css("color", "white");
                 $(".one").css("color", "white");
-                timerStarted = 0;
+                timerStarted = false;
             }
         }
     });
@@ -72,19 +69,21 @@ function two() {
 
 function one() {
     $(".one").css("color", "red");
-    timerStarted = 0;
+    timerStarted = false;
     //Disable buzzing after timer has expired
     $.get("getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
-        status["buzzStatus"] = "-3";
-        var postData = "data=" + JSON.stringify(status);
-        $.ajax({
-            data: postData,
-            url: "/postStatus.php",
-            type: "POST",
-            success: function () {
+        if (status["buzzStatus"] < 0) {
+            status["buzzStatus"] = "-3";
+            var postData = "data=" + JSON.stringify(status);
+            $.ajax({
+                data: postData,
+                url: "/postStatus.php",
+                type: "POST",
+                success: function () {
 
-            }
-        });
+                }
+            });
+        }
     });
 }

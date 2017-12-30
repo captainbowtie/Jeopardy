@@ -42,7 +42,7 @@ if ($isAdmin) {
             $newScore = $scoreRow[0] + $status["value"];
             $status["dailyDouble"]["player"] = $playerId;
             resetForNextQuestion($db, $status);
-        } else {
+        } else if ($_POST["correct"] == 0) {
             //DEDUCT points from user
             $newScore = $scoreRow[0] - $status["value"];
             //CHECK if any other user could still buzz-in
@@ -54,6 +54,8 @@ if ($isAdmin) {
             } else {
                 resetForNextQuestion($db, $status);
             }
+        } else if($_POST["correct"] == -1){
+            resetForNextQuestion($db, $status);
         }
     }
     $updateScoreQuery = "UPDATE users SET score=$newScore WHERE id=$playerId";

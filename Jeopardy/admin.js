@@ -91,6 +91,8 @@ $(".boardButton").click(function () {
 $("#correct").click(function () {
     $.get("getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
+        //If status is -2 (buzzing in disabled) and there's a question displayed
+        //Then enable buzzing in
         if (status["status"] == "question" && status["buzzStatus"] == -2) {
             status["buzzStatus"] = -1;
             var postData = "data=" + JSON.stringify(status);
@@ -103,6 +105,8 @@ $("#correct").click(function () {
 
                 }
             });
+            //If status is greater than 1 (someone buzzed in) and there's a question
+            //Displayed, then indicate the person that buzzed in answered correctly
         } else if (status["status"] == "question" && status["buzzStatus"] > 1) {
             $.ajax({
                 data: "correct=1",
@@ -112,6 +116,17 @@ $("#correct").click(function () {
 
                 }
             });
+        } else if (status["status"] == "question" && status["buzzStatus"] == -3) {
+            $.ajax({
+                data: "correct=-1",
+                type: "POST",
+                url: "postAnswer.php",
+                success: function () {
+
+                }
+            });
+            //If status is final jeopardy, then indicate the highlighted person
+            //Answered correctly
         } else if (status["status"] == "finalJeopardy") {
             finalJeopardy(1);
         }
@@ -139,7 +154,7 @@ $("#wrong").click(function () {
 
 function finalJeopardy(isCorrect) {
     var playerId = finalJeopardyIndicator.substring(5);
-    var postData = "playerId="+playerId+"&isCorrect="+isCorrect;
+    var postData = "playerId=" + playerId + "&isCorrect=" + isCorrect;
     postData["playerId"] = playerId;
     postData["isCorrect"] = isCorrect;
     $.ajax({
