@@ -72,7 +72,14 @@ function resetForNextQuestion($db, $status) {
     $db->query($questionQuery);
 
     //RESET status file to gameboard and buzz status to -2
-    $status["status"] = "gameboard";
     $status["buzzStatus"] = -2;
+    $status["dailyDouble"]["wager"] = -1;
+    $doubleQuery = "SELECT category,hasBeenSelected FROM questions WHERE category>6 && hasBeenSelected=0";
+    $doubleResult = $db->query($doubleQuery);
+    if ($doubleResult->num_rows > 0) {
+        $status["status"] = "gameboard";
+    } else {
+        $status["status"] = "finalJeopardy";
+    }
     file_put_contents("status.json", json_encode($status), LOCK_EX);
 }

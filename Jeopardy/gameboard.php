@@ -23,12 +23,14 @@ $db = new mysqli(host, username, passwd, dbname);
 $singleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category<7 && hasBeenSelected=0";
 $singleResult = $db->query($singleQuery);
 
-if ($singleResult->num_rows > 0) {
+if ($singleResult->num_rows > 0) { //Single jeopardy questions still exist
     fillRows(0);
-} else {
+} else {//Single jeopardy questions all gone, see if double jeopardy ones still exist
     $doubleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category>6 && hasBeenSelected=0";
-    $singleResult = $db->query($doubleQuery);
-    fillRows(1);
+    $doubleResult = $db->query($doubleQuery);
+    if ($doubleResult->num_rows > 0) { //Double jeopardy questions still exist
+        fillRows(1); //So fill rows with thsoe questions
+    }
 }
 
 function fillRows($f) {

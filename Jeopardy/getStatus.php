@@ -1,6 +1,6 @@
 <?php
 
-/*
+/* 
  * Copyright (C) 2017 allen
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,24 +17,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-session_start();
-
-require_once "privileges.php";
-
-$status = json_decode(file_get_contents("status.json"), true);
-
-if ($status["status"] == finalJeopardy) {
-    $db = new mysqli(host, username, passwd, dbname);
-    $wager = $_POST["wager"];
-    $playerId = $_SESSION["id"];
-    $wagerQuery = "UPDATE users SET finalWager = $wager WHERE id = $playerId";
-    $db->query($wagerQuery);
-    
-    
-} else {
-    if ($status["dailyDouble"]["player"] == $_SESSION["id"] && $status["dailyDouble"]["wager"] == 0) {
-        $status["dailyDouble"]["wager"] = $_POST["wager"];
-        file_put_contents("status.json", json_encode($status), LOCK_EX);
-    }
-}
-
+$status = file_get_contents("status.json");
+echo $status;

@@ -17,24 +17,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-session_start();
+echo "<div>FINAL JEOPARDY</div>\n<div>Expert Opinions</div>\n";
 
 require_once "privileges.php";
+$db = new mysqli(host, username, passwd, dbname);
 
-$status = json_decode(file_get_contents("status.json"), true);
+$wageredQuery = "SELECT finalWager FROM users";
+$wagerResult = $db->query($wageredQuery);
 
-if ($status["status"] == finalJeopardy) {
-    $db = new mysqli(host, username, passwd, dbname);
-    $wager = $_POST["wager"];
-    $playerId = $_SESSION["id"];
-    $wagerQuery = "UPDATE users SET finalWager = $wager WHERE id = $playerId";
-    $db->query($wagerQuery);
-    
-    
-} else {
-    if ($status["dailyDouble"]["player"] == $_SESSION["id"] && $status["dailyDouble"]["wager"] == 0) {
-        $status["dailyDouble"]["wager"] = $_POST["wager"];
-        file_put_contents("status.json", json_encode($status), LOCK_EX);
+$allWagered = TRUE;
+
+for ($a = 0; $a < $wagerResult->num_rows; $a++) {
+    $wagerResult->data_seek($a);
+    $wager = $wagerResult->fetch_array(MYSQLI_NUM);
+    if ($wager[0] < 0) {
+        $allWagered = FALSE;
     }
 }
 
+if($allWagered){
+    echo "<div>These are the four prongs of 702</div>";
+}

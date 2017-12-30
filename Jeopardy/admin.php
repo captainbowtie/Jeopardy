@@ -116,12 +116,22 @@ function boardAdmin() {
         $cg = $categoriesResult->fetch_array(MYSQLI_NUM);
         $categories[$a] = $cg[0];
     }
-    $c0 = $categories[0];
-    $c1 = $categories[1];
-    $c2 = $categories[2];
-    $c3 = $categories[3];
-    $c4 = $categories[4];
-    $c5 = $categories[5];
+
+    //Set category names
+    $cat1 = $categories[0];
+    $cat2 = $categories[1];
+    $cat3 = $categories[2];
+    $cat4 = $categories[3];
+    $cat5 = $categories[4];
+    $cat6 = $categories[5];
+
+    //Set category number for buttons
+    $c1 = 1 + 6 * $f;
+    $c2 = 2 + 6 * $f;
+    $c3 = 3 + 6 * $f;
+    $c4 = 4 + 6 * $f;
+    $c5 = 5 + 6 * $f;
+    $c6 = 6 + 6 * $f;
 
     //Set price string values
     $v1 = ($f + 1) * 100;
@@ -134,87 +144,87 @@ function boardAdmin() {
  <div id='display'>
     <table id='gameBoard'>
       <tr id='categories'>
-        <td class='category'>$c0</td>
+        <td class='category'>$cat1</td>
 
-        <td class='category'>$c1</td>
+        <td class='category'>$cat2</td>
 
-        <td class='category'>$c2</td>
+        <td class='category'>$cat3</td>
 
-        <td class='category'>$c3</td>
+        <td class='category'>$cat4</td>
 
-        <td class='category'>$c4</td>
+        <td class='category'>$cat5</td>
 
-        <td class='category'>$c5</td>
+        <td class='category'>$cat6</td>
       </tr>
 
       <tr id='100'>
-        <td><input id='c1-1' class='boardButton' type='button' value='$v1' /></td>
+        <td><input id='c1-1' category='$c1' class='boardButton' type='button' value='$v1' /></td>
 
-        <td><input id='c2-1' class='boardButton' type='button' value='$v1' /></td>
+        <td><input id='c2-1' category='$c2' class='boardButton' type='button' value='$v1' /></td>
 
-        <td><input id='c3-1' class='boardButton' type='button' value='$v1' /></td>
+        <td><input id='c3-1' category='$c3' class='boardButton' type='button' value='$v1' /></td>
 
-        <td><input id='c4-1' class='boardButton' type='button' value='$v1' /></td>
+        <td><input id='c4-1' category='$c4' class='boardButton' type='button' value='$v1' /></td>
 
-        <td><input id='c5-1' class='boardButton' type='button' value='$v1' /></td>
+        <td><input id='c5-1' category='$c5' class='boardButton' type='button' value='$v1' /></td>
 
-        <td><input id='c6-1' class='boardButton' type='button' value='$v1' /></td>
+        <td><input id='c6-1' category='$c6' class='boardButton' type='button' value='$v1' /></td>
       </tr>
 
       <tr id='200'>
-        <td><input id='c1-2' class='boardButton' type='button' value='$v2' /></td>
+        <td><input id='c1-2' category='$c1' class='boardButton' type='button' value='$v2' /></td>
 
-        <td><input id='c2-2' class='boardButton' type='button' value='$v2' /></td>
+        <td><input id='c2-2' category='$c2' class='boardButton' type='button' value='$v2' /></td>
 
-        <td><input id='c3-2' class='boardButton' type='button' value='$v2' /></td>
+        <td><input id='c3-2' category='$c3' class='boardButton' type='button' value='$v2' /></td>
 
-        <td><input id='c4-2' class='boardButton' type='button' value='$v2' /></td>
+        <td><input id='c4-2' category='$c4' class='boardButton' type='button' value='$v2' /></td>
 
-        <td><input id='c5-2' class='boardButton' type='button' value='$v2' /></td>
+        <td><input id='c5-2' category='$c5' class='boardButton' type='button' value='$v2' /></td>
 
-        <td><input id='c6-2' class='boardButton' type='button' value='$v2' /></td>
+        <td><input id='c6-2' category='$c6' class='boardButton' type='button' value='$v2' /></td>
       </tr>
 
       <tr id='300'>
-        <td><input id='c1-3' class='boardButton' type='button' value='$v3' /></td>
+        <td><input id='c1-3' category='$c1' class='boardButton' type='button' value='$v3' /></td>
 
-        <td><input id='c2-3' class='boardButton' type='button' value='$v3' /></td>
+        <td><input id='c2-3' category='$c2' class='boardButton' type='button' value='$v3' /></td>
 
-        <td><input id='c3-3' class='boardButton' type='button' value='$v3' /></td>
+        <td><input id='c3-3' category='$c3' class='boardButton' type='button' value='$v3' /></td>
 
-        <td><input id='c4-3' class='boardButton' type='button' value='$v3' /></td>
+        <td><input id='c4-3' category='$c4' class='boardButton' type='button' value='$v3' /></td>
 
-        <td><input id='c5-3' class='boardButton' type='button' value='$v3' /></td>
+        <td><input id='c5-3' category='$c5' class='boardButton' type='button' value='$v3' /></td>
 
-        <td><input id='c6-3' class='boardButton' type='button' value='$v3' /></td>
+        <td><input id='c6-3' category='$c6' class='boardButton' type='button' value='$v3' /></td>
       </tr>
 
       <tr id='400'>
-        <td><input id='c1-4' class='boardButton' type='button' value='$v4' /></td>
+        <td><input id='c1-4' category='$c1' class='boardButton' type='button' value='$v4' /></td>
 
-        <td><input id='c2-4' class='boardButton' type='button' value='$v4' /></td>
+        <td><input id='c2-4' category='$c2' class='boardButton' type='button' value='$v4' /></td>
 
-        <td><input id='c3-4' class='boardButton' type='button' value='$v4' /></td>
+        <td><input id='c3-4' category='$c3' class='boardButton' type='button' value='$v4' /></td>
 
-        <td><input id='c4-4' class='boardButton' type='button' value='$v4' /></td>
+        <td><input id='c4-4' category='$c4' class='boardButton' type='button' value='$v4' /></td>
 
-        <td><input id='c5-4' class='boardButton' type='button' value='$v4' /></td>
+        <td><input id='c5-4' category='$c5' class='boardButton' type='button' value='$v4' /></td>
 
-        <td><input id='c6-4' class='boardButton' type='button' value='$v4' /></td>
+        <td><input id='c6-4' category='$c6' class='boardButton' type='button' value='$v4' /></td>
       </tr>
 
       <tr id='500'>
-        <td><input id='c1-5' class='boardButton' type='button' value='$v5' /></td>
+        <td><input id='c1-5' category='$c1' class='boardButton' type='button' value='$v5' /></td>
 
-        <td><input id='c2-5' class='boardButton' type='button' value='$v5' /></td>
+        <td><input id='c2-5' category='$c2' class='boardButton' type='button' value='$v5' /></td>
 
-        <td><input id='c3-5' class='boardButton' type='button' value='$v5' /></td>
+        <td><input id='c3-5' category='$c3' class='boardButton' type='button' value='$v5' /></td>
 
-        <td><input id='c4-5' class='boardButton' type='button' value='$v5' /></td>
+        <td><input id='c4-5' category='$c4' class='boardButton' type='button' value='$v5' /></td>
 
-        <td><input id='c5-5' class='boardButton' type='button' value='$v5' /></td>
+        <td><input id='c5-5' category='$c5' class='boardButton' type='button' value='$v5' /></td>
 
-        <td><input id='c6-5' class='boardButton' type='button' value='$v5' /></td>
+        <td><input id='c6-5' category='$c6' class='boardButton' type='button' value='$v5' /></td>
       </tr>
     </table>
   </div>

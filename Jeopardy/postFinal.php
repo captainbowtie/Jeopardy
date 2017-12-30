@@ -21,20 +21,28 @@ session_start();
 
 require_once "privileges.php";
 
-$status = json_decode(file_get_contents("status.json"), true);
+if ($isAdmin) {
+    //Set variables
+    $playerId = $_POST["playerId"];
+    $isCorrect = $_POST["isCorrect"];
 
-if ($status["status"] == finalJeopardy) {
+    //Get score and wager
+    $wagerQuery = "SELECT score,finalWager FROM users WHERE id = $playerId";
     $db = new mysqli(host, username, passwd, dbname);
-    $wager = $_POST["wager"];
-    $playerId = $_SESSION["id"];
-    $wagerQuery = "UPDATE users SET finalWager = $wager WHERE id = $playerId";
-    $db->query($wagerQuery);
-    
-    
-} else {
-    if ($status["dailyDouble"]["player"] == $_SESSION["id"] && $status["dailyDouble"]["wager"] == 0) {
-        $status["dailyDouble"]["wager"] = $_POST["wager"];
-        file_put_contents("status.json", json_encode($status), LOCK_EX);
-    }
-}
+    $wagerResult = $db->query($wagerQuery);
+    $wagerResult->data_seek(0);
+    $wagerRow = $wagerResult->fetch_array(MYSQLI_NUM);
+    $oldScore = $wagerRow[0];
+    $wager = $wagerRow[1];
 
+    //Set new score
+    if ($isCorrect) {
+        $newScore = $oldScore + $wager;
+    } else {
+        $newScore = $oldScore - $wager;
+    }
+
+    //Write score to database
+    $scoreQuery = "UPDATE users SET score = $newScore WHERE id = $playerId";
+    $db->query($scoreQuery);
+}

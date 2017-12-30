@@ -34,7 +34,7 @@ function gameBoardRefresh() {
 //AJAX to set values of game board
 
     $.ajax({
-        url: "/status.json",
+        url: "/getStatus.php",
         dataType: "json",
         success: function (status) {
             switch (status["status"]) {
@@ -56,12 +56,22 @@ function gameBoardRefresh() {
                             success: function (question) {
                                 $("#displayDiv").html(question);
                                 $("#displayDiv").attr("content", "question");
-                                if(question.indexOf("DAILY DOUBLE")== -1){
+                                if (question.indexOf("DAILY DOUBLE") == -1) {
                                     questionDisplayed = true;
                                 }
                             }
                         });
                     }
+                    break;
+                case "finalJeopardy":
+                    $.ajax({
+                        url: "/finalJeopardy.php",
+                        dataType: "html",
+                        success: function (finalJeopardy) {
+                            $("#displayDiv").html(finalJeopardy);
+                            $("#displayDiv").attr("content", "finalJeopardy");
+                        }
+                    });
                     break;
             }
             if (status["buzzStatus"] > 0) {

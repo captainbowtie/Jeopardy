@@ -17,8 +17,11 @@
 
 setInterval(checkStatus, 1000);
 
+var finalJeopardyIndicator = "#comp2";
+
 function checkStatus() {
-    $.getJSON("status.json", function (status) {
+    $.get("getStatus.php", function (statusString) {
+        var status = $.parseJSON(statusString);
         if (status["status"] == "question") {
             $.get("getQA.php", function (qa) {
                 var question = $.parseJSON(qa);
@@ -48,6 +51,9 @@ function checkStatus() {
                 $("#comp" + a).css("background-color", "white");
             }
         }
+        if (status["status"] == "finalJeopardy") {
+            $(finalJeopardyIndicator).css("background-color", "green");
+        }
     });
     $.ajax({
         url: "/getScore.php",
@@ -61,14 +67,16 @@ function checkStatus() {
 }
 
 $(".boardButton").click(function () {
-    var cat = this.id.substring(1, 2);
+    var cat = $(this).attr("category");
     var val = this.value;
-    $.getJSON("status.json", function (status) {
+    $.get("getStatus.php", function (statusString) {
+        var status = $.parseJSON(statusString);
         status["status"] = "question";
         status["category"] = cat;
         status["value"] = val;
         status["buzzStatus"] = -2;
-        var postData = "data="+JSON.stringify(status);
+        var postData = "data=" + JSON.stringify(status);
+        console.log(postData);
         $.ajax({
             data: postData,
             url: "/postStatus.php",
@@ -81,8 +89,9 @@ $(".boardButton").click(function () {
 });
 
 $("#correct").click(function () {
-    $.getJSON("status.json", function (status) {
-        if (status["buzzStatus"] == -2) {
+    $.get("getStatus.php", function (statusString) {
+        var status = $.parseJSON(statusString);
+        if (status["status"] == "question" && status["buzzStatus"] == -2) {
             status["buzzStatus"] = -1;
             var postData = "data=" + JSON.stringify(status);
             console.log(postData)
@@ -94,7 +103,7 @@ $("#correct").click(function () {
 
                 }
             });
-        } else {
+        } else if (status["status"] == "question" && status["buzzStatus"] > 1) {
             $.ajax({
                 data: "correct=1",
                 type: "POST",
@@ -103,17 +112,46 @@ $("#correct").click(function () {
 
                 }
             });
+        } else if (status["status"] == "finalJeopardy") {
+            finalJeopardy(1);
         }
     });
 });
 
 $("#wrong").click(function () {
+    $.get("getStatus.php", function (statusString) {
+        var status = $.parseJSON(statusString);
+        if (status["status"] == "question") {
+            $.ajax({
+                data: "correct=0",
+                type: "POST",
+                url: "postAnswer.php",
+                success: function () {
+
+                }
+            });
+        } else if (status["status"] == "finalJeopardy") {
+            finalJeopardy(0);
+        }
+    });
+
+});
+
+function finalJeopardy(isCorrect) {
+    var playerId = finalJeopardyIndicator.substring(5);
+    var postData;
+    postData["playerId"] = playerId;
+    postData["isCorrect"] = isCorrect;
     $.ajax({
-        data: "correct=0",
+        data: postData,
         type: "POST",
-        url: "postAnswer.php",
+        url: "postFinal.php",
         success: function () {
 
         }
     });
-});
+    $(finalJeopardyIndicator).css("background-color", "white");
+    playerId++;
+    finalJeopardyIndicator = "#comp" + playerId;
+    $(finalJeopardyIndicator).css("background-color", "green");
+}
