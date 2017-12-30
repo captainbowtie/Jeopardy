@@ -239,10 +239,10 @@ _END;
     $caleb = $score[0];
     $scoreResult->data_seek(1);
     $score = $scoreResult->fetch_array(MYSQLI_NUM);
-    $sophia = $score[0];
+    $bri = $score[0];
     $scoreResult->data_seek(2);
     $score = $scoreResult->fetch_array(MYSQLI_NUM);
-    $bri = $score[0];
+    $sophia = $score[0];
     $scoreResult->data_seek(3);
     $score = $scoreResult->fetch_array(MYSQLI_NUM);
     $reilly = $score[0];
@@ -277,19 +277,19 @@ _END;
       </tr>
 
       <tr>
-        <td><input id='score2' type='button' value='$caleb'></td>
+        <td><input id='score2' class='scoreButton' type='button' value='$caleb'></td>
 
-        <td><input id='score3' type='button' value='$bri'></td>
+        <td><input id='score3' class='scoreButton' type='button' value='$bri'></td>
 
-        <td><input id='score4' type='button' value='$sophia'></td>
+        <td><input id='score4' class='scoreButton' type='button' value='$sophia'></td>
 
-        <td><input id='score5' type='button' value='$reilly'></td>
+        <td><input id='score5' class='scoreButton' type='button' value='$reilly'></td>
 
-        <td><input id='score6' type='button' value='$katie'></td>
+        <td><input id='score6' class='scoreButton' type='button' value='$katie'></td>
 
-        <td><input id='score7' type='button' value='$abby'></td>
+        <td><input id='score7' class='scoreButton' type='button' value='$abby'></td>
 
-        <td><input id='score8' type='button' value='$lilly'></td>
+        <td><input id='score8' class='scoreButton' type='button' value='$lilly'></td>
       </tr>
     </table>
   </div>

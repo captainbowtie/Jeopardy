@@ -88,6 +88,22 @@ $(".boardButton").click(function () {
     });
 });
 
+$(".scoreButton").click(function(){
+    var playerName = $("#comp" + this.id.substring(5)).html();
+    var newScore = prompt("Change "+ playerName + "'s score to:", this.value);
+    if(newScore !== null){
+        var postData = "playerId="+this.id.substring(5)+"&score="+newScore;
+        $.ajax({
+                data: postData,
+                type: "POST",
+                url: "postScore.php",
+                success: function () {
+
+                }
+            });
+    }
+});
+
 $("#correct").click(function () {
     $.get("getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
