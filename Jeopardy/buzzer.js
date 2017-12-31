@@ -46,9 +46,11 @@ $("#buzzer").click(function () {
 
         //color button red for 1.5 seconds
         $("#buzzer").css("background-color", "red");
+        $("#buzzer").prop("disabled",true);
         var buttonColorTimer = setTimeout(function () {
             $("#buzzer").css("background-color", "green");
-        }, 1500);
+            $("#buzzer").prop("disabled",false);
+        }, 800);
     }else{
         //Post bid
         var postData = "wager=" + $("#bid").val();

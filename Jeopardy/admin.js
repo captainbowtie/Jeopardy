@@ -19,6 +19,8 @@ setInterval(checkStatus, 1000);
 
 var finalJeopardyIndicator = "#comp2";
 
+var preLagTestState = "gameboard";
+
 function checkStatus() {
     $.get("getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
@@ -88,19 +90,19 @@ $(".boardButton").click(function () {
     });
 });
 
-$(".scoreButton").click(function(){
+$(".scoreButton").click(function () {
     var playerName = $("#comp" + this.id.substring(5)).html();
-    var newScore = prompt("Change "+ playerName + "'s score to:", this.value);
-    if(newScore !== null){
-        var postData = "playerId="+this.id.substring(5)+"&score="+newScore;
+    var newScore = prompt("Change " + playerName + "'s score to:", this.value);
+    if (newScore !== null) {
+        var postData = "playerId=" + this.id.substring(5) + "&score=" + newScore;
         $.ajax({
-                data: postData,
-                type: "POST",
-                url: "postScore.php",
-                success: function () {
+            data: postData,
+            type: "POST",
+            url: "postScore.php",
+            success: function () {
 
-                }
-            });
+            }
+        });
     }
 });
 
@@ -166,6 +168,36 @@ $("#wrong").click(function () {
         }
     });
 
+});
+
+$("#lag").click(function () {
+    $.get("getStatus.php", function (statusString) {
+        var status = $.parseJSON(statusString);
+        if (status["status"] == "lag") {
+            status["status"] = preLagTestState;
+            var postData = "data=" + JSON.stringify(status);
+            $.ajax({
+                data: postData,
+                url: "/postStatus.php",
+                type: "POST",
+                success: function () {
+                    $.get("getStatus.php");
+                }
+            });
+        } else {
+            preLagTestState = status["status"];
+            status["status"] = "lag";
+            var postData = "data=" + JSON.stringify(status);
+            $.ajax({
+                data: postData,
+                url: "/postStatus.php",
+                type: "POST",
+                success: function () {
+
+                }
+            });
+        }
+    });
 });
 
 function finalJeopardy(isCorrect) {

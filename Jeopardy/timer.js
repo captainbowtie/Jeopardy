@@ -28,6 +28,11 @@ setInterval(function () {
         dataType: "json",
         success: function (data) {
             if (data["buzzStatus"] == -1 && !timerStarted) {
+                $(".five").css("color", "white");
+                $(".four").css("color", "white");
+                $(".three").css("color", "white");
+                $(".two").css("color", "white");
+                $(".one").css("color", "white");
                 timerStarted = true;
                 time5 = setTimeout(five, 1000);
                 time4 = setTimeout(four, 2000);
@@ -40,11 +45,11 @@ setInterval(function () {
                 clearTimeout(time3);
                 clearTimeout(time4);
                 clearTimeout(time5);
-                $(".five").css("color", "white");
-                $(".four").css("color", "white");
-                $(".three").css("color", "white");
-                $(".two").css("color", "white");
-                $(".one").css("color", "white");
+                $(".five").css("color", "blue");
+                $(".four").css("color", "blue");
+                $(".three").css("color", "blue");
+                $(".two").css("color", "blue");
+                $(".one").css("color", "blue");
                 timerStarted = false;
             }
         }
@@ -69,7 +74,6 @@ function two() {
 
 function one() {
     $(".one").css("color", "red");
-    timerStarted = false;
     //Disable buzzing after timer has expired
     $.get("getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
@@ -81,7 +85,7 @@ function one() {
                 url: "/postStatus.php",
                 type: "POST",
                 success: function () {
-
+                    timerStarted = false;
                 }
             });
         }
