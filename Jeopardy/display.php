@@ -25,7 +25,7 @@ echo<<<_END
     <head>
         <meta charset="UTF-8">
         <title></title>
-        <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+        <script src='jquery-3.2.1.min.js'></script>
 	<script src='display.js'></script>
 <link rel="Stylesheet" href="display.css" type="text/css" />
     </head>
