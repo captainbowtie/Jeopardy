@@ -33,7 +33,7 @@ $("#buzzer").click(function () {
     if ($("#buzzer").attr("value") == "Buzz In") {
         //Post buzz-in time
         var date = new Date();
-        var time = date.getTime() /*- 1515386389999*/;
+        var time = date.getTime() - 1515270000000;
         var postData = "time=" + time;
         $.ajax({
             data: postData,

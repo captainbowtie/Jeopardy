@@ -44,6 +44,7 @@ if ($status["buzzStatus"] > -2 && $status["buzzStatus"] < 1 && ($answerResult->n
     file_put_contents("status.json", json_encode($status), LOCK_EX);
 } else if ($status["status"] == "lag"){
     $lagQuery = "INSERT INTO lag(playerId, time) VALUES('$id','$time')";
+    $db->query($lagQuery);
 }
 
 

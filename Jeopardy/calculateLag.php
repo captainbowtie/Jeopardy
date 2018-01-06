@@ -26,55 +26,38 @@ if ($isAdmin) {
     $lagQuery = "SELECT playerId,time FROM lag ORDER BY time";
     $lagResult = $db->query($lagQuery);
     $lagTrials = ($lagResult->num_rows) / 7;
-    $lags = [[]];
-    //Go through all lags
-    for ($a = 0; $a < $lagTrials; $a++) {
-        //For each group of 7, subtract the smallest from the rest
-        $minLag = 0;
-        for ($b = 0; $b < 7; $b++) {
-            $lagResult->data_seek($a * 7 + $b);
-            $resultRow = $lagResult->fetch_array(MYSQLI_ASSOC);
-            $playerId = $resultRow["playerId"];
-            $time = $resultRow["time"];
-            $lags[$playerId][$a] = $time;
-            if ($b == 0) {
-                $minLag = $time;
+    if ($lagTrials >= 1) {
+        //Add up the individual lags for each player
+        $lags = [];
+        for($a = 2;$a<9;$a++){
+            $playerLagQuery = "SELECT time FROM lag WHERE playerId = $a";
+            $playerLagResult = $db->query($playerLagQuery);
+            $lags[$a] = 0;
+            for($b = 0;$b<$lagTrials;$b++){
+                $playerLagResult->data_seek($b);
+                $playerLag = $playerLagResult->fetch_array(MYSQLI_NUM);
+                $lags[$a] += $playerLag[0];
             }
         }
-
-        for ($b = 2; $b < 9; $b++) {
-            $lags[$b][$a] = $lags[$b][$a] - $minLag;
+        
+        //Find which player has the lowest total lag
+        $minLag = $lags[2];
+        for($a = 3;$a<9;$a++){
+            if($lags[$a]<$minLag){
+                $minLag = $lags[$a];
+            }
         }
-    }
-
-    //Calculate each player's average lag
-    $averageLags = [];
-    for ($a = 2; $a < 9; $a++) {
-        $averageLags[$a] = 0;
-        for ($b = 0; $b < $lagTrials; $b++) {
-            $averageLags[$a] += $lags[$a][$b];
+        
+        //Subtract mimimum lag from all lags, then divide by number of trials
+        for($a = 2;$a<9;$a++){
+            $lag = ($lags[$a]-$minLag)/$lagTrials;
+            $lagWriteQuery = "UPDATE buzzes SET lag = $lag WHERE id = $a";
+            $db->query($lagWriteQuery);
+            echo "$a: ".$lag."\n";
         }
-        $averageLags[$a] = $averageLags[$a] / $lagTrials;
+        
+        
     }
-
-    //Find minimum lag, then subtract minimum lag from all the others
-    //Find minimum
-    $minLag = $averageLags[2];
-    for ($a = 2; $a < 9; $a++) {
-        if ($averageLag[$a] < $minLag) {
-            $minLag = $averageLag[$a];
-        }
-    }
-    //Subtract it from others, and write to DB
-    for($a = 2;$a<9;$a++){
-        //Subtract
-        $lag = $averageLag[$a]-$minLag;
-        //Write
-        $lagQuery = "UPDATE buzzes SET lag = $lag WHERE id = $a";
-        $db->query($lagQuery);
-    }
-    
     //Delete all lag rows
-    $db->query("DELETE FROM buzzes WHERE 1 = 1");
-    
+    $db->query("DELETE FROM lag WHERE 1 = 1");
 }

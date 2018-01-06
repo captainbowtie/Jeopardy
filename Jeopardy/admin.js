@@ -181,7 +181,14 @@ $("#lag").click(function () {
                 url: "/postStatus.php",
                 type: "POST",
                 success: function () {
-                    $.get("getStatus.php");
+                    $("#lag").attr("value", "Enable Lag Testing");
+                    $.ajax({
+                        url: "/calculateLag.php",
+                        type: "GET",
+                        success: function () {
+
+                        }
+                    });
                 }
             });
         } else {
@@ -193,7 +200,7 @@ $("#lag").click(function () {
                 url: "/postStatus.php",
                 type: "POST",
                 success: function () {
-
+                    $("#lag").attr("value", "Disable Lag Testing");
                 }
             });
         }
