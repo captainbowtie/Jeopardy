@@ -26,7 +26,7 @@ echo<<<_END
     <head>
         <meta charset="UTF-8">
         <title></title>
-        <script src='jquery-3.2.1.min.js'></script>
+        <script src='jquery-3.3.1.min.js'></script>
 <link rel="Stylesheet" href="buzzer.css" type="text/css" />
     </head>
 _END;
