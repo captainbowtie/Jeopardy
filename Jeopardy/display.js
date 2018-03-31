@@ -17,7 +17,14 @@
 
 var questionDisplayed = false;
 
+var numberOfPlayers = 3;
+
 $(document).ready(function () {
+
+    $.get("getStatus.php", function (statusString) {
+        var status = $.parseJSON(statusString);
+        numberOfPlayers = status["players"];
+    });
 
 });
 
@@ -77,7 +84,7 @@ function gameBoardRefresh() {
             if (status["buzzStatus"] > 0) {
                 $("#comp" + status["buzzStatus"]).css("background-color", "white");
             } else {
-                for (var a = 2; a < 9; a++) {
+                for (var a = 2; a < numberOfPlayers + 2; a++) {
                     $("#comp" + a).css("background-color", "tan");
                 }
             }
@@ -93,7 +100,7 @@ function scoreRefresh() {
         url: "/getScore.php",
         dataType: "json",
         success: function (scores) {
-            for (var a = 2; a < 9; a++) {
+            for (var a = 2; a < numberOfPlayers+2; a++) {
                 $("#score" + a).html(scores[a]);
             }
         }

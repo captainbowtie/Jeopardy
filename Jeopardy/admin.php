@@ -27,7 +27,7 @@ echo "<!DOCTYPE html>\n";
 echo "<html lang='en'>\n";
 echo "<head>\n";
 echo "<title>Jeopardy: Admin</title>\n";
-echo "<script src='jquery-3.2.1.min.js'></script>";
+echo "<script src='jquery-3.3.1.min.js'></script>";
 echo "</head>\n";
 echo "<body>\n";
 if ($isAdmin) {
@@ -230,66 +230,39 @@ function boardAdmin() {
   </div>
 _END;
 
-    $scoreQuery = "SELECT score FROM users WHERE isAdmin=0";
+    $scoreQuery = "SELECT name,score FROM users WHERE isAdmin=0";
     $scoreResult = $db->query($scoreQuery);
 
 //Fill in score data
-    $scoreResult->data_seek(0);
-    $score = $scoreResult->fetch_array(MYSQLI_NUM);
-    $caleb = $score[0];
-    $scoreResult->data_seek(1);
-    $score = $scoreResult->fetch_array(MYSQLI_NUM);
-    $bri = $score[0];
-    $scoreResult->data_seek(2);
-    $score = $scoreResult->fetch_array(MYSQLI_NUM);
-    $sophia = $score[0];
-    $scoreResult->data_seek(3);
-    $score = $scoreResult->fetch_array(MYSQLI_NUM);
-    $reilly = $score[0];
-    $scoreResult->data_seek(4);
-    $score = $scoreResult->fetch_array(MYSQLI_NUM);
-    $katie = $score[0];
-    $scoreResult->data_seek(5);
-    $score = $scoreResult->fetch_array(MYSQLI_NUM);
-    $abby = $score[0];
-    $scoreResult->data_seek(6);
-    $score = $scoreResult->fetch_array(MYSQLI_NUM);
-    $lilly = $score[0];
+
+    $scores = [];
+
+    for ($a = 0; $a < $scoreResult->num_rows; $a++) {
+        $scoreResult->data_seek($a);
+        $score = $scoreResult->fetch_array(MYSQLI_NUM);
+        $scores[$a]["name"] = $score[0];
+        $scores[$a]["score"] = $score[1];
+    }
 
 
     echo<<<_END
 <div>
     <table id='scores'>
       <tr>
-        <td id="comp2" class='competitor'>Caleb</td>
+_END;
 
-        <td id="comp3" class='competitor'>Bri</td>
-
-        <td id="comp4" class='competitor'>Sophia</td>
-
-        <td id="comp5" class='competitor'>Reilly</td>
-
-        <td id="comp6" class='competitor'>Katie</td>
-
-        <td id="comp7" class='competitor'>Abby</td>
-
-        <td id="comp8" class='competitor'>Lilly</td>
+    for ($a = 0; $a < $scoreResult->num_rows; $a++) {
+        echo "<td id='comp" . (a + 2) . "' class='competitor'>" . scores[$a]["name"] . "</td>\n";
+    }
+    echo<<<_END
       </tr>
 
       <tr>
-        <td><input id='score2' class='scoreButton' type='button' value='$caleb'></td>
-
-        <td><input id='score3' class='scoreButton' type='button' value='$bri'></td>
-
-        <td><input id='score4' class='scoreButton' type='button' value='$sophia'></td>
-
-        <td><input id='score5' class='scoreButton' type='button' value='$reilly'></td>
-
-        <td><input id='score6' class='scoreButton' type='button' value='$katie'></td>
-
-        <td><input id='score7' class='scoreButton' type='button' value='$abby'></td>
-
-        <td><input id='score8' class='scoreButton' type='button' value='$lilly'></td>
+_END;
+    for ($a = 0; $a < $scoreResult->num_rows; $a++) {
+        echo "<td><input id='score" . (a + 2) . "' class='scoreButton' type='button' value='" . scores[$a]["score"] . "'></td>\n";
+    }
+    echo<<<_END
       </tr>
     </table>
   </div>

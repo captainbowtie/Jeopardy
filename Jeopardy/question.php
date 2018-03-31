@@ -36,8 +36,8 @@ $question = $questionResult->fetch_array(MYSQLI_ASSOC);
 
 if (!$question["isDailyDouble"] == 0 && $status["dailyDouble"]["wager"] < 1) {
     echo "<div id='question'>\n";
-    echo "DAILY DOUBLE";
-    echo "\n</div>";
+    echo "DAILY DOUBLE\n";
+    echo "</div>";
     if ($status["dailyDouble"]["wager"] == -1) {
         $status["dailyDouble"]["wager"] = 0;
         file_put_contents("status.json", json_encode($status), LOCK_EX);

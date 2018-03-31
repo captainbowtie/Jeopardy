@@ -23,13 +23,18 @@ require_once 'privileges.php';
 
 if ($isAdmin) {
     $db = new mysqli(host, username, passwd, dbname);
+    
+    //Determine number of players
+    $playersQuery = "SELECT id FROM users WHERE isAdmin=0";
+    $playersResult = $db->query($playersQuery);
+    
     $lagQuery = "SELECT playerId,time FROM lag ORDER BY time";
     $lagResult = $db->query($lagQuery);
-    $lagTrials = ($lagResult->num_rows) / 7;
+    $lagTrials = ($lagResult->num_rows) / ($playersResult->num_rows);
     if ($lagTrials >= 1) {
         //Add up the individual lags for each player
         $lags = [];
-        for($a = 2;$a<9;$a++){
+        for($a = 2;$a<($playersResult->num_rows+2);$a++){
             $playerLagQuery = "SELECT time FROM lag WHERE playerId = $a";
             $playerLagResult = $db->query($playerLagQuery);
             $lags[$a] = 0;
@@ -42,14 +47,14 @@ if ($isAdmin) {
         
         //Find which player has the lowest total lag
         $minLag = $lags[2];
-        for($a = 3;$a<9;$a++){
+        for($a = 3;$a<($playersResult->num_rows+2);$a++){
             if($lags[$a]<$minLag){
                 $minLag = $lags[$a];
             }
         }
         
         //Subtract mimimum lag from all lags, then divide by number of trials
-        for($a = 2;$a<9;$a++){
+        for($a = 2;$a<($playersResult->num_rows+2);$a++){
             $lag = ($lags[$a]-$minLag)/$lagTrials;
             $lagWriteQuery = "UPDATE buzzes SET lag = $lag WHERE id = $a";
             $db->query($lagWriteQuery);

@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2017 allen
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,52 +22,35 @@ require_once "privileges.php";
 $db = new mysqli(host, username, passwd, dbname);
 
 //Fetch scores
-$scoreQuery = "SELECT score FROM users WHERE isAdmin=0";
+$scoreQuery = "SELECT id,name,score FROM users WHERE isAdmin=0";
 $scoreResult = $db->query($scoreQuery);
 
 //Fill in score data
-$scoreResult->data_seek(0);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$caleb = $score[0];
-$scoreResult->data_seek(1);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$bri = $score[0];
-$scoreResult->data_seek(2);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$sophia = $score[0];
-$scoreResult->data_seek(3);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$reilly = $score[0];
-$scoreResult->data_seek(4);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$katie = $score[0];
-$scoreResult->data_seek(5);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$abby = $score[0];
-$scoreResult->data_seek(6);
-$score = $scoreResult->fetch_array(MYSQLI_NUM);
-$lilly = $score[0];
+$scores = [];
 
+for ($a = 0; $a < $scoreResult->num_rows; $a++) {
+    $scoreResult->data_seek($a);
+    $score = $scoreResult->fetch_array(MYSQLI_ASSOC);
+    $scores[$a]["id"] = $score["id"];
+    $scores[$a]["name"] = $score["name"];
+    $scores[$a]["score"] = $score["score"];
+}
 
 echo<<<_END
 <table id='scores'>
 <tr>
-<td id='comp2' class='competitor'>Caleb</td>
-<td id='comp3' class='competitor'>Bri</td>
-<td id='comp4' class='competitor'>Sophia</td>
-<td id='comp5' class='competitor'>Reilly</td>
-<td id='comp6' class='competitor'>Katie</td>
-<td id='comp7' class='competitor'>Abby</td>
-<td id='comp8' class='competitor'>Lilly</td>
+_END;
+for ($a = 0; $a < $scoreResult->num_rows; $a++) {
+    echo "<td id='comp" . $scores[$a]["id"] . "' class='competitor'>" . $scores[$a]["name"] . "</td>\n";
+}
+echo<<<_END
 </tr>
 <tr>
-<td id='score2' class='score'>$caleb</td>
-<td id='score3' class='score'>$bri</td>
-<td id='score4' class='score'>$sophia</td>
-<td id='score5' class='score'>$reilly</td>
-<td id='score6' class='score'>$katie</td>
-<td id='score7' class='score'>$abby</td>
-<td id='score8' class='score'>$lilly</td>
+_END;
+for ($a = 0; $a < $scoreResult->num_rows; $a++) {
+    echo "<td id='score" . $scores[$a]["id"] . "' class='score'>" . $scores[$a]["score"] . "</td>\n";
+}
+echo<<<_END
 </tr>
 </table>
 _END;

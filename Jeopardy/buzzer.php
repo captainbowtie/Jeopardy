@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2017 allen
  *
  * This program is free software: you can redistribute it and/or modify
@@ -31,29 +31,31 @@ echo<<<_END
     </head>
 _END;
 
-if(!isset($_SESSION['id'])){
+$db = new mysqli(host, username, passwd, dbname);
+
+if (!isset($_SESSION['id'])) {
     echo<<<_END
     <body>
-    <input type="button" class="idButton" id="b2" value="Caleb">
-    <input type="button" class="idButton" id="b3" value="Bri">
-    <input type="button" class="idButton" id="b4" value="Sophia">
-    <input type="button" class="idButton" id="b5" value="Reilly">
-    <input type="button" class="idButton" id="b6" value="Katie">
-    <input type="button" class="idButton" id="b7" value="Abby">
-    <input type="button" class="idButton" id="b8" value="Lilly">
+_END;
+    $nameQuery = "SELECT id,name FROM users WHERE isAdmin=0";
+    $nameResult = $db->query($nameQuery);
+    for ($a = 0; $nameResult->num_rows; $a++) {
+        $nameResult->data_seek($a);
+        $name = $nameResult->fetch_array(MYSQLI_ASSOC);
+        echo "<input type='button' class='idButton' id='b" . $name["id"] . "' value='" . $name["name"] . "'>\n";
+    }
+    echo<<<_END
     <script src='buzzer.js'></script>
     </body>
 _END;
-    
-}else{
+} else {
     $id = $_SESSION['id'];
-    $db = new mysqli(host, username, passwd, dbname);
     $userQuery = "SELECT name FROM users WHERE id=$id";
     $userResult = $db->query($userQuery);
     $user = $userResult->fetch_array(MYSQLI_ASSOC);
     $name = $user['name'];
-    
-echo<<<_END
+
+    echo<<<_END
     <body>
 <div id="name">
   $name

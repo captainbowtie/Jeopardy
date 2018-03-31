@@ -32,13 +32,14 @@ if ($id > 1) {
     echo $score[0];
 } else {
     $scoreQuery = "SELECT id,score FROM users WHERE id>1";
+    $scoreResult = $db->query($scoreQuery);
     $return = "{";
-    for ($a = 2; $a < 9; $a++) {
-        $scoreResult = $db->query($scoreQuery);
-        $scoreResult->data_seek($a-2);
+    for ($a = 0; $a < $scoreResult->num_rows; $a++) {
+        
+        $scoreResult->data_seek($a);
         $score = $scoreResult->fetch_array(MYSQLI_NUM);
         $return = $return.'"'.$score[0].'":'.$score[1];
-        if($a!=8){
+        if($a!=($scoreResult->num_rows-1)){
             $return = $return.",";
         }else{
             $return = $return."}";

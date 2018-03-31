@@ -17,9 +17,20 @@
 
 setInterval(checkStatus, 1000);
 
+var numberOfPlayers = 3;
+
 var finalJeopardyIndicator = "#comp2";
 
 var preLagTestState = "gameboard";
+
+$( document ).ready(function() {
+ 
+    $.get("getStatus.php", function (statusString) {
+        var status = $.parseJSON(statusString);
+        numberOfPlayers = status["players"];
+    });
+ 
+});
 
 function checkStatus() {
     $.get("getStatus.php", function (statusString) {
@@ -41,7 +52,7 @@ function checkStatus() {
                         });
                     }, 500);
                 } else if (status["buzzStatus"] < 0) {
-                    for (a = 2; a < 9; a++) {
+                    for (a = 2; a < numberOfPlayers; a++) {
                         $("#comp" + a).css("background-color", "white");
                     }
                 }
@@ -49,7 +60,7 @@ function checkStatus() {
         } else {
             $("#qDiv").html("Question: N/A");
             $("#aDiv").html("Answer: N/A");
-            for (a = 2; a < 9; a++) {
+            for (a = 2; a < numberOfPlayers; a++) {
                 $("#comp" + a).css("background-color", "white");
             }
         }
@@ -61,7 +72,7 @@ function checkStatus() {
         url: "/getScore.php",
         dataType: "json",
         success: function (scores) {
-            for (var a = 2; a < 9; a++) {
+            for (var a = 2; a < numberOfPlayers; a++) {
                 $("#score" + a).attr("value", scores[a]);
             }
         }
