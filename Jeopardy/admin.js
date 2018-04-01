@@ -41,7 +41,9 @@ function checkStatus() {
                 $("#qDiv").html("Question: " + question["question"]);
                 $("#aDiv").html("Answer: " + question["answer"]);
                 if (status["buzzStatus"] == 0) {
-                    setTimeout(function () {
+                    //setTimeout(function () {  Not sure why this was set on a timer loop
+                    //Commented out loop on theory it's not needed
+                    //If stuff gets broken, then uncomment
                         $.ajax({
                             url: "/getBuzz.php",
                             dataType: "text",
@@ -50,7 +52,7 @@ function checkStatus() {
                                 $("#comp" + buzzWinner).css("background-color", "green");
                             }
                         });
-                    }, 500);
+                    //}, 500);  Uncomment this too
                 } else if (status["buzzStatus"] < 0) {
                     for (a = 2; a < numberOfPlayers; a++) {
                         $("#comp" + a).css("background-color", "white");
