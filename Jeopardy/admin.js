@@ -25,9 +25,8 @@ var preLagTestState = "gameboard";
 
 $( document ).ready(function() {
  
-    $.get("getStatus.php", function (statusString) {
-        var status = $.parseJSON(statusString);
-        numberOfPlayers = status["players"];
+    $.get("getNumberPlayers.php", function (number) {
+        numberOfPlayers = number;
     });
  
 });
