@@ -235,7 +235,7 @@ _END;
 
 //Fill in score data
 
-    $scores = [];
+    $scores = null;
 
     for ($a = 0; $a < $scoreResult->num_rows; $a++) {
         $scoreResult->data_seek($a);
@@ -252,7 +252,7 @@ _END;
 _END;
 
     for ($a = 0; $a < $scoreResult->num_rows; $a++) {
-        echo "<td id='comp" . (a + 2) . "' class='competitor'>" . scores[$a]["name"] . "</td>\n";
+        echo "<td id='comp" . ($a + 2) . "' class='competitor'>" . $scores[$a]["name"] . "</td>\n";
     }
     echo<<<_END
       </tr>
@@ -260,7 +260,7 @@ _END;
       <tr>
 _END;
     for ($a = 0; $a < $scoreResult->num_rows; $a++) {
-        echo "<td><input id='score" . (a + 2) . "' class='scoreButton' type='button' value='" . scores[$a]["score"] . "'></td>\n";
+        echo "<td><input id='score" . ($a + 2) . "' class='scoreButton' type='button' value='" . $scores[$a]["score"] . "'></td>\n";
     }
     echo<<<_END
       </tr>
