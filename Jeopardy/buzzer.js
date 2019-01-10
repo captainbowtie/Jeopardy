@@ -32,18 +32,12 @@ $(".idButton").click(function () {
 $("#buzzer").click(function () {
     if ($("#buzzer").attr("value") == "Buzz In") {
         //Post buzz-in time
-        var date = new Date();
-        var time = date.getTime() - 1515270000000;
-        var postData = "time=" + time;
+        var postData = "b=1";
         $.ajax({
             data: postData,
             url: "/postBuzz.php",
             type: "POST",
             success: function () {
-
-            }
-        });
-
         //color button red for 1.5 seconds
         $("#buzzer").css("background-color", "red");
         $("#buzzer").prop("disabled",true);
@@ -51,6 +45,9 @@ $("#buzzer").click(function () {
             $("#buzzer").css("background-color", "green");
             $("#buzzer").prop("disabled",false);
         }, 800);
+            }
+        });
+        
     }else{
         //Post bid
         var postData = "wager=" + $("#bid").val();
