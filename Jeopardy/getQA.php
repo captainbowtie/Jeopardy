@@ -18,12 +18,16 @@
  */
 
 require_once("privileges.php");
-
 $db = new mysqli(host, username, passwd, dbname);
-$json = json_decode(file_get_contents("status.json"), true);
 
-$category = $json["category"];
-$value = $json["value"];
+//Get status
+$statusResult = $db->$query("SELECT * FROM status");
+$statusResult->data_seek(0);
+$status = $statusResult->fetch_array(MYSQLI_ASSOC);
+
+//Read category and value from status
+$category = $status["category"];
+$value = $status["value"];
 
 
 $questionQuery = "SELECT question,answer,isDailyDouble FROM questions WHERE category=$category && value=$value";

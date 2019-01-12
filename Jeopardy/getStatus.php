@@ -17,5 +17,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$status = file_get_contents("status.json");
+//Connect to database
+require_once("privileges.php");
+$db = new mysqli(host, username, passwd, dbname);
+
+//Read status from database
+$statusResult = $db->$query("SELECT * FROM status");
+$statusResult->data_seek(0);
+$status = $statusResult->fetch_array(MYSQLI_ASSOC);
+
+//Write status as string
+//{"status":"gameboard","category":"2","value":"400","buzzStatus":-2,"dailyDouble":{"player":"7","wager":-1}}
+$status = '{"status":"'.$status["display"].
+        '","category":"'.$status["category"].
+        '","value":"'.$status["value"].
+        '","buzzStatus":'.$status["buzzStatus"].
+        ',"dailyDouble":{"player":"'.$status["dailyDoublePlayer"].
+        '","wager":'.$status["dailyDoubleWager"].
+        '}}';
+
 echo $status;

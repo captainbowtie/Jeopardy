@@ -28,9 +28,8 @@ if($isAdmin){
     $buzzResult->data_seek(0);
     $buzz = $buzzResult->fetch_array(MYSQLI_NUM);
     $buzzId = $buzz[0];
-    $json = json_decode(file_get_contents("status.json"), true);
-    $json["buzzStatus"] = $buzzId;
-    file_put_contents("status.json", json_encode($json), LOCK_EX);
+    $updateStatus = "UPDATE status SET buzzStatus = '$buzzId' WHERE 1=1";
+    $db->query($updateStatus);
     $buzzUpdate = "UPDATE buzzes SET answered=1 WHERE id=$buzzId";
     $db->query($buzzUpdate);
     echo $buzzId;

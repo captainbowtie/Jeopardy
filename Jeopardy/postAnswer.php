@@ -18,29 +18,35 @@
  */
 
 session_start();
-
 require_once "privileges.php";
 
 if ($isAdmin) {
-    $status = json_decode(file_get_contents("status.json"), true);
+    //Connect to database
     $db = new mysqli(host, username, passwd, dbname);
+
+    //Get status
+    $statusResult = $db->$query("SELECT * FROM status");
+    $statusResult->data_seek(0);
+    $status = $statusResult->fetch_array(MYSQLI_ASSOC);
+    //$status = json_decode(file_get_contents("status.json"), true);
+
     $playerId = $status["buzzStatus"];
     $getScoreQuery = "SELECT score FROM users WHERE id=$playerId";
     $scoreResult = $db->query($getScoreQuery);
     $scoreResult->data_seek(0);
     $scoreRow = $scoreResult->fetch_array(MYSQLI_NUM);
 
-    if ($status["dailyDouble"]["wager"] > 0) { //check if this is daily double
+    if ($status["dailyDoubleWager"] > 0) { //check if this is daily double
         if ($_POST["correct"] == 1) {
-            $newScore = $scoreRow[0] + $status["dailyDouble"]["wager"];
+            $newScore = $scoreRow[0] + $status["dailyDoubleWager"];
         } else {
-            $newScore = $scoreRow[0] - $status["dailyDouble"]["wager"];
+            $newScore = $scoreRow[0] - $status["dailyDoubleWager"];
         }
         resetForNextQuestion($db, $status);
     } else { //if it's not a daily double, then
         if ($_POST["correct"] == 1) {
             $newScore = $scoreRow[0] + $status["value"];
-            $status["dailyDouble"]["player"] = $playerId;
+            $status["dailyDoublePlayer"] = $playerId;
             resetForNextQuestion($db, $status);
         } else if ($_POST["correct"] == 0) {
             //DEDUCT points from user
@@ -54,7 +60,7 @@ if ($isAdmin) {
             } else {
                 resetForNextQuestion($db, $status);
             }
-        } else if($_POST["correct"] == -1){
+        } else if ($_POST["correct"] == -1) {
             resetForNextQuestion($db, $status);
         }
     }
