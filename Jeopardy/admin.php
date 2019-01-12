@@ -19,6 +19,7 @@
 session_start();
 
 require_once "privileges.php";
+require_once "createTables.php";
 
 //Check if tables exist, and if not, create them
 checkTables();
@@ -45,44 +46,7 @@ function checkTables() {
     $existResult = $db->query($existQuery);
     if (!($existResult->num_rows > 0)) {
 
-        //Drop any existing tables
-        $db->query("DROP TABLE categories");
-        $db->query("DROP TABLE questions");
-        $db->query("DROP TABLE users");
-
-        //Create querys to add tables
-        $categoryQuery = "CREATE TABLE categories("
-                . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
-                . "category VARCHAR(64) NOT NULL, "
-                . "isDouble BINARY(1) NOT NULL DEFAULT '0') "
-                . "ENGINE InnoDB";
-        $questionQuery = "CREATE TABLE questions("
-                . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
-                . "category TINYINT UNSIGNED NOT NULL, "
-                . "question VARCHAR(500) NOT NULL, "
-                . "answer VARCHAR(500) NOT NULL, "
-                . "value SMALLINT UNSIGNED NOT NULL, "
-                . "isDailyDouble BINARY(1) NOT NULL DEFAULT '0', "
-                . "hasBeenSelected BINARY(1) NOT NULL DEFAULT '0'"
-                . ") ENGINE InnoDB";
-        $userQuery = "CREATE TABLE users("
-                . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
-                . "name VARCHAR(64) NOT NULL DEFAULT 'Missing Name', "
-                . "password CHAR(128) NOT NULL, "
-                . "isAdmin BINARY(1) NOT NULL DEFAULT '0', "
-                . "score MEDIUMINT SIGNED NOT NULL DEFAULT '0') ENGINE InnoDB";
-
-        //Submit queries to create tables
-        $db->query($categoryQuery);
-        $db->query($questionQuery);
-        $db->query($userQuery);
-
-        //Populate admin user into table
-        $generateAdmin = "INSERT INTO users(name, password, isAdmin) "
-                . "VALUES('allen', "
-                . "'66746ad3c2025daae865c793d2becd6e6f5719e0e528adc0ae2f5228332702081a5f100f2bb3e6c56c7b7de872af0c3dc755b4673c2490e1bd7a7002565ebfe8', " //Whirlpool hash for 'mock'
-                . "'1')";
-        $db->query($generateAdmin);
+        createTables();
 
         //Reset session
         $_SESSION = array();
