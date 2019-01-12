@@ -30,12 +30,12 @@ function createTables() {
     $db->query("DROP TABLE users");
 
     //Create querys to add tables
-    $categoryQuery = "CREATE TABLE categories("
+    $categoryTable = "CREATE TABLE categories("
             . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
             . "category VARCHAR(64) NOT NULL, "
             . "isDouble BINARY(1) NOT NULL DEFAULT '0') "
             . "ENGINE InnoDB";
-    $questionQuery = "CREATE TABLE questions("
+    $questionTable = "CREATE TABLE questions("
             . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
             . "category TINYINT UNSIGNED NOT NULL, "
             . "question VARCHAR(500) NOT NULL, "
@@ -44,17 +44,42 @@ function createTables() {
             . "isDailyDouble BINARY(1) NOT NULL DEFAULT '0', "
             . "hasBeenSelected BINARY(1) NOT NULL DEFAULT '0'"
             . ") ENGINE InnoDB";
-    $userQuery = "CREATE TABLE users("
+    $userTable = "CREATE TABLE users("
             . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
             . "name VARCHAR(64) NOT NULL DEFAULT 'Missing Name', "
             . "password CHAR(128) NOT NULL, "
             . "isAdmin BINARY(1) NOT NULL DEFAULT '0', "
-            . "score MEDIUMINT SIGNED NOT NULL DEFAULT '0') ENGINE InnoDB";
+            . "score MEDIUMINT SIGNED NOT NULL DEFAULT '0', "
+            . "finalWager MEDIUMINT SIGNED NOT NULL DEFAULT '-1') "
+            . "ENGINE InnoDB";
+    $lagTable = "CREATE TABLE lag("
+            . "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
+            . "playerId TINYINT UNSIGNED NOT NULL, "
+            . "time BIGINT UNSIGNED NOT NULL) "
+            . "ENGINE InnoDB";
+    $buzzTable = "CREATE TABLE buzzes("
+            . "id TINYINT UNSIGNED NOT NULL KEY, "
+            . "lag BIGINT UNSIGNED NOT NULL DEFAULT '0', "
+            . "time BIGINT UNSIGNED NOT NULL DEFAULT '0', "
+            . "answered BINARY(1) NOT NULL DEFAULT '0') "
+            . "ENGINE InnoDB;";
+    $statusTable = "CREATE TABLE status("
+            . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
+            . "display VARCHAR(16) NOT NULL DEFAULT 'gameboard', "
+            . "category TINYINT UNSIGNED NOT NULL DEFAULT '1', "
+            . "value SMALLINT UNSIGNED NOT NULL DEFAULT '100', "
+            . "buzzStatus TINYINT SIGNED NOT NULL DEFAULT '-2', "
+            . "dailyDoublePlayer TINYINT UNSIGNED NOT NULL DEFAULT '2', "
+            . "dailyDoubleWager SMALLINT UNSIGNED NOT NULL DEFAULT '0') "
+            . "ENGINE InnoDB";
 
     //Submit queries to create tables
-    $db->query($categoryQuery);
-    $db->query($questionQuery);
-    $db->query($userQuery);
+    $db->query($categoryTable);
+    $db->query($questionTable);
+    $db->query($userTable);
+    $db->query($lagTable);
+    $db->query($buzzTable);
+    $db->query($statusTable);
 
     //Populate admin user into table
     $generateAdmin = "INSERT INTO users(name, password, isAdmin) "
