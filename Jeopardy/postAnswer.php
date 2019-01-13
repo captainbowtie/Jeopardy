@@ -28,7 +28,6 @@ if ($isAdmin) {
     $statusResult = $db->$query("SELECT * FROM status");
     $statusResult->data_seek(0);
     $status = $statusResult->fetch_array(MYSQLI_ASSOC);
-    //$status = json_decode(file_get_contents("status.json"), true);
 
     $playerId = $status["buzzStatus"];
     $getScoreQuery = "SELECT score FROM users WHERE id=$playerId";
@@ -56,7 +55,8 @@ if ($isAdmin) {
             $remainingResult = $db->query($remainingQuery);
             if ($remainingResult->num_rows > 0) {
                 $status["buzzStatus"] = -1;
-                file_put_contents("status.json", json_encode($status), LOCK_EX);
+                $updateStatus = "UPDATE status SET buzzStatus=-1 WHERE 1=1";
+                $db->query($updateStatus);
             } else {
                 resetForNextQuestion($db, $status);
             }
@@ -80,14 +80,15 @@ function resetForNextQuestion($db, $status) {
     $db->query($questionQuery);
 
     //RESET status file to gameboard and buzz status to -2
-    $status["buzzStatus"] = -2;
-    $status["dailyDouble"]["wager"] = -1;
+    $statusUpdate = "UPDATE status SET buzzStatus=-2, dailyDoubleWager=-1, dailyDoublePlayer=".
+            $status["dailyDoublePlayer"].", display='";
     $doubleQuery = "SELECT category,hasBeenSelected FROM questions WHERE category>6 && hasBeenSelected=0";
     $doubleResult = $db->query($doubleQuery);
     if ($doubleResult->num_rows > 0) {
-        $status["status"] = "gameboard";
+        $statusUpdate.="gameboard";
     } else {
-        $status["status"] = "finalJeopardy";
+        $statusUpdate.="finalJeopardy";
     }
-    file_put_contents("status.json", json_encode($status), LOCK_EX);
+    $statusUpdate.="' WHERE 1=1";
+    $db->query($statusUpdate);
 }

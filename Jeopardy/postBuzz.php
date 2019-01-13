@@ -19,9 +19,14 @@
 
 session_start();
 
+//connect to db
 require_once "privileges.php";
-
 $db = new mysqli(host, username, passwd, dbname);
+
+//Get status
+$statusResult = $db->$query("SELECT * FROM status");
+$statusResult->data_seek(0);
+$status = $statusResult->fetch_array(MYSQLI_ASSOC);
 
 $id = $_SESSION['id'];
 $time = $_POST['time'];
@@ -31,7 +36,6 @@ $answeredQuery = "SELECT id FROM buzzes WHERE id=$id && answered=0";
 $answerResult = $db->query($answeredQuery);
 
 //Also need to check if buzzing in is allowed
-$status = json_decode(file_get_contents("status.json"),true);
 
 if ($status["buzzStatus"] > -2 && $status["buzzStatus"] < 1 && ($answerResult->num_rows > 0)) {
 
@@ -40,8 +44,8 @@ if ($status["buzzStatus"] > -2 && $status["buzzStatus"] < 1 && ($answerResult->n
     $db->query($buzzQuery);
 
 //Write that someone buzzed in to status file
-    $status["buzzStatus"] = 0;
-    file_put_contents("status.json", json_encode($status), LOCK_EX);
+    $updateStatus = "UPDATE status SET buzzStatus=0 WHERE 1=1";
+    $db->query($updateStatus);
 } else if ($status["status"] == "lag"){
     $lagQuery = "INSERT INTO lag(playerId, time) VALUES('$id','$time')";
     $db->query($lagQuery);

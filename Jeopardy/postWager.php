@@ -19,22 +19,25 @@
 
 session_start();
 
+//Connect to db
 require_once "privileges.php";
+$db = new mysqli(host, username, passwd, dbname);
 
-$status = json_decode(file_get_contents("status.json"), true);
+//Get status
+$statusResult = $db->$query("SELECT * FROM status");
+$statusResult->data_seek(0);
+$status = $statusResult->fetch_array(MYSQLI_ASSOC);
 
-if ($status["status"] == finalJeopardy) {
-    $db = new mysqli(host, username, passwd, dbname);
+if ($status["display"] == finalJeopardy) {
     $wager = $_POST["wager"];
     $playerId = $_SESSION["id"];
     $wagerQuery = "UPDATE users SET finalWager = $wager WHERE id = $playerId";
     $db->query($wagerQuery);
-    
-    
 } else {
-    if ($status["dailyDouble"]["player"] == $_SESSION["id"] && $status["dailyDouble"]["wager"] == 0) {
-        $status["dailyDouble"]["wager"] = $_POST["wager"];
-        file_put_contents("status.json", json_encode($status), LOCK_EX);
+    if ($status["dailyDoublePlayer"] == $_SESSION["id"] && $status["dailyDoubleWager"] == 0) {
+        $status["dailyDoubleWager"] = $_POST["wager"];
+        $statusUpdate = "UPDATE status SET dailyDoubleWager=".$status["dailyDoubleWager"];
+        $db->query($statusUpdate);
     }
 }
 
