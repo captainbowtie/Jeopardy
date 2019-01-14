@@ -17,5 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$txt = $_POST["data"];
-file_put_contents("status.json", $txt, LOCK_EX);
+$string = $_POST["data"];
+$status = json_decode($string);
+$updateStatus = "UPDATE statuts SET "
+        . "display=".$status["status"].", "
+        . "category=".$status["category"].", "
+        . "value=".$status["value"].", "
+        . "buzzStatus=".$status["buzzStatus"].", "
+        . "dailyDoublePlayer=".$status["dailyDouble"]["player"].", "
+        . "dailyDoubleWager=".$status["dailyDouble"]["wager"];
+
+require_once("privileges.php");
+$db = new mysqli(host, username, passwd, dbname);
+$db-query($statusUpdate);

@@ -19,11 +19,14 @@
 
 session_start();
 
+//Connect to database
 require_once "privileges.php";
-
 $db = new mysqli(host, username, passwd, dbname);
 
-$status = json_decode(file_get_contents("status.json"), true);
+//Get status
+$statusResult = $db->$query("SELECT * FROM status");
+$statusResult->data_seek(0);
+$status = $statusResult->fetch_array(MYSQLI_ASSOC);
 
 $category = $status["category"];
 $value = $status["value"];
@@ -34,13 +37,13 @@ $questionResult = $db->query($questionQuery);
 
 $question = $questionResult->fetch_array(MYSQLI_ASSOC);
 
-if (!$question["isDailyDouble"] == 0 && $status["dailyDouble"]["wager"] < 1) {
+if (!$question["isDailyDouble"] == 0 && $status["dailyDoubleWager"] < 1) {
     echo "<div id='question'>\n";
     echo "DAILY DOUBLE\n";
     echo "</div>";
-    if ($status["dailyDouble"]["wager"] == -1) {
-        $status["dailyDouble"]["wager"] = 0;
-        file_put_contents("status.json", json_encode($status), LOCK_EX);
+    if ($status["dailyDoubleWager"] == -1) {
+        $updateStatus = "UPDATE status SET dailyDoubleWager=0 WHERE 1=1";
+        $db->query($updateStatus);
     }
 } else {
     require_once("timer.php");
