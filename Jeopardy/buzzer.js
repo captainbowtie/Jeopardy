@@ -31,7 +31,7 @@ $(".idButton").click(function () {
 
 $("#buzzer").click(function () {
     if ($("#buzzer").attr("value") == "Buzz In") {
-        //Post buzz-in time
+        //Post buzz-in
         var postData = "b=1";
         $.ajax({
             data: postData,
