@@ -58,7 +58,7 @@ function createTables() {
             . "time BIGINT UNSIGNED NOT NULL) "
             . "ENGINE InnoDB";
     $buzzTable = "CREATE TABLE buzzes("
-            . "id TINYINT UNSIGNED NOT NULL KEY, "
+            . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
             . "lag BIGINT UNSIGNED NOT NULL DEFAULT '0', "
             . "time BIGINT UNSIGNED NOT NULL DEFAULT '0', "
             . "answered BINARY(1) NOT NULL DEFAULT '0') "
