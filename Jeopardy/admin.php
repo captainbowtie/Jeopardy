@@ -59,13 +59,13 @@ function boardAdmin() {
 
     $db = new mysqli(host, username, passwd, dbname);
 
-    $singleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category<7 && hasBeenSelected=0";
+    $singleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category<6 && hasBeenSelected=0";
     $singleResult = $db->query($singleQuery);
 
     if ($singleResult->num_rows > 0) {
         $f = 0;
     } else {
-        $doubleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category>6 && hasBeenSelected=0";
+        $doubleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category>5 && hasBeenSelected=0";
         $singleResult = $db->query($doubleQuery);
         $f = 1;
     }
@@ -82,32 +82,34 @@ function boardAdmin() {
     }
 
     //Set category names
-    $cat1 = $categories[0];
-    $cat2 = $categories[1];
-    $cat3 = $categories[2];
-    $cat4 = $categories[3];
-    $cat5 = $categories[4];
-    $cat6 = $categories[5];
+    $cat0 = $categories[0];
+    $cat1 = $categories[1];
+    $cat2 = $categories[2];
+    $cat3 = $categories[3];
+    $cat4 = $categories[4];
+    $cat5 = $categories[5];
 
     //Set category number for buttons
+    $c0 = 0 + 6 * $f;
     $c1 = 1 + 6 * $f;
     $c2 = 2 + 6 * $f;
     $c3 = 3 + 6 * $f;
     $c4 = 4 + 6 * $f;
     $c5 = 5 + 6 * $f;
-    $c6 = 6 + 6 * $f;
 
     //Set price string values
-    $v1 = ($f + 1) * 100;
-    $v2 = ($f + 1) * 200;
-    $v3 = ($f + 1) * 300;
-    $v4 = ($f + 1) * 400;
-    $v5 = ($f + 1) * 500;
+    $v0 = ($f + 1) * 100;
+    $v1 = ($f + 1) * 200;
+    $v2 = ($f + 1) * 300;
+    $v3 = ($f + 1) * 400;
+    $v4 = ($f + 1) * 500;
 
     echo<<<_END
  <div id='display'>
     <table id='gameBoard'>
       <tr id='categories'>
+        <td class='category'>$cat0</td>
+
         <td class='category'>$cat1</td>
 
         <td class='category'>$cat2</td>
@@ -117,11 +119,25 @@ function boardAdmin() {
         <td class='category'>$cat4</td>
 
         <td class='category'>$cat5</td>
-
-        <td class='category'>$cat6</td>
       </tr>
 
       <tr id='100'>
+        <td><input id='c0-0' category='$c0' class='boardButton' type='button' value='$v0' /></td>
+
+        <td><input id='c1-0' category='$c1' class='boardButton' type='button' value='$v0' /></td>
+
+        <td><input id='c2-0' category='$c2' class='boardButton' type='button' value='$v0' /></td>
+
+        <td><input id='c3-0' category='$c3' class='boardButton' type='button' value='$v0' /></td>
+
+        <td><input id='c4-0' category='$c4' class='boardButton' type='button' value='$v0' /></td>
+
+        <td><input id='c5-0' category='$c5' class='boardButton' type='button' value='$v0' /></td>
+      </tr>
+
+      <tr id='200'>
+        <td><input id='c0-1' category='$c0' class='boardButton' type='button' value='$v1' /></td>
+
         <td><input id='c1-1' category='$c1' class='boardButton' type='button' value='$v1' /></td>
 
         <td><input id='c2-1' category='$c2' class='boardButton' type='button' value='$v1' /></td>
@@ -131,11 +147,11 @@ function boardAdmin() {
         <td><input id='c4-1' category='$c4' class='boardButton' type='button' value='$v1' /></td>
 
         <td><input id='c5-1' category='$c5' class='boardButton' type='button' value='$v1' /></td>
-
-        <td><input id='c6-1' category='$c6' class='boardButton' type='button' value='$v1' /></td>
       </tr>
 
-      <tr id='200'>
+      <tr id='300'>
+        <td><input id='c0-2' category='$c0' class='boardButton' type='button' value='$v2' /></td>
+
         <td><input id='c1-2' category='$c1' class='boardButton' type='button' value='$v2' /></td>
 
         <td><input id='c2-2' category='$c2' class='boardButton' type='button' value='$v2' /></td>
@@ -145,11 +161,11 @@ function boardAdmin() {
         <td><input id='c4-2' category='$c4' class='boardButton' type='button' value='$v2' /></td>
 
         <td><input id='c5-2' category='$c5' class='boardButton' type='button' value='$v2' /></td>
-
-        <td><input id='c6-2' category='$c6' class='boardButton' type='button' value='$v2' /></td>
       </tr>
 
-      <tr id='300'>
+      <tr id='400'>
+        <td><input id='c0-3' category='$c0' class='boardButton' type='button' value='$v3' /></td>
+
         <td><input id='c1-3' category='$c1' class='boardButton' type='button' value='$v3' /></td>
 
         <td><input id='c2-3' category='$c2' class='boardButton' type='button' value='$v3' /></td>
@@ -159,11 +175,11 @@ function boardAdmin() {
         <td><input id='c4-3' category='$c4' class='boardButton' type='button' value='$v3' /></td>
 
         <td><input id='c5-3' category='$c5' class='boardButton' type='button' value='$v3' /></td>
-
-        <td><input id='c6-3' category='$c6' class='boardButton' type='button' value='$v3' /></td>
       </tr>
 
-      <tr id='400'>
+      <tr id='500'>
+        <td><input id='c0-4' category='$c0' class='boardButton' type='button' value='$v4' /></td>
+
         <td><input id='c1-4' category='$c1' class='boardButton' type='button' value='$v4' /></td>
 
         <td><input id='c2-4' category='$c2' class='boardButton' type='button' value='$v4' /></td>
@@ -173,22 +189,6 @@ function boardAdmin() {
         <td><input id='c4-4' category='$c4' class='boardButton' type='button' value='$v4' /></td>
 
         <td><input id='c5-4' category='$c5' class='boardButton' type='button' value='$v4' /></td>
-
-        <td><input id='c6-4' category='$c6' class='boardButton' type='button' value='$v4' /></td>
-      </tr>
-
-      <tr id='500'>
-        <td><input id='c1-5' category='$c1' class='boardButton' type='button' value='$v5' /></td>
-
-        <td><input id='c2-5' category='$c2' class='boardButton' type='button' value='$v5' /></td>
-
-        <td><input id='c3-5' category='$c3' class='boardButton' type='button' value='$v5' /></td>
-
-        <td><input id='c4-5' category='$c4' class='boardButton' type='button' value='$v5' /></td>
-
-        <td><input id='c5-5' category='$c5' class='boardButton' type='button' value='$v5' /></td>
-
-        <td><input id='c6-5' category='$c6' class='boardButton' type='button' value='$v5' /></td>
       </tr>
     </table>
   </div>
