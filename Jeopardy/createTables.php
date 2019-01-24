@@ -62,7 +62,7 @@ function createTables() {
             . "lag BIGINT UNSIGNED NOT NULL DEFAULT '0', "
             . "time BIGINT UNSIGNED NOT NULL DEFAULT '0', "
             . "answered BINARY(1) NOT NULL DEFAULT '0') "
-            . "ENGINE InnoDB;";
+            . "ENGINE InnoDB";
     $statusTable = "CREATE TABLE status("
             . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
             . "display VARCHAR(16) NOT NULL DEFAULT 'gameboard', "

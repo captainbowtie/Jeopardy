@@ -22,7 +22,7 @@ require_once("privileges.php");
 $db = new mysqli(host, username, passwd, dbname);
 
 //Read status from database
-$statusResult = $db->$query("SELECT * FROM status");
+$statusResult = $db->query("SELECT * FROM status");
 $statusResult->data_seek(0);
 $status = $statusResult->fetch_array(MYSQLI_ASSOC);
 
