@@ -28,10 +28,14 @@ function createTables() {
     $db->query("DROP TABLE categories");
     $db->query("DROP TABLE questions");
     $db->query("DROP TABLE users");
+    $db->query("DROP TABLE lag");
+    $db->query("DROP TABLE status");
+    $db->query("DROP TABLE buzzes");
+
 
     //Create querys to add tables
     $categoryTable = "CREATE TABLE categories("
-            . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
+            . "id TINYINT UNSIGNED NOT NULL KEY, "
             . "category VARCHAR(64) NOT NULL, "
             . "isDouble BINARY(1) NOT NULL DEFAULT '0') "
             . "ENGINE InnoDB";
