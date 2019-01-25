@@ -88,7 +88,7 @@ function createTables() {
     //Populate admin user into table
     $generateAdmin = "INSERT INTO users(name, password, isAdmin) "
             . "VALUES('allen', "
-            . "'66746ad3c2025daae865c793d2becd6e6f5719e0e528adc0ae2f5228332702081a5f100f2bb3e6c56c7b7de872af0c3dc755b4673c2490e1bd7a7002565ebfe8', " //Whirlpool hash for 'mock'
+            . "'3a529b6b94cc39b76acb3284f2aced744a5e798bd84bb72a3b5879175ecdf021bd53b801add327f94480ca74b3cb7b50943a3ba85f07c672ba5778bf6732d05d', " //Whirlpool hash for 'mock'
             . "'1')";
     $db->query($generateAdmin);
 }
