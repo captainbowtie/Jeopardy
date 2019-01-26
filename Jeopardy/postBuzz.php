@@ -17,6 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+$time = gettimeofday(true) * 10000;
+
 session_start();
 
 //connect to db
@@ -24,12 +27,11 @@ require_once "privileges.php";
 $db = new mysqli(host, username, passwd, dbname);
 
 //Get status
-$statusResult = $db->$query("SELECT * FROM status");
+$statusResult = $db->query("SELECT * FROM status");
 $statusResult->data_seek(0);
 $status = $statusResult->fetch_array(MYSQLI_ASSOC);
 
 $id = $_SESSION['id'];
-$time = $_POST['time'];
 
 $answeredQuery = "SELECT id FROM buzzes WHERE id=$id && answered=0";
 
@@ -39,14 +41,14 @@ $answerResult = $db->query($answeredQuery);
 
 if ($status["buzzStatus"] > -2 && $status["buzzStatus"] < 1 && ($answerResult->num_rows > 0)) {
 
-//Write buzz to buzz table
+    //Write buzz to buzz table
     $buzzQuery = "UPDATE buzzes SET time=$time WHERE id=$id";
     $db->query($buzzQuery);
 
-//Write that someone buzzed in to status file
-    $updateStatus = "UPDATE status SET buzzStatus=0 WHERE 1=1";
+    //Write that someone buzzed in to status file
+    $updateStatus = "UPDATE status SET buzzStatus=0";
     $db->query($updateStatus);
-} else if ($status["status"] == "lag"){
+} else if ($status["status"] == "lag") {
     $lagQuery = "INSERT INTO lag(playerId, time) VALUES('$id','$time')";
     $db->query($lagQuery);
 }

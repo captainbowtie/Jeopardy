@@ -39,7 +39,7 @@ if (!isset($_SESSION['id'])) {
 _END;
     $nameQuery = "SELECT id,name FROM users WHERE isAdmin=0";
     $nameResult = $db->query($nameQuery);
-    for ($a = 0; $nameResult->num_rows; $a++) {
+    for ($a = 0; $a<$nameResult->num_rows; $a++) {
         $nameResult->data_seek($a);
         $name = $nameResult->fetch_array(MYSQLI_ASSOC);
         echo "<input type='button' class='idButton' id='b" . $name["id"] . "' value='" . $name["name"] . "'>\n";

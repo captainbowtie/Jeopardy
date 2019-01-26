@@ -17,7 +17,6 @@
 
 $(".idButton").click(function () {
     var postData = "studentLoginId=" + $(this).attr("id").substring(1);
-    console.log(postData);
     $.ajax({
         data: postData,
         url: "/postLogin.php",

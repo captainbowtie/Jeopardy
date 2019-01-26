@@ -146,6 +146,7 @@ $("#correct").click(function () {
 
                 }
             });
+            //Time was expired when the correct button was hit
         } else if (status["status"] == "question" && status["buzzStatus"] == -3) {
             $.ajax({
                 data: "correct=-1",
