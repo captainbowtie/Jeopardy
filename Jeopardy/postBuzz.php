@@ -18,8 +18,6 @@
  */
 
 
-$time = gettimeofday(true) * 10000;
-
 session_start();
 
 //connect to db
@@ -38,9 +36,10 @@ $answeredQuery = "SELECT id FROM buzzes WHERE id=$id && answered=0";
 $answerResult = $db->query($answeredQuery);
 
 //Also need to check if buzzing in is allowed
-
 if ($status["buzzStatus"] > -2 && $status["buzzStatus"] < 1 && ($answerResult->num_rows > 0)) {
 
+    $time = gettimeofday(true) * 10000;
+    
     //Write buzz to buzz table
     $buzzQuery = "UPDATE buzzes SET time=$time WHERE id=$id";
     $db->query($buzzQuery);
