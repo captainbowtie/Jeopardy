@@ -18,15 +18,17 @@
  */
 
 $string = $_POST["data"];
-$status = json_decode($string);
-$updateStatus = "UPDATE statuts SET "
-        . "display=".$status["status"].", "
+$status = json_decode($string,true);
+$updateStatus = "UPDATE status SET "
+        . "display='".$status["status"]."', "
         . "category=".$status["category"].", "
         . "value=".$status["value"].", "
         . "buzzStatus=".$status["buzzStatus"].", "
         . "dailyDoublePlayer=".$status["dailyDouble"]["player"].", "
         . "dailyDoubleWager=".$status["dailyDouble"]["wager"];
 
+echo $updateStatus;
+
 require_once("privileges.php");
 $db = new mysqli(host, username, passwd, dbname);
-$db-query($statusUpdate);
+$db->query($updateStatus);

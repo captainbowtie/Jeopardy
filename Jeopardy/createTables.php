@@ -91,4 +91,16 @@ function createTables() {
             . "'3a529b6b94cc39b76acb3284f2aced744a5e798bd84bb72a3b5879175ecdf021bd53b801add327f94480ca74b3cb7b50943a3ba85f07c672ba5778bf6732d05d', " //Whirlpool hash for 'mock'
             . "'1')";
     $db->query($generateAdmin);
+
+    //Populate status into table
+    $generateStatus = "INSERT INTO status(display,category,value,buzzStatus,dailyDoublePlayer,dailyDoubleWager) "
+            . "VALUES("
+            . "'gameboard', "
+            . "0, "
+            . "100, "
+            . "1, "
+            . "2, "
+            . "-1)";
+
+    $db->query($generateStatus);
 }

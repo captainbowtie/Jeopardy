@@ -112,7 +112,7 @@ function fillRows($f) {
     $c4v0 = $class[4][0];
     $c4v1 = $class[4][1];
     $c4v2 = $class[4][2];
-    $c4v2 = $class[4][3];
+    $c4v3 = $class[4][3];
     $c4v4 = $class[4][4];
     $c5v0 = $class[5][0];
     $c5v1 = $class[5][1];
