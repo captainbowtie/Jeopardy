@@ -25,4 +25,4 @@ $db = new mysqli(host, username, passwd, dbname);
 $scoreQuery = "SELECT id FROM users WHERE isAdmin=0";
 $scoreResult = $db->query($scoreQuery);
 
-return $scoreResult->num_rows;
+echo $scoreResult->num_rows;
