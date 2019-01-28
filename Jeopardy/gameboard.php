@@ -20,13 +20,13 @@
 require_once "privileges.php";
 $db = new mysqli(host, username, passwd, dbname);
 
-$singleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category<6 && hasBeenSelected=0";
+$singleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category<6 && hasBeenSelected=0 ORDER BY category,value";
 $singleResult = $db->query($singleQuery);
 
 if ($singleResult->num_rows > 0) { //Single jeopardy questions still exist
     fillRows(0);
 } else {//Single jeopardy questions all gone, see if double jeopardy ones still exist
-    $doubleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category>5 && hasBeenSelected=0";
+    $doubleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category>5 && hasBeenSelected=0 ORDER BY category,value";
     $doubleResult = $db->query($doubleQuery);
     if ($doubleResult->num_rows > 0) { //Double jeopardy questions still exist
         fillRows(1); //So fill rows with thsoe questions
@@ -37,7 +37,7 @@ function fillRows($f) {
     $db = new mysqli(host, username, passwd, dbname);
 
     //Get category names
-    $categoryQuery = "SELECT category FROM categories WHERE isDouble=$f";
+    $categoryQuery = "SELECT category FROM categories WHERE isDouble=$f ORDER BY id";
     $categoriesResult = $db->query($categoryQuery);
 
     //Put category names in string variables
@@ -62,10 +62,10 @@ function fillRows($f) {
 
     //Get questions from db
     if ($f == 0) {
-        $questionQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category<6";
+        $questionQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category<6 ORDER BY category,value";
         $questionResult = $db->query($questionQuery);
     } else {
-        $questionQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category>5";
+        $questionQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category>5 ORDER BY category,value";
         $questionResult = $db->query($questionQuery);
     }
 

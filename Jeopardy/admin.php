@@ -59,13 +59,13 @@ function boardAdmin() {
 
     $db = new mysqli(host, username, passwd, dbname);
 
-    $singleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category<6 && hasBeenSelected=0";
+    $singleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category<6 && hasBeenSelected=0 ORDER BY category,value";
     $singleResult = $db->query($singleQuery);
 
     if ($singleResult->num_rows > 0) {
         $f = 0;
     } else {
-        $doubleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category>5 && hasBeenSelected=0";
+        $doubleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category>5 && hasBeenSelected=0 ORDER BY category,value";
         $singleResult = $db->query($doubleQuery);
         $f = 1;
     }
