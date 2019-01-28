@@ -236,6 +236,5 @@ _END;
             <input id='wrong' type='button' value='Wrong'>
             <input id='correct' type='button' value='Correct'>
             </div>
-            <div><input id='lag' type='button' value='Enable Lag Testing'></div>
 _END;
 }

@@ -28,7 +28,6 @@ function createTables() {
     $db->query("DROP TABLE categories");
     $db->query("DROP TABLE questions");
     $db->query("DROP TABLE users");
-    $db->query("DROP TABLE lag");
     $db->query("DROP TABLE status");
     $db->query("DROP TABLE buzzes");
 
@@ -56,14 +55,8 @@ function createTables() {
             . "score MEDIUMINT SIGNED NOT NULL DEFAULT '0', "
             . "finalWager MEDIUMINT SIGNED NOT NULL DEFAULT '-1') "
             . "ENGINE InnoDB";
-    $lagTable = "CREATE TABLE lag("
-            . "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
-            . "playerId TINYINT UNSIGNED NOT NULL, "
-            . "time BIGINT UNSIGNED NOT NULL) "
-            . "ENGINE InnoDB";
     $buzzTable = "CREATE TABLE buzzes("
             . "id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT KEY, "
-            . "lag BIGINT UNSIGNED NOT NULL DEFAULT '0', "
             . "time BIGINT UNSIGNED NOT NULL DEFAULT '0', "
             . "answered BINARY(1) NOT NULL DEFAULT '0') "
             . "ENGINE InnoDB";
@@ -81,7 +74,6 @@ function createTables() {
     $db->query($categoryTable);
     $db->query($questionTable);
     $db->query($userTable);
-    $db->query($lagTable);
     $db->query($buzzTable);
     $db->query($statusTable);
 

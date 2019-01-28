@@ -23,12 +23,12 @@ require_once "privileges.php";
 
 if($isAdmin){
     $db = new mysqli(host, username, passwd, dbname);
-    $buzzQuery = "SELECT id,time-lag AS 'realTime' FROM buzzes WHERE answered=0 && time>0 ORDER BY realTime";
+    $buzzQuery = "SELECT id,time FROM buzzes WHERE answered=0 && time>0 ORDER BY time";
     $buzzResult = $db->query($buzzQuery);
     $buzzResult->data_seek(0);
     $buzz = $buzzResult->fetch_array(MYSQLI_NUM);
     $buzzId = $buzz[0];
-    $updateStatus = "UPDATE status SET buzzStatus = '$buzzId' WHERE 1=1";
+    $updateStatus = "UPDATE status SET buzzStatus = '$buzzId'";
     $db->query($updateStatus);
     $buzzUpdate = "UPDATE buzzes SET answered=1 WHERE id=$buzzId";
     $db->query($buzzUpdate);

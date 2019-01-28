@@ -21,8 +21,6 @@ var numberOfPlayers = 3;
 
 var finalJeopardyIndicator = "#comp2";
 
-var preLagTestState = "gameboard";
-
 $( document ).ready(function() {
  
     $.get("getNumberPlayers.php", function (number) {
@@ -181,43 +179,6 @@ $("#wrong").click(function () {
         }
     });
 
-});
-
-$("#lag").click(function () {
-    $.get("getStatus.php", function (statusString) {
-        var status = $.parseJSON(statusString);
-        if (status["status"] == "lag") {
-            status["status"] = preLagTestState;
-            var postData = "data=" + JSON.stringify(status);
-            $.ajax({
-                data: postData,
-                url: "/postStatus.php",
-                type: "POST",
-                success: function () {
-                    $("#lag").attr("value", "Enable Lag Testing");
-                    $.ajax({
-                        url: "/calculateLag.php",
-                        type: "GET",
-                        success: function () {
-
-                        }
-                    });
-                }
-            });
-        } else {
-            preLagTestState = status["status"];
-            status["status"] = "lag";
-            var postData = "data=" + JSON.stringify(status);
-            $.ajax({
-                data: postData,
-                url: "/postStatus.php",
-                type: "POST",
-                success: function () {
-                    $("#lag").attr("value", "Disable Lag Testing");
-                }
-            });
-        }
-    });
 });
 
 function finalJeopardy(isCorrect) {

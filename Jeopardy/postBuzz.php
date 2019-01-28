@@ -39,7 +39,7 @@ $answerResult = $db->query($answeredQuery);
 if ($status["buzzStatus"] > -2 && $status["buzzStatus"] < 1 && ($answerResult->num_rows > 0)) {
 
     $time = gettimeofday(true) * 10000;
-    
+
     //Write buzz to buzz table
     $buzzQuery = "UPDATE buzzes SET time=$time WHERE id=$id";
     $db->query($buzzQuery);
@@ -47,9 +47,4 @@ if ($status["buzzStatus"] > -2 && $status["buzzStatus"] < 1 && ($answerResult->n
     //Write that someone buzzed in to status file
     $updateStatus = "UPDATE status SET buzzStatus=0";
     $db->query($updateStatus);
-} else if ($status["status"] == "lag") {
-    $lagQuery = "INSERT INTO lag(playerId, time) VALUES('$id','$time')";
-    $db->query($lagQuery);
 }
-
-
