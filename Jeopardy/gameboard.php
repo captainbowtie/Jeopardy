@@ -78,7 +78,6 @@ function fillRows($f) {
         for ($b = 0; $b < 5; $b++) {
             $questionResult->data_seek($counter);
             $question = $questionResult->fetch_array(MYSQLI_ASSOC);
-            $q = $question["hasBeenSelected"];
             if ($question["hasBeenSelected"] == 1) {
                 $class[$a][$b] = "selected";
             } else {

@@ -21,12 +21,21 @@ var numberOfPlayers = 3;
 
 var finalJeopardyIndicator = "#comp2";
 
-$( document ).ready(function() {
- 
+$(document).ready(function () {
+
     $.get("getNumberPlayers.php", function (number) {
         numberOfPlayers = number;
     });
- 
+
+    $.ajax({
+        url: "/boardAdmin.php",
+        dataType: "html",
+        success: function (boardAdmin) {
+            $("#display").html(boardAdmin);
+        }
+    });
+
+
 });
 
 function checkStatus() {
@@ -41,14 +50,14 @@ function checkStatus() {
                     //setTimeout(function () {  Not sure why this was set on a timer loop
                     //Commented out loop on theory it's not needed
                     //If stuff gets broken, then uncomment
-                        $.ajax({
-                            url: "/getBuzz.php",
-                            dataType: "text",
-                            success: function (buzzWinner) {
+                    $.ajax({
+                        url: "/getBuzz.php",
+                        dataType: "text",
+                        success: function (buzzWinner) {
 
-                                $("#comp" + buzzWinner).css("background-color", "green");
-                            }
-                        });
+                            $("#comp" + buzzWinner).css("background-color", "green");
+                        }
+                    });
                     //}, 500);  Uncomment this too
                 } else if (status["buzzStatus"] < 0) {
                     for (a = 2; a < numberOfPlayers; a++) {
