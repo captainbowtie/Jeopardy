@@ -16,6 +16,7 @@
  */
 
 setInterval(checkStatus, 1000);
+setInterval(updateScores, 1000);
 
 var numberOfPlayers = 3;
 
@@ -51,31 +52,20 @@ function checkStatus() {
                     });
                     //}, 500);  Uncomment this too
                 } else if (status["buzzStatus"] < 0) {
-                    for (a = 2; a < numberOfPlayers; a++) {
-                        $("#comp" + a).css("background-color", "white");
+                    for (a = 0; a < numberOfPlayers; a++) {
+                        $("#comp" + (a + 2)).css("background-color", "white");
                     }
                 }
-            })
+            });
         } else {
             $("#qDiv").html("Question: N/A");
             $("#aDiv").html("Answer: N/A");
-            for (a = 2; a < numberOfPlayers; a++) {
-                $("#comp" + a).css("background-color", "white");
+            for (a = 0; a < numberOfPlayers; a++) {
+                $("#comp" + (a + 2)).css("background-color", "white");
             }
         }
         if (status["status"] == "finalJeopardy") {
             $(finalJeopardyIndicator).css("background-color", "green");
-        }
-    });
-
-    //Update Scores
-    $.ajax({
-        url: "/getScore.php",
-        dataType: "json",
-        success: function (scores) {
-            for (var a = 2; a < numberOfPlayers; a++) {
-                $("#score" + a).attr("value", scores[a]);
-            }
         }
     });
 
@@ -186,4 +176,16 @@ function finalJeopardy(isCorrect) {
     playerId++;
     finalJeopardyIndicator = "#comp" + playerId;
     $(finalJeopardyIndicator).css("background-color", "green");
+}
+
+function updateScores() {
+    $.ajax({
+        url: "/getScore.php",
+        dataType: "json",
+        success: function (scores) {
+            for (var a = 0; a < numberOfPlayers; a++) {
+                $("#score" + (a + 2)).attr("value", scores[a + 2]);
+            }
+        }
+    });
 }
