@@ -27,15 +27,6 @@ $(document).ready(function () {
         numberOfPlayers = number;
     });
 
-    $.ajax({
-        url: "/boardAdmin.php",
-        dataType: "html",
-        success: function (boardAdmin) {
-            $("#display").html(boardAdmin);
-        }
-    });
-
-
 });
 
 function checkStatus() {
@@ -76,6 +67,8 @@ function checkStatus() {
             $(finalJeopardyIndicator).css("background-color", "green");
         }
     });
+
+    //Update Scores
     $.ajax({
         url: "/getScore.php",
         dataType: "json",
@@ -85,29 +78,16 @@ function checkStatus() {
             }
         }
     });
-}
 
-$(".boardButton").click(function () {
-    var cat = $(this).attr("category");
-    var val = this.value;
-    $.get("getStatus.php", function (statusString) {
-        var status = $.parseJSON(statusString);
-        status["status"] = "question";
-        status["category"] = cat;
-        status["value"] = val;
-        status["buzzStatus"] = -2;
-        var postData = "data=" + JSON.stringify(status);
-        console.log(postData);
-        $.ajax({
-            data: postData,
-            url: "/postStatus.php",
-            type: "POST",
-            success: function () {
-
-            }
-        });
+    //Update color of buttons
+    $.ajax({
+        url: "/boardAdmin.php",
+        dataType: "html",
+        success: function (boardAdmin) {
+            $("#display").html(boardAdmin);
+        }
     });
-});
+}
 
 $(".scoreButton").click(function () {
     var playerName = $("#comp" + this.id.substring(5)).html();
@@ -133,7 +113,6 @@ $("#correct").click(function () {
         if (status["status"] == "question" && status["buzzStatus"] == -2) {
             status["buzzStatus"] = -1;
             var postData = "data=" + JSON.stringify(status);
-            console.log(postData)
             $.ajax({
                 data: postData,
                 url: "/postStatus.php",
