@@ -17,7 +17,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once "privileges.php";
+require_once "../privileges.php";
 $db = new mysqli(host, username, passwd, dbname);
 
 $singleQuery = "SELECT category,value,hasBeenSelected FROM questions WHERE category<6 && hasBeenSelected=0 ORDER BY category,value";

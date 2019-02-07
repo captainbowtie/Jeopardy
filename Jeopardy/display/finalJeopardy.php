@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2017 allen
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,22 +17,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-echo<<<_END
-<div id='timerDiv'>
-  <table id='timerTable'>
-    <tr>
-      <td class='five'>-</td>
-      <td class='four'>-</td>
-      <td class='three'>-</td>
-      <td class='two'>-</td>
-      <td class='one'>-</td>
-      <td class='two'>-</td>
-      <td class='three'>-</td>
-      <td class='four'>-</td>
-      <td class='five'>-</td>
-    </tr>
-  </table>
-<script src='timer.js'></script>
-</div>
+echo "<div class='final'>FINAL JEOPARDY<br>Expert Opinions</div>\n";
 
-_END;
+require_once "../privileges.php";
+$db = new mysqli(host, username, passwd, dbname);
+
+$wageredQuery = "SELECT finalWager FROM users";
+$wagerResult = $db->query($wageredQuery);
+
+$allWagered = TRUE;
+
+for ($a = 0; $a < $wagerResult->num_rows; $a++) {
+    $wagerResult->data_seek($a);
+    $wager = $wagerResult->fetch_array(MYSQLI_NUM);
+    if ($wager[0] < 0) {
+        $allWagered = FALSE;
+    }
+}
+
+if($allWagered){
+    echo "<br><br><div class='final'>These are the four prongs of 702</div>";
+}

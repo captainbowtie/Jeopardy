@@ -24,7 +24,7 @@ var time5 = null;
 
 setInterval(function () {
     $.ajax({
-        url: "/getStatus.php",
+        url: "../getStatus.php",
         dataType: "json",
         success: function (data) {
             if (data["buzzStatus"] == -1 && !timerStarted) {
@@ -75,14 +75,14 @@ function two() {
 function one() {
     $(".one").css("color", "red");
     //Disable buzzing after timer has expired
-    $.get("getStatus.php", function (statusString) {
+    $.get("../getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
         if (status["buzzStatus"] < 0) {
             status["buzzStatus"] = "-3";
             var postData = "data=" + JSON.stringify(status);
             $.ajax({
                 data: postData,
-                url: "/postStatus.php",
+                url: "../postStatus.php",
                 type: "POST",
                 success: function () {
                     timerStarted = false;

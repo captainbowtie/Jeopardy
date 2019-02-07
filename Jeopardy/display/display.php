@@ -25,20 +25,20 @@ echo<<<_END
     <head>
         <meta charset="UTF-8">
         <title></title>
-        <script src='jquery-3.3.1.min.js'></script>
-	<script src='display.js'></script>
-<link rel="Stylesheet" href="display.css" type="text/css" />
+        <script src='../jquery-3.3.1.min.js'></script>
+	<script src='./display.js'></script>
+<link rel="Stylesheet" href="./display.css" type="text/css" />
     </head>
     <body>
     	<div id='displayDiv' content='gameboard'>
 _END;
-require_once 'gameboard.php';
+require_once './gameboard.php';
 echo<<<_END
     	</div>
 <div id='scoresDiv'>
 _END;
 //TODO: absolute position scores to stay on bottom
-require_once 'scores.php';
+require_once '../scores.php';
 echo<<<_END
 </div>
     </body>

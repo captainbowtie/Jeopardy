@@ -21,7 +21,7 @@ var numberOfPlayers = 3;
 
 $(document).ready(function () {
 
-    $.get("getNumberPlayers.php", function (number) {
+    $.get("../getNumberPlayers.php", function (number) {
         numberOfPlayers = number;
     });
 
@@ -40,14 +40,14 @@ function gameBoardRefresh() {
 //AJAX to set values of game board
 
     $.ajax({
-        url: "/getStatus.php",
+        url: "../getStatus.php",
         dataType: "json",
         success: function (status) {
             switch (status["status"]) {
                 case "gameboard":
                     questionDisplayed = false;
                     $.ajax({
-                        url: "/gameboard.php",
+                        url: "./gameboard.php",
                         dataType: "html",
                         success: function (gbData) {
                             $("#displayDiv").html(gbData);
@@ -57,7 +57,7 @@ function gameBoardRefresh() {
                 case "question":
                     if (!questionDisplayed) {
                         $.ajax({
-                            url: "/question.php",
+                            url: "./question.php",
                             dataType: "html",
                             success: function (question) {
                                 $("#displayDiv").html(question);
@@ -71,7 +71,7 @@ function gameBoardRefresh() {
                     break;
                 case "finalJeopardy":
                     $.ajax({
-                        url: "/finalJeopardy.php",
+                        url: "./finalJeopardy.php",
                         dataType: "html",
                         success: function (finalJeopardy) {
                             $("#displayDiv").html(finalJeopardy);
@@ -96,7 +96,7 @@ function scoreRefresh() {
 
 //AJAX to set values of scores
     $.ajax({
-        url: "/getScore.php",
+        url: "../getScore.php",
         dataType: "json",
         success: function (scores) {
             for (var a = 2; a < numberOfPlayers + 2; a++) {
