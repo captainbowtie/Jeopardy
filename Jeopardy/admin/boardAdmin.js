@@ -27,7 +27,7 @@ $(".unselectedQuestion").click(function () {
         var postData = "data=" + JSON.stringify(status);
         $.ajax({
             data: postData,
-            url: "/postStatus.php",
+            url: "../postStatus.php",
             type: "POST",
             success: function () {
 

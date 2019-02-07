@@ -34,7 +34,7 @@ function checkStatus() {
     $.get("../getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
         if (status["status"] == "question") {
-            $.get("getQA.php", function (qa) {
+            $.get("./getQA.php", function (qa) {
                 var question = $.parseJSON(qa);
                 $("#qDiv").html("Question: " + question["question"]);
                 $("#aDiv").html("Answer: " + question["answer"]);
@@ -81,7 +81,7 @@ $(".scoreButton").click(function () {
         $.ajax({
             data: postData,
             type: "POST",
-            url: "postScore.php",
+            url: "./postScore.php",
             success: function () {
 
             }
@@ -135,7 +135,7 @@ $("#correct").click(function () {
 });
 
 $("#wrong").click(function () {
-    $.get("getStatus.php", function (statusString) {
+    $.get("../getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
         if (status["status"] == "question") {
             $.ajax({

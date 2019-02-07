@@ -19,7 +19,7 @@
 session_start();
 
 require_once "../privileges.php";
-require_once "createTables.php";
+require_once "./createTables.php";
 
 //Check if tables exist, and if not, create them
 checkTables();
@@ -29,7 +29,7 @@ echo "<html lang='en'>\n";
 echo "<head>\n";
 echo "<title>Jeopardy: Admin</title>\n";
 echo "<script src='../jquery-3.3.1.min.js'></script>\n";
-echo "<link rel='Stylesheet' href='admin.css' type='text/css' />\n";
+echo "<link rel='Stylesheet' href='./admin.css' type='text/css' />\n";
 echo "</head>\n";
 echo "<body>\n";
 if ($isAdmin) {
@@ -37,7 +37,7 @@ if ($isAdmin) {
 } else {
     require_once "login.php";
 }
-echo "<script src='admin.js'></script>";
+echo "<script src='./admin.js'></script>";
 echo "</body>\n";
 echo "</html>\n";
 
