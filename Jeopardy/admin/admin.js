@@ -24,14 +24,14 @@ var finalJeopardyIndicator = "#comp2";
 
 $(document).ready(function () {
 
-    $.get("getNumberPlayers.php", function (number) {
+    $.get("../getNumberPlayers.php", function (number) {
         numberOfPlayers = number;
     });
 
 });
 
 function checkStatus() {
-    $.get("getStatus.php", function (statusString) {
+    $.get("../getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
         if (status["status"] == "question") {
             $.get("getQA.php", function (qa) {
@@ -43,7 +43,7 @@ function checkStatus() {
                     //Commented out loop on theory it's not needed
                     //If stuff gets broken, then uncomment
                     $.ajax({
-                        url: "/getBuzz.php",
+                        url: "./getBuzz.php",
                         dataType: "text",
                         success: function (buzzWinner) {
 
@@ -71,7 +71,7 @@ function checkStatus() {
 
     //Update color of buttons
     $.ajax({
-        url: "/boardAdmin.php",
+        url: "./boardAdmin.php",
         dataType: "html",
         success: function (boardAdmin) {
             $("#display").html(boardAdmin);
@@ -96,7 +96,7 @@ $(".scoreButton").click(function () {
 });
 
 $("#correct").click(function () {
-    $.get("getStatus.php", function (statusString) {
+    $.get("../getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
         //If status is -2 (buzzing in disabled) and there's a question displayed
         //Then enable buzzing in
@@ -105,7 +105,7 @@ $("#correct").click(function () {
             var postData = "data=" + JSON.stringify(status);
             $.ajax({
                 data: postData,
-                url: "/postStatus.php",
+                url: "../postStatus.php",
                 type: "POST",
                 success: function () {
 
@@ -117,7 +117,7 @@ $("#correct").click(function () {
             $.ajax({
                 data: "correct=1",
                 type: "POST",
-                url: "postAnswer.php",
+                url: "./postAnswer.php",
                 success: function () {
 
                 }
@@ -127,7 +127,7 @@ $("#correct").click(function () {
             $.ajax({
                 data: "correct=-1",
                 type: "POST",
-                url: "postAnswer.php",
+                url: "./postAnswer.php",
                 success: function () {
 
                 }
@@ -147,7 +147,7 @@ $("#wrong").click(function () {
             $.ajax({
                 data: "correct=0",
                 type: "POST",
-                url: "postAnswer.php",
+                url: "./postAnswer.php",
                 success: function () {
 
                 }
@@ -167,7 +167,7 @@ function finalJeopardy(isCorrect) {
     $.ajax({
         data: postData,
         type: "POST",
-        url: "postFinal.php",
+        url: "./postFinal.php",
         success: function () {
 
         }
@@ -180,7 +180,7 @@ function finalJeopardy(isCorrect) {
 
 function updateScores() {
     $.ajax({
-        url: "/getScore.php",
+        url: "../getScore.php",
         dataType: "json",
         success: function (scores) {
             for (var a = 0; a < numberOfPlayers; a++) {

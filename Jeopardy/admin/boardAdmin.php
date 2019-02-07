@@ -19,7 +19,7 @@
 
 session_start();
 
-require_once "privileges.php";
+require_once "../privileges.php";
 
 if ($isAdmin) {
 
@@ -125,7 +125,7 @@ if ($isAdmin) {
     $c5v4 = $class[5][4];
 
     echo<<<_END
-    <script src='jquery-3.3.1.min.js'></script>
+    <script src='../jquery-3.3.1.min.js'></script>
     <table id='gameBoard'>
       <tr id='categories'>
         <td class='category'>$cat0</td>

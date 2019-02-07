@@ -26,6 +26,6 @@ echo "</head>\n";
 echo "<body>\n";
 echo "<a href='buzzer.php'>Buzzer</a><br>\n";
 echo "<a href='display.php'>Gameboard</a><br>\n";
-echo "<a href='admin.php'>Admin</a><br>\n";
+echo "<a href='admin/admin.php'>Admin</a><br>\n";
 echo "</body>\n";
 echo "</html>";

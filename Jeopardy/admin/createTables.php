@@ -19,7 +19,7 @@
 
 session_start();
 
-require_once "privileges.php";
+require_once "../privileges.php";
 
 function createTables() {
     $db = new mysqli(host, username, passwd, dbname);

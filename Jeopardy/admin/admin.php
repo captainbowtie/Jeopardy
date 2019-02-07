@@ -18,7 +18,7 @@
  */
 session_start();
 
-require_once "privileges.php";
+require_once "../privileges.php";
 require_once "createTables.php";
 
 //Check if tables exist, and if not, create them
@@ -28,7 +28,7 @@ echo "<!DOCTYPE html>\n";
 echo "<html lang='en'>\n";
 echo "<head>\n";
 echo "<title>Jeopardy: Admin</title>\n";
-echo "<script src='jquery-3.3.1.min.js'></script>\n";
+echo "<script src='../jquery-3.3.1.min.js'></script>\n";
 echo "<link rel='Stylesheet' href='admin.css' type='text/css' />\n";
 echo "</head>\n";
 echo "<body>\n";

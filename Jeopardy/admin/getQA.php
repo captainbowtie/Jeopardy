@@ -17,32 +17,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+session_start();
+
 require_once("privileges.php");
-$db = new mysqli(host, username, passwd, dbname);
+
+if ($isAdmin) {
+    $db = new mysqli(host, username, passwd, dbname);
 
 //Get status
-$statusResult = $db->query("SELECT * FROM status");
-$statusResult->data_seek(0);
-$status = $statusResult->fetch_array(MYSQLI_ASSOC);
+    $statusResult = $db->query("SELECT * FROM status");
+    $statusResult->data_seek(0);
+    $status = $statusResult->fetch_array(MYSQLI_ASSOC);
 
 //Read category and value from status
-$category = $status["category"];
-$value = $status["value"];
+    $category = $status["category"];
+    $value = $status["value"];
 
 
-$questionQuery = "SELECT question,answer,isDailyDouble FROM questions WHERE category=$category && value=$value";
+    $questionQuery = "SELECT question,answer,isDailyDouble FROM questions WHERE category=$category && value=$value";
 
-$questionResult = $db->query($questionQuery);
+    $questionResult = $db->query($questionQuery);
 
-$question = $questionResult->fetch_array(MYSQLI_ASSOC);
+    $question = $questionResult->fetch_array(MYSQLI_ASSOC);
 
-if($question["isDailyDouble"]==1){
-    $q = "<b>Daily Double: </b>";
-}else{
-    $q = "";
+    if ($question["isDailyDouble"] == 1) {
+        $q = "<b>Daily Double: </b>";
+    } else {
+        $q = "";
+    }
+
+    $q = $q . $question["question"];
+    $a = $question["answer"];
+
+    echo '{"question":"' . $q . '","answer":"' . $a . '"}';
 }
 
-$q=$q.$question["question"];
-$a=$question["answer"];
 
-echo '{"question":"'.$q.'","answer":"'.$a.'"}';

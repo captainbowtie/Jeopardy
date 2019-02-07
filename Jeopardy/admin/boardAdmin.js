@@ -18,7 +18,7 @@
 $(".unselectedQuestion").click(function () {
     var cat = $(this).attr("category");
     var val = this.value;
-    $.get("getStatus.php", function (statusString) {
+    $.get("../getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
         status["status"] = "question";
         status["category"] = cat;
