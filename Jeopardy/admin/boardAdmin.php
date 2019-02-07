@@ -125,7 +125,7 @@ if ($isAdmin) {
     $c5v4 = $class[5][4];
 
     echo<<<_END
-    <script src='../jquery-3.3.1.min.js'></script>
+    
     <table id='gameBoard'>
       <tr id='categories'>
         <td class='category'>$cat0</td>
@@ -211,6 +211,6 @@ if ($isAdmin) {
         <td><input id='c5-4' category='$c5' class='$c5v4' type='button' value='$v4' /></td>
       </tr>
     </table>
-    <script src='boardAdmin.js'></script>
+    <script src='./boardAdmin.js'></script>
 _END;
 }

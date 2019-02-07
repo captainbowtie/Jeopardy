@@ -18,7 +18,7 @@
  */
 
 session_start();
-require_once "privileges.php";
+require_once "../privileges.php";
 
 if ($isAdmin) {
     //Connect to database

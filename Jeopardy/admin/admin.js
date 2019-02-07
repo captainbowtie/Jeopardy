@@ -70,13 +70,7 @@ function checkStatus() {
     });
 
     //Update color of buttons
-    $.ajax({
-        url: "./boardAdmin.php",
-        dataType: "html",
-        success: function (boardAdmin) {
-            $("#display").html(boardAdmin);
-        }
-    });
+    $("#display").load("./boardAdmin.php");
 }
 
 $(".scoreButton").click(function () {

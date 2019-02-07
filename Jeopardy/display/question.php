@@ -20,7 +20,7 @@
 session_start();
 
 //Connect to database
-require_once "privileges.php";
+require_once "../privileges.php";
 $db = new mysqli(host, username, passwd, dbname);
 
 //Get status

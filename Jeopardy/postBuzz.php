@@ -34,7 +34,7 @@ $id = $_SESSION['id'];
 $answeredQuery = "SELECT id FROM buzzes WHERE id=$id && answered=0";
 
 $answerResult = $db->query($answeredQuery);
-
+echo $status["buzzStatus"]." ".$id;
 //Also need to check if buzzing in is allowed
 if ($status["buzzStatus"] > -2 && $status["buzzStatus"] < 1 && ($answerResult->num_rows > 0)) {
 
