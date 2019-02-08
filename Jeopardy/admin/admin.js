@@ -16,7 +16,6 @@
  */
 
 setInterval(checkStatus, 1000);
-setInterval(updateScores, 1000);
 
 var numberOfPlayers = 3;
 
@@ -70,24 +69,8 @@ function checkStatus() {
     });
 
     //Update color of buttons
-    $("#display").load("./boardAdmin.php");
+    $("#board").load("./boardAdmin.php");
 }
-
-$(".scoreButton").click(function () {
-    var playerName = $("#comp" + this.id.substring(5)).html();
-    var newScore = prompt("Change " + playerName + "'s score to:", this.value);
-    if (newScore !== null) {
-        var postData = "playerId=" + this.id.substring(5) + "&score=" + newScore;
-        $.ajax({
-            data: postData,
-            type: "POST",
-            url: "./postScore.php",
-            success: function () {
-
-            }
-        });
-    }
-});
 
 $("#correct").click(function () {
     $.get("../getStatus.php", function (statusString) {
@@ -172,14 +155,3 @@ function finalJeopardy(isCorrect) {
     $(finalJeopardyIndicator).css("background-color", "green");
 }
 
-function updateScores() {
-    $.ajax({
-        url: "../getScore.php",
-        dataType: "json",
-        success: function (scores) {
-            for (var a = 0; a < numberOfPlayers; a++) {
-                $("#score" + (a + 2)).attr("value", scores[a + 2]);
-            }
-        }
-    });
-}
