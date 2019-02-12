@@ -39,7 +39,6 @@ if ($isAdmin) {
         $scores[$a]["score"] = $score[1];
     }
 
-
     echo<<<_END
 <div>
     <table id='scores'>
@@ -63,4 +62,6 @@ _END;
   </div>
     <script src="./scoreAdmin.js"></script>
 _END;
+}else{
+echo "You're not my REAL admin!";
 }

@@ -27,6 +27,9 @@ $(document).ready(function () {
         numberOfPlayers = number;
     });
 
+    $("#score").load("./scoreAdmin.php");
+    $("#board").load("./boardAdmin.php");
+
 });
 
 function checkStatus() {
@@ -69,7 +72,7 @@ function checkStatus() {
     });
 
     //Update color of buttons
-    $("#board").load("./boardAdmin.php");
+
 }
 
 $("#correct").click(function () {

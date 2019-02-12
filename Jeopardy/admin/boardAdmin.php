@@ -128,17 +128,17 @@ if ($isAdmin) {
     
     <table id='gameBoard'>
       <tr id='categories'>
-        <td class='category'>$cat0</td>
+        <td id='c0' class='category'>$cat0</td>
 
-        <td class='category'>$cat1</td>
+        <td id='c1' class='category'>$cat1</td>
 
-        <td class='category'>$cat2</td>
+        <td id='c2' class='category'>$cat2</td>
 
-        <td class='category'>$cat3</td>
+        <td id='c3' class='category'>$cat3</td>
 
-        <td class='category'>$cat4</td>
+        <td id='c4' class='category'>$cat4</td>
 
-        <td class='category'>$cat5</td>
+        <td id='c5' class='category'>$cat5</td>
       </tr>
 
       <tr id='100'>
@@ -213,4 +213,6 @@ if ($isAdmin) {
     </table>
     <script src='./boardAdmin.js'></script>
 _END;
+}else{
+    echo "you're no admin!";
 }

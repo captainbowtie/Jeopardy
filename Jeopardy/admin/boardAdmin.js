@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+setInterval(getBoardData, 1000);
+
 $(".unselectedQuestion").click(function () {
     var cat = $(this).attr("category");
     var val = this.value;
@@ -35,3 +37,26 @@ $(".unselectedQuestion").click(function () {
         });
     });
 });
+
+function getBoardData() {
+    $.ajax({
+        url: "../getGameboardData.php",
+        dataType: "json",
+        success: function (json) {
+            for (var a = 0; a < 6; a++) {
+                $("#c" + a).html(json.categories[a].name);
+                for (var b = 0; b < 5; b++) {
+                    var t = "#c" + a + "-" + b;
+                    $("#c" + a + "-" + b).attr("value", json.questions[a][b].value);
+                    if(json.questions[a][b].selected === 1){
+                        $("#c" + a + "-" + b).css("color", "red");
+                        $("#c" + a + "-" + b).prop("disabled",true);
+                    }else{
+                        $("#c" + a + "-" + b).css("color", "black");
+                        $("#c" + a + "-" + b).prop("disabled",false);
+                    }
+                }
+            }
+        }
+    });
+}

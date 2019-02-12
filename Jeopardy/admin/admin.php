@@ -35,7 +35,7 @@ echo "<body>\n";
 if ($isAdmin) {
     boardAdmin();
 } else {
-    require_once "login.php";
+    require_once "../login.php";
 }
 echo "<script src='./admin.js'></script>";
 echo "</body>\n";
@@ -58,8 +58,9 @@ function checkTables() {
 
 function boardAdmin() {
 
-    echo "<div id='board'>\n</div>\n";
-    require_once("./scoreAdmin.php");
+    echo "<div id='board'></div>\n";
+    echo "<div id='score'></div>\n";
+    echo "<div id='question'></div>\n";
     echo<<<_END
             <div id='qDiv'>Question: N/A</div>
             <div id='aDiv'>Answer: N/A</div>
