@@ -35,39 +35,43 @@ $(document).ready(function () {
 function checkStatus() {
     $.get("../getStatus.php", function (statusString) {
         var status = $.parseJSON(statusString);
-        if (status["status"] == "question") {
-            $.get("./getQA.php", function (qa) {
-                var question = $.parseJSON(qa);
-                $("#qDiv").html("Question: " + question["question"]);
-                $("#aDiv").html("Answer: " + question["answer"]);
-                if (status["buzzStatus"] == 0) {
-                    //setTimeout(function () {  Not sure why this was set on a timer loop
-                    //Commented out loop on theory it's not needed
-                    //If stuff gets broken, then uncomment
-                    $.ajax({
-                        url: "./getBuzz.php",
-                        dataType: "text",
-                        success: function (buzzWinner) {
 
-                            $("#comp" + buzzWinner).css("background-color", "green");
-                        }
-                    });
-                    //}, 500);  Uncomment this too
-                } else if (status["buzzStatus"] < 0) {
-                    for (a = 0; a < numberOfPlayers; a++) {
-                        $("#comp" + (a + 2)).css("background-color", "white");
-                    }
+        switch (status["status"]) {
+            case "gameboard":
+                $("#qDiv").html("Question: N/A");
+                $("#aDiv").html("Answer: N/A");
+                for (a = 0; a < numberOfPlayers; a++) {
+                    $("#comp" + (a + 2)).css("background-color", "white");
                 }
-            });
-        } else {
-            $("#qDiv").html("Question: N/A");
-            $("#aDiv").html("Answer: N/A");
-            for (a = 0; a < numberOfPlayers; a++) {
-                $("#comp" + (a + 2)).css("background-color", "white");
-            }
-        }
-        if (status["status"] == "finalJeopardy") {
-            $(finalJeopardyIndicator).css("background-color", "green");
+                break;
+            case "question":
+                $.get("./getQA.php", function (qa) {
+                    var question = $.parseJSON(qa);
+                    $("#qDiv").html("Question: " + question["question"]);
+                    $("#aDiv").html("Answer: " + question["answer"]);
+                    if (status["buzzStatus"] == 0) {
+                        //setTimeout(function () {  Not sure why this was set on a timer loop
+                        //Commented out loop on theory it's not needed
+                        //If stuff gets broken, then uncomment
+                        $.ajax({
+                            url: "./getBuzz.php",
+                            dataType: "text",
+                            success: function (buzzWinner) {
+
+                                $("#comp" + buzzWinner).css("background-color", "green");
+                            }
+                        });
+                        //}, 500);  Uncomment this too
+                    } else if (status["buzzStatus"] < 0) {
+                        for (a = 0; a < numberOfPlayers; a++) {
+                            $("#comp" + (a + 2)).css("background-color", "white");
+                        }
+                    }
+                });
+                break;
+            case "finalJeopardy":
+                $(finalJeopardyIndicator).css("background-color", "green");
+                break;
         }
     });
 
