@@ -82,7 +82,7 @@ function resetForNextQuestion($db, $status) {
     //RESET status file to gameboard and buzz status to -2
     $statusUpdate = "UPDATE status SET buzzStatus=-2, dailyDoubleWager=-1, dailyDoublePlayer=".
             $status["dailyDoublePlayer"].", display='";
-    $doubleQuery = "SELECT category,hasBeenSelected FROM questions WHERE category>6 && hasBeenSelected=0";
+    $doubleQuery = "SELECT category,hasBeenSelected FROM questions WHERE category>5 && hasBeenSelected=0";
     $doubleResult = $db->query($doubleQuery);
     if ($doubleResult->num_rows > 0) {
         $statusUpdate.="gameboard";

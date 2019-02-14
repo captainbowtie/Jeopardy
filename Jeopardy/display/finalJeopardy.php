@@ -22,7 +22,7 @@ echo "<div class='final'>FINAL JEOPARDY<br>Expert Opinions</div>\n";
 require_once "../privileges.php";
 $db = new mysqli(host, username, passwd, dbname);
 
-$wageredQuery = "SELECT finalWager FROM users";
+$wageredQuery = "SELECT finalWager FROM users WHERE id>1";
 $wagerResult = $db->query($wageredQuery);
 
 $allWagered = TRUE;
