@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-echo "<div class='final'>FINAL JEOPARDY<br>Expert Opinions</div>\n";
+echo "<div class='final'>FINAL JEOPARDY<br>Category</div>\n";
 
 require_once "../privileges.php";
 $db = new mysqli(host, username, passwd, dbname);
@@ -36,5 +36,5 @@ for ($a = 0; $a < $wagerResult->num_rows; $a++) {
 }
 
 if($allWagered){
-    echo "<br><br><div class='final'>These are the four prongs of 702</div>";
+    echo "<br><br><div class='final'>Final Jeopardy Question</div>";
 }

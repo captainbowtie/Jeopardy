@@ -75,8 +75,6 @@ function checkStatus() {
         }
     });
 
-    //Update color of buttons
-
 }
 
 $("#correct").click(function () {
