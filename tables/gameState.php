@@ -1,7 +1,7 @@
 <?php
 
-/* 
- * Copyright (C) 2017 allen
+/*
+ * Copyright (C) 2023 allen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,22 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define("host","tabtesting");
-define("dbname","jeopardy");
-define("username","test");
-define("passwd","password");
+// Get config information
+require_once __DIR__ . "/../config.php";
+require_once SITE_ROOT . "/database.php";
 
-$isAdmin = FALSE;
-
-if(isset($_SESSION['id'])){
-    $id = $_SESSION['id'];
-    $connection = new mysqli(host, username, passwd, dbname);
-    $userQuery = "SELECT isAdmin FROM users WHERE id=$id";
-    $userResult = $connection->query($userQuery);
-    $userResult->data_seek(0);
-    $roleArray = $userResult->fetch_array(MYSQLI_ASSOC);
-    $userResult->close();
-    if($roleArray['isAdmin']==1){
-        $isAdmin=TRUE;
-    }
-}
+$sql = "CREATE TABLE gameState (
+	display VARCHAR(8) NOT NULL,
+	qCategory TINYINT UNSIGNED NOT NULL,
+	qValue TINYINT UNSIGNED NOT NULL,
+	buzz TINYINT UNSIGNED NOT NULL,
+	finalQ VARCHAR(256) NOT NULL,
+	finalA VARCHAR (256) NOT NULL
+)";

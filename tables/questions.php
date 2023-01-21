@@ -1,7 +1,7 @@
 <?php
 
-/* 
- * Copyright (C) 2017 allen
+/*
+ * Copyright (C) 2023 allen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,22 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-echo<<<_END
-<div id='timerDiv'>
-  <table id='timerTable'>
-    <tr>
-      <td class='five'>-</td>
-      <td class='four'>-</td>
-      <td class='three'>-</td>
-      <td class='two'>-</td>
-      <td class='one'>-</td>
-      <td class='two'>-</td>
-      <td class='three'>-</td>
-      <td class='four'>-</td>
-      <td class='five'>-</td>
-    </tr>
-  </table>
-<script src='./timer.js'></script>
-</div>
+// Get config information
+require_once __DIR__ . "/../config.php";
+require_once SITE_ROOT . "/database.php";
 
-_END;
+$sql = "CREATE TABLE questions (
+	id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	category TINYINT UNSIGNED NOT NULL,
+	value SMALLINT UNSIGNED NOT NULL,
+	answered BOOLEAN NOT NULL,
+	dailyDouble BOOLEAN NOT NULL
+)";

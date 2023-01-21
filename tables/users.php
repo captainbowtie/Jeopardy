@@ -1,7 +1,7 @@
 <?php
 
-/* 
- * Copyright (C) 2017 allen
+/*
+ * Copyright (C) 2023 allen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,9 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function sanitize_string($string) {
-    if (get_magic_quotes_gpc()) {
-        $string = stripslashes($string);
-    }
-    return htmlentities($string);
-}
+// sql to create table
+$sql = "CREATE TABLE users (
+		id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+		name VARCHAR(12) NOT NULL,
+		score MEDIUMINT UNSIGNED NOT NULL,
+		buzzed BOOLEAN NOT NULL
+	)";

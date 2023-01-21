@@ -1,7 +1,7 @@
 <?php
 
-/* 
- * Copyright (C) 2018 allen
+/*
+ * Copyright (C) 2023 allen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,12 +17,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//Connect to array
-require_once "privileges.php";
-$db = new mysqli(host, username, passwd, dbname);
+/**
+ * Description of database
+ *
+ * @author allen
+ */
 
-//Fetch scores
-$scoreQuery = "SELECT id FROM users WHERE isAdmin=0";
-$scoreResult = $db->query($scoreQuery);
+$host = "db4free.net";
+$dbname = "jeopardy";
+$username = "jeopardyUser";
+$password = "password";
 
-echo $scoreResult->num_rows;
+$conn;
+
+try {
+	$conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+	// set the PDO error mode to exception
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+	return $conn;
+} catch (PDOException $e) {
+	echo $e->getMessage();
+}

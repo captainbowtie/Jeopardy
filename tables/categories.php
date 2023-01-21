@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2019 allen
+ * Copyright (C) 2023 allen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,15 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-session_start();
+// Get config information
+require_once __DIR__ . "/../config.php";
+require_once SITE_ROOT . "/database.php";
 
-require_once "../privileges.php";
-
-if ($isAdmin) {
-    echo "<div id='qDiv'>Question: N/A</div>";
-    echo "<div id='aDiv'>Answer: N/A</div>";
-    echo "<div>";
-    echo "<input id='wrong' type='button' value='Wrong'>";
-    echo "<input id='correct' type='button' value='Correct'>";
-    echo "</div>";
-}
+$sql = "CREATE TABLE categories (
+	id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(20) NOT NULL
+)";

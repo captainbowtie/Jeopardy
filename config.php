@@ -1,7 +1,6 @@
 <?php
-
-/*
- * Copyright (C) 2017 allen
+/* 
+ * Copyright (C) 2023 allen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,14 +16,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-session_start();
-
-require_once "../privileges.php";
-
-if ($isAdmin) {
-    $playerId = $_POST["playerId"];
-    $score = $_POST["score"];
-    $scoreQuery = "UPDATE users SET score = $score WHERE id = $playerId";
-    $db = new mysqli(host, username, passwd, dbname);
-    $db->query($scoreQuery);
-}
+define('SITE_ROOT', __DIR__);
