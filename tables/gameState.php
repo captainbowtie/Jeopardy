@@ -22,7 +22,7 @@ require_once __DIR__ . "/../config.php";
 require_once SITE_ROOT . "/database.php";
 
 $sql = "CREATE TABLE gameState (
-	display VARCHAR(8) NOT NULL,
+	display VARCHAR(10) NOT NULL,
 	qCategory TINYINT UNSIGNED NOT NULL,
 	qValue TINYINT UNSIGNED NOT NULL,
 	buzz TINYINT UNSIGNED NOT NULL,
