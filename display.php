@@ -11,5 +11,7 @@ if(gameState==board){
 	$html = $question + $scores;
 }elseif(gameState==finalWager){
 
-}elseif
+}elseif(){
+	
+}
 ?>

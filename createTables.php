@@ -1,7 +1,7 @@
 <?php
 
-/*
- * Copyright (C) 2023 allen
+/* 
+ * Copyright (C) 2020 allen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,25 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Description of database
- *
- * @author allen
- */
+require_once __DIR__ . "/config.php";
+require_once SITE_ROOT . "/database.php";
 
-$host = "34.136.233.98";
-$dbname = "jeopardy";
-$username = "jeopardyTest";
-$password = "jeopardy";
-
-$conn;
-
-try {
-	$conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-	// set the PDO error mode to exception
-	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	return $conn;
-} catch (PDOException $e) {
-	echo $e->getMessage();
-}
+require_once SITE_ROOT . "/tables/categories.php";
+require_once SITE_ROOT . "/tables/gameState.php";
+require_once SITE_ROOT . "/tables/questions.php";
+require_once SITE_ROOT . "/tables/players.php";
