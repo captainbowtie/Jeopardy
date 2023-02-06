@@ -25,3 +25,5 @@ $sql = "CREATE TABLE categories (
 	id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(20) NOT NULL
 )";
+
+$createTable = $db->exec($sql);

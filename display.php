@@ -15,3 +15,4 @@ if(gameState==board){
 	
 }
 ?>
+test

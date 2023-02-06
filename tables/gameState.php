@@ -26,6 +26,9 @@ $sql = "CREATE TABLE gameState (
 	qCategory TINYINT UNSIGNED NOT NULL,
 	qValue TINYINT UNSIGNED NOT NULL,
 	buzz TINYINT UNSIGNED NOT NULL,
+	finalCategory VARCHAR(256) NOT NULL,
 	finalQ VARCHAR(256) NOT NULL,
 	finalA VARCHAR (256) NOT NULL
 )";
+
+$createTable = $db->exec($sql);

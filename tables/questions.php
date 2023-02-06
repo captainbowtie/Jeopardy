@@ -26,5 +26,9 @@ $sql = "CREATE TABLE questions (
 	category TINYINT UNSIGNED NOT NULL,
 	value SMALLINT UNSIGNED NOT NULL,
 	answered BOOLEAN NOT NULL,
-	dailyDouble BOOLEAN NOT NULL
+	dailyDouble BOOLEAN NOT NULL,
+	question VARCHAR(128) NOT NULL,
+	answer VARCHAR(128) NOT NULL
 )";
+
+$createTable = $db->exec($sql);

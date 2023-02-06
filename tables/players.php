@@ -18,7 +18,7 @@
  */
 
 // sql to create table
-$sql = "CREATE TABLE users (
+$sql = "CREATE TABLE players (
 		id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 		name VARCHAR(12) NOT NULL,
 		score MEDIUMINT SIGNED NOT NULL,
@@ -26,3 +26,5 @@ $sql = "CREATE TABLE users (
 		wager MEDIUMINT UNSIGNED NOT NULL,
 		answer VARCHAR (64) NOT NULL
 	)";
+
+$createTable = $db->exec($sql);
