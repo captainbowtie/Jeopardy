@@ -39,91 +39,29 @@ $qStmt->execute();
 $questions = $qStmt->fetchAll(\PDO::FETCH_ASSOC);
 
 //build table
-echo "<table>\n";
-echo "<tr>\n";
+echo "<div id='board' style='display:grid;'>\n";
 for ($a = 0; $a < 6; $a++) { //print category row
-	echo "<th>" . $categories[$a]["name"] . "</th>\n";
+	$a1 = $a + 1;
+	$a2 = $a + 2;
+	echo "<div style='grid-row:1/2;grid-column:{$a1}/{$a2}'>" . $categories[$a]["name"] . "</div>\n";
 }
-echo "</tr>\n";
-
-for ($a = 0; $a < 30; $a++) { //print question rows
-	if ($a % 6 == 0) { //if index is a multiple of 5, then its the start of a row
-		echo "<tr>\n";
-	}
-	if (!$doubleJeopardy) { //check whether to use single or double jeopardy questions
-		echo "<td ";
-		if ($questions[$a]["answered"] == 0) {
-			echo "class='unanswered'>";
-		} else {
-			echo "class='answered'>";
-		}
-		echo ($questions[$a]["value"] * 100) . "</td>\n";
+if (!$doubleJeopardy) {
+	$multiplier = 100;
+} else {
+	$multiplier = 200;
+}
+for ($a = 0; $a < 30; $a++) {
+	$startColumn = $questions[$a]["category"];
+	$endColumn = $startColumn + 1;
+	$startRow = $questions[$a]["value"] + 1;
+	$endRow = $startRow + 1;
+	$value = $questions[$a]["value"] * $multiplier;
+	if ($questions[$a]["answered"] == 0) {
+		$class = "class='unanswered'";
 	} else {
-		echo "<td>" . ($questions[$a + 30]["value"] * 200) . "</td>\n";
+		$class = "class='answered'";
 	}
-	if ($a % 6 == 5) { //if index is a multiple of 6 - 1, then its the end of a row
-		echo "</tr>\n";
-	}
-}
-echo "</table>\n";
-
-/*
-if(thereAreSingleQuestions){
-	categories = single categories;
-	$v = 200;
-}else{
-	categories = double categories;
-	$v = 400;
+	echo "<div {$class} style='grid-row:{$startRow}/{$endRow};grid-column:{$startColumn}/{$endColumn}'>" . $value . "</div>\n";
 }
 
-?>
-<table id="board">
-	<tr id='categories'>
-		<td class='category'><?php echo $c0; ?></td>
-		<td class='category'><?php echo $c1; ?></td>
-		<td class='category'><?php echo $c2; ?></td>
-		<td class='category'><?php echo $c3; ?></td>
-		<td class='category'><?php echo $c4; ?></td>
-		<td class='category'><?php echo $c5; ?></td>
-	</tr>
-	<tr id='row1'>
-		<td id='c0-0' class='question'>$<?php echo $v * 1; ?></td>
-		<td id='c1-0' class='question'>$<?php echo $v * 1; ?></td>
-		<td id='c2-0' class='question'>$<?php echo $v * 1; ?></td>
-		<td id='c3-0' class='question'>$<?php echo $v * 1; ?></td>
-		<td id='c4-0' class='question'>$<?php echo $v * 1; ?></td>
-		<td id='c5-0' class='question'>$<?php echo $v * 1; ?></td>
-	</tr>
-	<tr id='row2'>
-		<td id='c0-1' class='question'>$<?php echo $v * 2; ?></td>
-		<td id='c1-1' class='question'>$<?php echo $v * 2; ?></td>
-		<td id='c2-1' class='question'>$<?php echo $v * 2; ?></td>
-		<td id='c3-1' class='question'>$<?php echo $v * 2; ?></td>
-		<td id='c4-1' class='question'>$<?php echo $v * 2; ?></td>
-		<td id='c5-1' class='question'>$<?php echo $v * 2; ?></td>
-	</tr>
-	<tr id='row3'>
-		<td id='c0-2' class='question'>$<?php echo $v * 3; ?></td>
-		<td id='c1-2' class='question'>$<?php echo $v * 3; ?></td>
-		<td id='c2-2' class='question'>$<?php echo $v * 3; ?></td>
-		<td id='c3-2' class='question'>$<?php echo $v * 3; ?></td>
-		<td id='c4-2' class='question'>$<?php echo $v * 3; ?></td>
-		<td id='c5-2' class='question'>$<?php echo $v * 3; ?></td>
-	</tr>
-	<tr id='row4'>
-		<td id='c0-3' class='question'><?php echo $v * 4; ?></td>
-		<td id='c1-3' class='question'><?php echo $v * 4; ?></td>
-		<td id='c2-3' class='question'><?php echo $v * 4; ?></td>
-		<td id='c3-3' class='question'><?php echo $v * 4; ?></td>
-		<td id='c4-3' class='question'><?php echo $v * 4; ?></td>
-		<td id='c5-3' class='question'><?php echo $v * 4; ?></td>
-	</tr>
-	<tr id='row5'>
-		<td id='c0-4' class='question'><?php echo $v * 5; ?></td>
-		<td id='c1-4' class='question'><?php echo $v * 5; ?></td>
-		<td id='c2-4' class='question'><?php echo $v * 5; ?></td>
-		<td id='c3-4' class='question'><?php echo $v * 5; ?></td>
-		<td id='c4-4' class='question'><?php echo $v * 5; ?></td>
-		<td id='c5-4' class='question'><?php echo $v * 5; ?></td>
-	</tr>
-</table>*/
+echo "</div>";
