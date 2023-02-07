@@ -17,6 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//get connection
+require_once __DIR__ . "/../config.php";
+require_once SITE_ROOT . "/database.php";
+
 // sql to create table
 $sql = "CREATE TABLE players (
 		id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,

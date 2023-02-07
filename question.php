@@ -1,4 +1,16 @@
 <?php
-getGameState();
-lookupQuestion();
-echo question;
+//get info for database connection
+require_once __DIR__ . "/config.php";
+require_once SITE_ROOT . "/database.php";
+
+//get game state
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$stmt = $db->prepare("SELECT qCategory, qValue FROM gameState");
+$stmt->execute();
+$state = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+$qStmt = $db->prepare("SELECT question FROM questions WHERE category={$state[0]['qCategory']} && value={$state[0]['qValue']}");
+$qStmt->execute();
+$question = $qStmt->fetchAll(\PDO::FETCH_ASSOC);
+
+echo $question[0]["question"];
