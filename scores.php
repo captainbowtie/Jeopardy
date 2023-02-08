@@ -9,12 +9,11 @@ $stmt = $db->prepare("SELECT name, score FROM players ORDER BY id");
 $stmt->execute();
 $players = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-echo "<table>\n<tr>\n";
+echo "<div id='scores' style='display:grid'>\n";
 for ($a = 0; $a < sizeof($players); $a++) {
-	echo "<th>" . $players[$a]["name"] . "</th>\n";
+	$a1 = $a + 1;
+	$a2 = $a + 2;
+	echo "<div style='grid-row:1/2;grid-column:{$a1}/{$a2}'>" . $players[$a]["name"] . "</div>\n";
+	echo "<div style='grid-row:2/3;grid-column:{$a1}/{$a2}'>" . $players[$a]["score"] . "</div>\n";
 }
-echo "</tr>\n<tr>";
-for ($a = 0; $a < sizeof($players); $a++) {
-	echo "<td>" . $players[$a]["score"] . "</td>\n";
-}
-echo "</tr>\n</table>\n";
+echo "</div>";

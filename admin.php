@@ -39,11 +39,11 @@ $qStmt->execute();
 $questions = $qStmt->fetchAll(\PDO::FETCH_ASSOC);
 
 //build table
-echo "<div id='board' style='display:grid;'>\n";
+$boardHTML = "<div id='board' style='display:grid;'>\n";
 for ($a = 0; $a < 6; $a++) { //print category row
 	$a1 = $a + 1;
 	$a2 = $a + 2;
-	echo "<div class='category' style='grid-row:1/2;grid-column:{$a1}/{$a2}'>" . $categories[$a]["name"] . "</div>\n";
+	$boardHTML .= "<div class='category' style='grid-row:1/2;grid-column:{$a1}/{$a2}'>" . $categories[$a]["name"] . "</div>\n";
 }
 if (!$doubleJeopardy) {
 	$multiplier = 100;
@@ -56,7 +56,6 @@ for ($a = 0; $a < 30; $a++) {
 	} else {
 		$startColumn = $questions[$a]["category"] - 6;
 	}
-
 	$endColumn = $startColumn + 1;
 	$startRow = $questions[$a]["value"] + 1;
 	$endRow = $startRow + 1;
@@ -64,9 +63,35 @@ for ($a = 0; $a < 30; $a++) {
 	if ($questions[$a]["answered"] == 0) {
 		$class = "class='unanswered'";
 	} else {
-		$class = "class='answered'";
+		$class = "class='answered' disabled='true'";
 	}
-	echo "<div {$class} style='grid-row:{$startRow}/{$endRow};grid-column:{$startColumn}/{$endColumn}'>" . $value . "</div>\n";
+	$boardHTML .=  "<button {$class} category='" . $questions[$a]["category"] . "' value='" . $questions[$a]["value"] . "' 	style='grid-row:{$startRow}/{$endRow};grid-column:{$startColumn}/{$endColumn}'>" . $value . "</button>\n";
 }
 
-echo "</div>";
+$boardHTML .=  "</div>";
+echo <<<_END
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <script src="./jquery.js"></script>
+    <link rel="Stylesheet" href="./admin.css" type="text/css" />
+  </head>
+  <body>
+_END;
+echo $boardHTML;
+echo <<<_END
+<div style="display:grid">
+<div style="grid-row:1/2;grid-column:1/2">Question:</div>
+<div id="question" style="grid-row:1/2;grid-column:2/3">N/A</div>
+<div style="grid-row:2/3;grid-column:1/2">Answer:</div>
+<div id="answer" style="grid-row:2/3;grid-column:2/3">N/A</div>
+</div>
+<div style='display:grid'>
+<button id='startTimer'>Start Timer</button>
+</div>
+</body>
+  <script src="./admin.js"></script>
+</html>
+_END;

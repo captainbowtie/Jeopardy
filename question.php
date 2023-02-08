@@ -13,4 +13,7 @@ $qStmt = $db->prepare("SELECT question FROM questions WHERE category={$state[0][
 $qStmt->execute();
 $question = $qStmt->fetchAll(\PDO::FETCH_ASSOC);
 
-echo $question[0]["question"];
+$aStmt = $db->prepare("UPDATE questions SET answered = 1 WHERE category={$state[0]['qCategory']} && value={$state[0]['qValue']}");
+$aStmt->execute();
+
+echo "<div id='question'>" . $question[0]["question"] . "</div>";

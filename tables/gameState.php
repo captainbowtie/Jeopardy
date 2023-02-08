@@ -32,3 +32,10 @@ $sql = "CREATE TABLE gameState (
 )";
 
 $createTable = $db->exec($sql);
+
+/*Codes for buzz:
+	-2 time has expired
+	-1 buzzing disabled
+	0 buzzing enabled
+	1+ playerID of person that buzzed in
+	*/
