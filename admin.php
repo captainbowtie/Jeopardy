@@ -69,6 +69,24 @@ for ($a = 0; $a < 30; $a++) {
 }
 
 $boardHTML .=  "</div>";
+
+//build players
+
+//get players and scores
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$stmt = $db->prepare("SELECT name, score FROM players ORDER BY id");
+$stmt->execute();
+$players = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+$playerHTML = "<div id='players' style='display:grid'>\n";
+for ($a = 0; $a < sizeof($players); $a++) {
+	$a1 = $a + 1;
+	$a2 = $a + 2;
+	$playerHTML .= "<button id='player$a1' class='player' style='grid-row:1/2;grid-column:{$a1}/{$a2}'>" . $players[$a]["name"] . "</button>\n";
+	$playerHTML .= "<input class='score' id='score$a1' style='grid-row:2/3;grid-column:{$a1}/{$a2}' value=" . $players[$a]["score"] . "></input>\n";
+}
+$playerHTML .= "<div>Name: </div>";
+$playerHTML .= "<div>Wager: </div>";
+$playerHTML .= "</div>";
 echo <<<_END
 <!DOCTYPE html>
 <html>
@@ -88,8 +106,15 @@ echo <<<_END
 <div style="grid-row:2/3;grid-column:1/2">Answer:</div>
 <div id="answer" style="grid-row:2/3;grid-column:2/3">N/A</div>
 </div>
-<div style='display:grid'>
-<button id='startTimer'>Start Timer</button>
+<div id='controls' style='display:grid'>
+<button id='startTimer' style='grid-row:1/2;grid-column:1/3'>Start Timer</button>
+<button id='correct' style='grid-row:2/3;grid-column:1/2'>Correct</button>
+<button id='incorrect' style='grid-row:2/3;grid-column:2/3'>Incorrect</button>
+<button id='return' style='grid-row:3/4;grid-column:1/3'>Return to Board</button>
+</div>
+_END;
+echo $playerHTML;
+echo <<<_END
 </div>
 </body>
   <script src="./admin.js"></script>

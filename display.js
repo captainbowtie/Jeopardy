@@ -24,11 +24,15 @@ function updateDisplay() {
 		switch (state.display) {
 			case "board":
 				getBoard().then((boardHTML) => $("#display").html(boardHTML));
+				$(".player").css("background-color", "tan");
+				$(".timerBox").css("color", "black");
+				$(".timerBox").css("background-color", "black");
 				break;
 			case "question":
 				getQuestion().then((questionHTML) => $("#display").html(questionHTML));
 				if (state.buzz == 0 && !timerStarted) {
 					startTimer();
+					$(".player").css("background-color", "tan");
 				} else if (state.buzz > 0 && timerStarted) {
 					stopTimer();
 					handleBuzz(state.buzz);
@@ -42,6 +46,10 @@ function updateDisplay() {
 
 }
 
+function handleBuzz(player) {
+	$(`#player${player}`).css("background-color", "white");
+}
+
 function startTimer() {
 	timerStarted = true;
 	time5 = setTimeout(five, 1000);
@@ -49,30 +57,19 @@ function startTimer() {
 	time3 = setTimeout(three, 3000);
 	time2 = setTimeout(two, 4000);
 	time1 = setTimeout(one, 5000);
-	$(".five").css("color", "white");
-	$(".five").css("background-color", "white");
-	$(".four").css("color", "white");
-	$(".four").css("background-color", "white");
-	$(".three").css("color", "white");
-	$(".three").css("background-color", "white");
-	$(".two").css("color", "white");
-	$(".two").css("background-color", "white");
-	$(".one").css("color", "white");
-	$(".one").css("background-color", "white");
+	$(".timerBox").css("color", "white");
+	$(".timerBox").css("background-color", "white");
 }
 
 function stopTimer() {
 	timerStarted = false;
-	$(".five").css("color", "black");
-	$(".five").css("background-color", "black");
-	$(".four").css("color", "black");
-	$(".four").css("background-color", "black");
-	$(".three").css("color", "black");
-	$(".three").css("background-color", "black");
-	$(".two").css("color", "black");
-	$(".two").css("background-color", "black");
-	$(".one").css("color", "black");
-	$(".one").css("background-color", "black");
+	clearTimeout(time1);
+	clearTimeout(time2);
+	clearTimeout(time3);
+	clearTimeout(time4);
+	clearTimeout(time5);
+	$(".timerBox").css("color", "black");
+	$(".timerBox").css("background-color", "black");
 }
 
 function five() {
@@ -102,7 +99,11 @@ function one() {
 }
 
 function updateScores() {
-	getScores().then((scoreHTML) => $("#scores").html(scoreHTML));
+	getScores().then((scores) => {
+		scores.forEach(player => {
+			$(`#score${player.id}`).html(player.score);
+		})
+	});
 }
 
 function getQuestion() {
@@ -123,9 +124,9 @@ function getBoard() {
 
 function getScores() {
 	return new Promise((resolve, reject) => {
-		$.get("scores.php", function (scoreHTML) {
-			resolve(scoreHTML);
-		}, "html");
+		$.get("api/getScores.php", function (scores) {
+			resolve(scores);
+		}, "json");
 	});
 }
 

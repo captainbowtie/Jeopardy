@@ -37,6 +37,7 @@ body{
 
 .answered{
 	color: blue;
+	font-size:12vh;
 }
 
 .unanswered{
