@@ -38,6 +38,9 @@ function updateDisplay() {
 					handleBuzz(state.buzz);
 				}
 				break;
+			case "dailyDouble":
+				getDailyDouble().then((dailyDoubleHTML) => $("#display").html(dailyDoubleHTML));
+				break;
 			default:
 				console.log(state);
 				break;
@@ -134,8 +137,8 @@ function getScores() {
 
 function getDailyDouble() {
 	return new Promise((resolve, reject) => {
-		$.get("api/getScores.php", function (doubleHTML) {
-			resolve(doubleHTML);
+		$.get("dailyDouble.php", function (dailyDoubleHTML) {
+			resolve(dailyDoubleHTML);
 		}, "html");
 	});
 }

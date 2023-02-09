@@ -9,17 +9,11 @@ $stmt = $db->prepare("SELECT qCategory, qValue FROM gameState");
 $stmt->execute();
 $state = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-$qStmt = $db->prepare("SELECT question,dailyDouble FROM questions WHERE category={$state[0]['qCategory']} && value={$state[0]['qValue']}");
+$qStmt = $db->prepare("SELECT question FROM questions WHERE category={$state[0]['qCategory']} && value={$state[0]['qValue']}");
 $qStmt->execute();
 $question = $qStmt->fetchAll(\PDO::FETCH_ASSOC);
 
 $aStmt = $db->prepare("UPDATE questions SET answered = 1 WHERE category={$state[0]['qCategory']} && value={$state[0]['qValue']}");
 $aStmt->execute();
 
-if ($question[0]["dailyDouble"] == 1) {
-	echo "<div id='dailyDouble'>Daily Double</div>";
-	$dblStmt = $db->prepare("UPDATE players SET buzzed = 1");
-	$dblStmt->execute();
-} else {
-	echo "<div id='question'>" . $question[0]["question"] . "</div>";
-}
+echo "<div id='question'>" . $question[0]["question"] . "</div>";
