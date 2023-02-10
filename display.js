@@ -41,6 +41,18 @@ function updateDisplay() {
 			case "dailyDouble":
 				getDailyDouble().then((dailyDoubleHTML) => $("#display").html(dailyDoubleHTML));
 				break;
+			case "finalC":
+				getFinal().then((finalHTML) => $("#display").html(finalHTML));
+				break;
+			case "finalQ":
+				getFinal().then((finalHTML) => $("#display").html(finalHTML));
+				break;
+			case "finalA":
+				getFinal().then((finalHTML) => $("#display").html(finalHTML));
+				if (state.buzz > 0) {
+					handleBuzz(state.buzz);
+				}
+				break;
 			default:
 				console.log(state);
 				break;
@@ -50,6 +62,7 @@ function updateDisplay() {
 }
 
 function handleBuzz(player) {
+	$(".player").css("background-color", "tan");
 	$(`#player${player}`).css("background-color", "white");
 }
 
@@ -143,10 +156,10 @@ function getDailyDouble() {
 	});
 }
 
-function getFinalJeopardy() {
+function getFinal() {
 	return new Promise((resolve, reject) => {
-		$.get("api/getScores.php", function (finalHTML) {
-			resolve(doubleHMTL);
+		$.get("final.php", function (finalHTML) {
+			resolve(finalHTML);
 		}, "html");
 	});
 }

@@ -15,8 +15,12 @@ $(".score").on("change", function () {
 });
 
 $(".player").click(function () {
-	let playerID = $(this).attr("id").substring(5);
+	let playerID = $(this).attr("id").substring(6);
 	$.post("api/setDailyDouble.php", { id: playerID });
+});
+
+$("#final").click(function () {
+	$.post("api/advanceFinal.php");
 });
 
 $("#startTimer").click(function () {

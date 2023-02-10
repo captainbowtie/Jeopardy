@@ -17,7 +17,7 @@ $aStmt = $db->prepare("UPDATE questions SET answered = 1 WHERE category={$state[
 $aStmt->execute();
 
 if ($question[0]["dailyDouble"] == 1) {
-	echo "<div id='dailyDouble'>Daily Double</div>";
+	echo "<div id='question'>Daily Double</div>";
 	$dblStmt = $db->prepare("UPDATE players SET buzzed = 1");
 	$dblStmt->execute();
 } else {

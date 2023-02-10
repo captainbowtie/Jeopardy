@@ -111,6 +111,7 @@ echo <<<_END
 <button id='correct' style='grid-row:2/3;grid-column:1/2'>Correct</button>
 <button id='incorrect' style='grid-row:2/3;grid-column:2/3'>Incorrect</button>
 <button id='return' style='grid-row:3/4;grid-column:1/3'>Return to Board</button>
+<button id='final' style='grid-row:4/5;grid-column:1/3'>Final Jeopardy</button>
 </div>
 _END;
 echo $playerHTML;

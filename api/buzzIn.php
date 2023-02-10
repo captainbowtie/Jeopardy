@@ -16,4 +16,5 @@ if ($state[0]["buzz"] == 0 && $player[0]["buzzed"] == 0) {
 	$bStmt = $db->prepare("UPDATE gameState SET buzz = " . $player[0]["id"]);
 	$bStmt->execute();
 	$bzStmt = $db->prepare("UPDATE players SET buzzed = 1 WHERE id = " . $player[0]["id"]);
+	$bzStmt->execute();
 }

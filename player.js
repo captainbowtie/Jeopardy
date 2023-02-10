@@ -5,3 +5,8 @@ $(".name").click(function () {
 $("#buzzer").click(function () {
 	$.post("api/buzzIn.php");
 });
+
+$("#wager").on("change", function (event) {
+	$.post("api/setWager.php", { wager: $(this).val() });
+	event.preventDefault();
+});
