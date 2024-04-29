@@ -21,7 +21,7 @@
 require_once __DIR__ . "/../config.php";
 require_once SITE_ROOT . "/database.php";
 
-$sql = "CREATE TABLE gameState (
+$sql = "CREATE TABLE IF NOT EXISTS gameState (
 	display VARCHAR(12) NOT NULL,
 	qCategory TINYINT UNSIGNED NOT NULL,
 	qValue TINYINT UNSIGNED NOT NULL,

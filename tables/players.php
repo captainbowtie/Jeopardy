@@ -22,7 +22,7 @@ require_once __DIR__ . "/../config.php";
 require_once SITE_ROOT . "/database.php";
 
 // sql to create table
-$sql = "CREATE TABLE players (
+$sql = "CREATE TABLE IF NOT EXISTS players (
 		id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 		name VARCHAR(12) NOT NULL,
 		score MEDIUMINT SIGNED NOT NULL,

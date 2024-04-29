@@ -21,9 +21,9 @@
 require_once __DIR__ . "/../config.php";
 require_once SITE_ROOT . "/database.php";
 
-$sql = "CREATE TABLE categories (
+$sql = "CREATE TABLE IF NOT EXISTS categories (
 	id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(20) NOT NULL
+	name VARCHAR(32) NOT NULL
 )";
 
 $createTable = $db->exec($sql);

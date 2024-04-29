@@ -23,10 +23,10 @@
  * @author allen
  */
 
-$host = "34.136.233.98";
-$dbname = "jeopardy";
-$username = "jeopardyTest";
-$password = "jeopardy";
+$host = "dev-mariadb";
+$dbname = "db";
+$username = "user";
+$password = "password";
 
 $db;
 

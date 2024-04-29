@@ -21,7 +21,7 @@
 require_once __DIR__ . "/../config.php";
 require_once SITE_ROOT . "/database.php";
 
-$sql = "CREATE TABLE questions (
+$sql = "CREATE TABLE IF NOT EXISTS questions (
 	id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	category TINYINT UNSIGNED NOT NULL,
 	value SMALLINT UNSIGNED NOT NULL,
